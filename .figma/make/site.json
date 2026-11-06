@@ -1,0 +1,10 @@
+{
+  "description": "Explore Baldwin Girls’ School through a polished website featuring school information, navy blue styling, promotional banners, and a video hero.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
