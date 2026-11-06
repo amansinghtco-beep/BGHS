@@ -472,6 +472,7 @@ export function AcademicCards() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   const checkScroll = () => {
     if (scrollRef.current) {
@@ -490,15 +491,47 @@ export function AcademicCards() {
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const cardWidth = scrollRef.current.firstElementChild?.clientWidth || 320;
-      scrollRef.current.scrollBy({
-        left: direction === "left" ? -cardWidth * 1.1 : cardWidth * 1.1,
-        behavior: "smooth",
-      });
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      
+      if (direction === "right" && scrollLeft >= scrollWidth - clientWidth - 15) {
+        scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+      } else if (direction === "left" && scrollLeft <= 15) {
+        scrollRef.current.scrollTo({ left: scrollWidth, behavior: "smooth" });
+      } else {
+        scrollRef.current.scrollBy({
+          left: direction === "left" ? -cardWidth * 1.1 : cardWidth * 1.1,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
+  // Auto-slide interval: slides every 3.5 seconds; pauses when hovered or touched
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const cardWidth = scrollRef.current.firstElementChild?.clientWidth || 320;
+        if (scrollLeft >= scrollWidth - clientWidth - 20) {
+          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          scrollRef.current.scrollBy({ left: cardWidth * 1.08, behavior: "smooth" });
+        }
+      }
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
   return (
-    <div className="relative group/carousel">
+    <div 
+      className="relative group/carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
+    >
       {/* Navigation Controls */}
       <div className="mb-4 flex items-center justify-end gap-2 pr-1">
         <button
