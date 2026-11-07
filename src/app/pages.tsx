@@ -1,7 +1,8 @@
-﻿import { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { AcademicCards, Arrow, PageHero, SectionIntro } from "./components";
 import ExploreBGHS from "./ExploreBGHS";
+import SleekEnquirySection from "./SleekEnquirySection";
 import { admissionSteps, programmes, school } from "./data";
 
 export function Home() {
@@ -262,6 +263,9 @@ export function Home() {
           ))}
         </div>
       </section>
+
+      {/* Sleek Admissions / Tour Inquiry Form */}
+      <SleekEnquirySection />
     </main>
   );
 }
