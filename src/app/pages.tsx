@@ -212,17 +212,6 @@ export function Home() {
       {/* Distinguished Alumni Wall Carousel (Self-sliding, touch/swipe & arrows) */}
       <DistinguishedAlumniWall />
 
-      <section className="section-pad bg-white">
-        <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
-          <SectionIntro eyebrow="Academic journey" title="Learning that grows with her.">
-            <p>Purposeful learning from the early years through focused ICSE preparation.</p>
-          </SectionIntro>
-          <div className="mt-12">
-            <AcademicCards />
-          </div>
-        </div>
-      </section>
-
       <section className="result-banner py-20 text-white">
         <div className="mx-auto grid max-w-[1380px] gap-10 px-5 lg:grid-cols-2 lg:px-10">
           <div>
