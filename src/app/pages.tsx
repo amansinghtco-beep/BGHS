@@ -5,6 +5,7 @@ import ExploreBGHS from "./ExploreBGHS";
 import SleekEnquirySection from "./SleekEnquirySection";
 import InteractiveAbout from "./InteractiveAbout";
 import TriumphsSection from "./TriumphsSection";
+import DistinguishedAlumniWall from "./DistinguishedAlumniWall";
 import { admissionSteps, programmes, school } from "./data";
 
 export function Home() {
@@ -207,6 +208,9 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* Distinguished Alumni Wall Carousel (Self-sliding, touch/swipe & arrows) */}
+      <DistinguishedAlumniWall />
 
       <section className="section-pad bg-white">
         <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
