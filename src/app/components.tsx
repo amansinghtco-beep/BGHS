@@ -62,13 +62,6 @@ export function Layout() {
     {
       label: "About Us",
       to: "/about",
-      hasDropdown: true,
-      children: [
-        { title: "About Baldwin", desc: "140+ years empowering young women", to: "/about" },
-        { title: "Our History & Heritage", desc: "Established in 1880 in Bengaluru", to: "/about#history" },
-        { title: "Vision & Mission", desc: "Loyalty & service, righteousness & truth", to: "/about#mission" },
-        { title: "Leadership & Faculty", desc: "Dedicated educators and mentors", to: "/about#leadership" },
-      ],
     },
     {
       label: "Academics",
@@ -215,16 +208,14 @@ export function Layout() {
                     <NavLink
                       to={item.to}
                       className={({ isActive }) =>
-                        `inline-flex items-center gap-1.5 py-2 transition-colors hover:text-[#1D4ED8] ${
-                          isActive && item.to !== "/" ? "text-[#1D4ED8] font-semibold" : ""
+                        `inline-flex items-center gap-1.5 py-2 transition-colors hover:text-[#1D4ED8] ${isActive && item.to !== "/" ? "text-[#1D4ED8] font-semibold" : ""
                         }`
                       }
                     >
                       <span>{item.label}</span>
                       <svg
-                        className={`w-3.5 h-3.5 text-[#0B1B3D]/70 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`w-3.5 h-3.5 text-[#0B1B3D]/70 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -268,10 +259,9 @@ export function Layout() {
                   to={item.to}
                   end={item.to === "/"}
                   className={({ isActive }) =>
-                    `relative py-2 transition-colors hover:text-[#1D4ED8] ${
-                      isActive
-                        ? "text-[#0B1B3D] font-semibold after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2.5px] after:bg-[#1D4ED8] after:rounded-full"
-                        : ""
+                    `relative py-2 transition-colors hover:text-[#1D4ED8] ${isActive
+                      ? "text-[#0B1B3D] font-semibold after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2.5px] after:bg-[#1D4ED8] after:rounded-full"
+                      : ""
                     }`
                   }
                 >
@@ -322,8 +312,7 @@ export function Layout() {
                     to={item.to}
                     end={item.to === "/"}
                     className={({ isActive }) =>
-                      `block py-2 text-sm font-bold ${
-                        isActive ? "text-[#1D4ED8]" : "text-[#0B1B3D]"
+                      `block py-2 text-sm font-bold ${isActive ? "text-[#1D4ED8]" : "text-[#0B1B3D]"
                       }`
                     }
                   >
@@ -494,7 +483,7 @@ export function AcademicCards() {
     if (scrollRef.current) {
       const cardWidth = scrollRef.current.firstElementChild?.clientWidth || 320;
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      
+
       if (direction === "right" && scrollLeft >= scrollWidth - clientWidth - 15) {
         scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
       } else if (direction === "left" && scrollLeft <= 15) {
@@ -527,7 +516,7 @@ export function AcademicCards() {
   }, [isPaused]);
 
   return (
-    <div 
+    <div
       className="relative group/carousel"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -540,11 +529,10 @@ export function AcademicCards() {
           type="button"
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
-          className={`flex h-10 w-10 items-center justify-center rounded-full border border-[#0B1B3D]/15 bg-white text-[#0B1B3D] transition-all duration-200 shadow-sm ${
-            canScrollLeft
+          className={`flex h-10 w-10 items-center justify-center rounded-full border border-[#0B1B3D]/15 bg-white text-[#0B1B3D] transition-all duration-200 shadow-sm ${canScrollLeft
               ? "hover:bg-[#1D4ED8] hover:text-white hover:border-[#1D4ED8] cursor-pointer"
               : "opacity-35 cursor-not-allowed"
-          }`}
+            }`}
           aria-label="Previous programme"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -555,11 +543,10 @@ export function AcademicCards() {
           type="button"
           onClick={() => scroll("right")}
           disabled={!canScrollRight}
-          className={`flex h-10 w-10 items-center justify-center rounded-full border border-[#0B1B3D]/15 bg-white text-[#0B1B3D] transition-all duration-200 shadow-sm ${
-            canScrollRight
+          className={`flex h-10 w-10 items-center justify-center rounded-full border border-[#0B1B3D]/15 bg-white text-[#0B1B3D] transition-all duration-200 shadow-sm ${canScrollRight
               ? "hover:bg-[#1D4ED8] hover:text-white hover:border-[#1D4ED8] cursor-pointer"
               : "opacity-35 cursor-not-allowed"
-          }`}
+            }`}
           aria-label="Next programme"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
