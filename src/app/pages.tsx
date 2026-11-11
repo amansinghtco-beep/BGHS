@@ -6,6 +6,7 @@ import SleekEnquirySection from "./SleekEnquirySection";
 import InteractiveAbout from "./InteractiveAbout";
 import TriumphsSection from "./TriumphsSection";
 import DistinguishedAlumniWall from "./DistinguishedAlumniWall";
+import CampusInfrastructure from "./CampusInfrastructure";
 import { admissionSteps, programmes, school } from "./data";
 
 export function Home() {
@@ -211,6 +212,9 @@ export function Home() {
 
       {/* Distinguished Alumni Wall Carousel (Self-sliding, touch/swipe & arrows) */}
       <DistinguishedAlumniWall />
+
+      {/* Campus Infrastructure Section (Indoor & Outdoor spaces with school illustrations) */}
+      <CampusInfrastructure />
 
       <section className="result-banner py-20 text-white">
         <div className="mx-auto grid max-w-[1380px] gap-10 px-5 lg:grid-cols-2 lg:px-10">
