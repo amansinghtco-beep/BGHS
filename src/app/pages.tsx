@@ -63,6 +63,20 @@ export function Home() {
           </div>
         </div>
 
+        {/* Top Right Floating / Action Button: Campus Tour */}
+        <Link
+          to="/campus"
+          className="absolute top-6 sm:top-8 right-6 sm:right-10 z-20 hidden sm:inline-flex items-center gap-2.5 rounded-full bg-[#8B0000]/85 hover:bg-[#8B0000] text-white px-5 py-2.5 text-xs sm:text-sm font-bold backdrop-blur-md border border-white/20 transition-all duration-300 shadow-xl hover:scale-105 active:scale-95 group"
+          title="Schedule a Campus Tour"
+        >
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 group-hover:rotate-12 transition-transform">
+            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z" />
+            </svg>
+          </span>
+          <span>Campus Tour</span>
+        </Link>
+
         {/* Mute / Unmute Button */}
         <button
           type="button"

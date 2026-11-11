@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, type ReactNode } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
+import FloatingActions from "./FloatingActions";
 import { programmes, school } from "./data";
 
 export function Arrow() {
@@ -280,15 +281,15 @@ export function Layout() {
             })}
           </nav>
 
-          {/* Right Action Button (Apply Now) & Mobile Toggle */}
+          {/* Right Action Button (Admissions 2026-27 / Apply Now) & Mobile Toggle */}
           <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
             <Link
               to="/admissions"
-              className="group inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#1D4ED8] hover:bg-[#1E40AF] px-3.5 sm:px-6 py-1.5 sm:py-2.5 text-[11px] sm:text-sm font-bold text-white shadow-sm hover:shadow-md transition-all duration-200 whitespace-nowrap"
+              className="group inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#1D4ED8] hover:bg-[#1E40AF] px-3.5 sm:px-5 py-1.5 sm:py-2.5 text-[11px] sm:text-xs md:text-sm font-bold text-white shadow-sm hover:shadow-md transition-all duration-200 whitespace-nowrap"
             >
-              <span>Apply Now</span>
+              <span>Admissions 2026–27</span>
               <span className="text-xs sm:text-base font-bold transition-transform duration-200 group-hover:translate-x-0.5">
-                →
+                ›
               </span>
             </Link>
 
@@ -358,6 +359,7 @@ export function Layout() {
 
       <Outlet />
       <Footer />
+      <FloatingActions />
     </div>
   );
 }
