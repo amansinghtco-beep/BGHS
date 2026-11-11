@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router";
 
-interface AcademicCard {
+interface TopperStudent {
   id: string;
   name: string;
-  badge: string;
   score: string;
-  category: string;
+  rank: number;
   image: string;
-  rankText?: string;
-  isBanner?: boolean;
+  category?: string;
 }
 
 interface ChampionCard {
@@ -25,102 +23,46 @@ export default function TriumphsSection() {
   const [activeTab, setActiveTab] = useState<"icse" | "champions">("icse");
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // ICSE Toppers extracted from https://www.baldwingirls.edu.in/
-  // Real banners topper1 through topper9 published by the school
-  const academicItems: AcademicCard[] = [
-    {
-      id: "topper-1",
-      name: "ICSE 2025 High Achievers",
-      badge: "School Toppers",
-      score: "98.8%",
-      category: "ICSE Top Honours",
-      image: "/topper1.png",
-      rankText: "Rank 1 Distinction",
-      isBanner: true,
-    },
-    {
-      id: "topper-2",
-      name: "ICSE Roll of Honour",
-      badge: "Top Merit",
-      score: "98.4%",
-      category: "Science & Mathematics",
-      image: "/topper2.png",
-      rankText: "Top Tier Merit",
-      isBanner: true,
-    },
-    {
-      id: "topper-3",
-      name: "Distinction Laureates",
-      badge: "98%+",
-      score: "98.0%",
-      category: "Humanities & Sciences",
-      image: "/topper3.png",
-      rankText: "High Distinction",
-      isBanner: true,
-    },
-    {
-      id: "topper-4",
-      name: "Excellence in Board",
-      badge: "Merit Star",
-      score: "97.6%",
-      category: "Languages & Sciences",
-      image: "/topper4.png",
-      rankText: "Distinction",
-      isBanner: true,
-    },
-    {
-      id: "topper-5",
-      name: "Academic Achievers",
-      badge: "Distinction",
-      score: "97.2%",
-      category: "ICSE Curriculum",
-      image: "/topper5.png",
-      rankText: "Honours Roll",
-      isBanner: true,
-    },
-    {
-      id: "topper-6",
-      name: "Board High Scorers",
-      badge: "Merit",
-      score: "96.8%",
-      category: "Commerce & Arts",
-      image: "/topper6.png",
-      rankText: "Merit Laureate",
-      isBanner: true,
-    },
-    {
-      id: "topper-7",
-      name: "Distinction Roll",
-      badge: "Gold Star",
-      score: "96.4%",
-      category: "Sciences",
-      image: "/topper7.png",
-      rankText: "First Division",
-      isBanner: true,
-    },
-    {
-      id: "topper-8",
-      name: "Top Percentile",
-      badge: "Excellence",
-      score: "96.0%",
-      category: "All-Round Board",
-      image: "/topper8.png",
-      rankText: "Distinction",
-      isBanner: true,
-    },
-    {
-      id: "topper-9",
-      name: "Merit Laureates",
-      badge: "Top Performer",
-      score: "95.6%",
-      category: "Academic Star",
-      image: "/topper9.png",
-      rankText: "First Division",
-      isBanner: true,
-    },
+  // All 35 authentic ICSE 2025 Board Toppers from the 9 uploaded banners
+  const toppers: TopperStudent[] = [
+    { id: "1", name: "Yukthi D", score: "99%", rank: 1, image: "/students/yukthi-d.png", category: "School Topper" },
+    { id: "2", name: "Thanisha R", score: "98.6%", rank: 2, image: "/students/thanisha-r.png", category: "Distinction" },
+    { id: "3", name: "Niyati Kumari Kedia", score: "98.4%", rank: 3, image: "/students/niyati-kumari-kedia.png", category: "Distinction" },
+    { id: "4", name: "Jinal", score: "98.2%", rank: 4, image: "/students/jinal.png", category: "Distinction" },
+    { id: "5", name: "Shehza Maryam Perveez", score: "98%", rank: 5, image: "/students/shehza-maryam-perveez.png", category: "Distinction" },
+    { id: "6", name: "Anushka G A", score: "97.2%", rank: 6, image: "/students/anushka-g-a.png", category: "Distinction" },
+    { id: "7", name: "Tanisha Vinay", score: "97.2%", rank: 7, image: "/students/tanisha-vinay.png", category: "Distinction" },
+    { id: "8", name: "Rishika R", score: "97.2%", rank: 8, image: "/students/rishika-r.png", category: "Distinction" },
+    { id: "9", name: "S Bhavana", score: "96.8%", rank: 9, image: "/students/s-bhavana.png", category: "Distinction" },
+    { id: "10", name: "Vaibhavi Joshi", score: "96.8%", rank: 10, image: "/students/vaibhavi-joshi.png", category: "Distinction" },
+    { id: "11", name: "Aditi A Jain", score: "96.8%", rank: 11, image: "/students/aditi-a-jain.png", category: "Distinction" },
+    { id: "12", name: "Jiya L Jain", score: "96.8%", rank: 12, image: "/students/jiya-l-jain.png", category: "Distinction" },
+    { id: "13", name: "Joyce K", score: "96.8%", rank: 13, image: "/students/joyce-k.png", category: "Distinction" },
+    { id: "14", name: "Sakshi Sisodia", score: "96.6%", rank: 14, image: "/students/sakshi-sisodia.png", category: "Distinction" },
+    { id: "15", name: "I Sheeba Fathima", score: "96.6%", rank: 15, image: "/students/i-sheeba-fathima.png", category: "Distinction" },
+    { id: "16", name: "Neksha", score: "96.6%", rank: 16, image: "/students/neksha.png", category: "Distinction" },
+    { id: "17", name: "Aandrita Ghosh", score: "96.6%", rank: 17, image: "/students/aandrita-ghosh.png", category: "Distinction" },
+    { id: "18", name: "Jasmitha Sridharan", score: "96.6%", rank: 18, image: "/students/jasmitha-sridharan.png", category: "Distinction" },
+    { id: "19", name: "S Yazhini", score: "96.4%", rank: 19, image: "/students/s-yazhini.png", category: "Distinction" },
+    { id: "20", name: "Alaina Khan", score: "96.2%", rank: 20, image: "/students/alaina-khan.png", category: "Distinction" },
+    { id: "21", name: "Tamanna Shekhar", score: "96.2%", rank: 21, image: "/students/tamanna-shekhar.png", category: "Distinction" },
+    { id: "22", name: "Emily Sujay", score: "96.2%", rank: 22, image: "/students/emily-sujay.png", category: "Distinction" },
+    { id: "23", name: "Trisha Naveen", score: "96.2%", rank: 23, image: "/students/trisha-naveen.png", category: "Distinction" },
+    { id: "24", name: "Maanya R", score: "96%", rank: 24, image: "/students/maanya-r.png", category: "Distinction" },
+    { id: "25", name: "Aaheli Dutta", score: "96%", rank: 25, image: "/students/aaheli-dutta.png", category: "Distinction" },
+    { id: "26", name: "Aanchal Jain N", score: "96%", rank: 26, image: "/students/aanchal-jain-n.png", category: "Distinction" },
+    { id: "27", name: "Jainy Jain", score: "95.8%", rank: 27, image: "/students/jainy-jain.png", category: "Distinction" },
+    { id: "28", name: "Swara Sudhir", score: "95.8%", rank: 28, image: "/students/swara-sudhir.png", category: "Distinction" },
+    { id: "29", name: "Amina Imran", score: "95.6%", rank: 29, image: "/students/amina-imran.png", category: "Distinction" },
+    { id: "30", name: "Noor Hafsa", score: "95.6%", rank: 30, image: "/students/noor-hafsa.png", category: "Distinction" },
+    { id: "31", name: "S N Ayesha Khanum", score: "95.6%", rank: 31, image: "/students/s-n-ayesha-khanum.png", category: "Distinction" },
+    { id: "32", name: "B A Afreen Sheriff", score: "95.4%", rank: 32, image: "/students/b-a-afreen-sheriff.png", category: "Distinction" },
+    { id: "33", name: "Saarah Uz Zama", score: "95.4%", rank: 33, image: "/students/saarah-uz-zama.png", category: "Distinction" },
+    { id: "34", name: "Saanvi Giridhar", score: "95.4%", rank: 34, image: "/students/saanvi-giridhar.png", category: "Distinction" },
+    { id: "35", name: "Gargi Choudhury", score: "95.4%", rank: 35, image: "/students/gargi-choudhury.png", category: "Distinction" },
   ];
 
-  // Champions & Sports from baldwingirls.edu.in
+  // Champions & Athletics from Baldwin Girls' High School
   const championItems: ChampionCard[] = [
     {
       id: "champ-swimming",
@@ -178,8 +120,21 @@ export default function TriumphsSection() {
     },
   ];
 
-  const itemsCount = activeTab === "icse" ? academicItems.length : championItems.length;
-  const visibleCards = 4;
+  const [visibleCards, setVisibleCards] = useState(4);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) setVisibleCards(1);
+      else if (window.innerWidth < 840) setVisibleCards(2);
+      else if (window.innerWidth < 1140) setVisibleCards(3);
+      else setVisibleCards(4);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const itemsCount = activeTab === "icse" ? toppers.length : championItems.length;
   const maxSlide = Math.max(0, itemsCount - visibleCards);
 
   // Auto-slide every 4.5 seconds
@@ -231,7 +186,7 @@ export default function TriumphsSection() {
             distinction to remarkable athletic achievement, our girls strive to excel in every area.
           </p>
 
-          {/* Filter Pills / Tabs matching the reference image */}
+          {/* Filter Pills / Tabs */}
           <div className="mt-8 inline-flex items-center p-1.5 rounded-full bg-white shadow-sm border border-[#E2E8F0]">
             <button
               type="button"
@@ -305,21 +260,22 @@ export default function TriumphsSection() {
               }}
             >
               {activeTab === "icse" ? (
-                /* ICSE TOPPERS CARDS */
-                academicItems.map((item, idx) => (
+                /* AUTHENTIC TOPPER STUDENT PORTRAITS & NAMES */
+                toppers.map((student) => (
                   <div
-                    key={item.id}
-                    className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 shrink-0 px-3"
+                    key={student.id}
+                    className="shrink-0 px-3"
+                    style={{ width: `${100 / visibleCards}%` }}
                   >
                     <div className="group relative flex flex-col h-full rounded-2xl bg-white shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-[#E5E7EB]">
-                      {/* Image / Portrait Container */}
-                      <div className="relative aspect-[4/4.2] overflow-hidden bg-gradient-to-br from-[#0F172A] to-[#1E293B]">
+                      {/* Portrait Container */}
+                      <div className="relative aspect-[4/4.3] overflow-hidden bg-[#1E3A8A]">
                         <img
-                          src={item.image}
-                          alt={item.name}
+                          src={student.image}
+                          alt={student.name}
                           className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
 
                         {/* Top Gold Star Badge */}
                         <div className="absolute top-3 right-3 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-yellow-400/30 text-yellow-400 shadow-sm">
@@ -328,37 +284,37 @@ export default function TriumphsSection() {
                           </svg>
                         </div>
 
-                        {/* Category Tag on Top Left */}
+                        {/* Rank Tag Top Left */}
                         <div className="absolute top-3 left-3">
                           <span className="rounded-full bg-[#0C2340]/90 backdrop-blur-sm border border-white/20 px-2.5 py-1 text-[10px] font-bold tracking-wider text-white uppercase">
-                            #{idx + 1} TOPPER
+                            #{student.rank} In School
                           </span>
                         </div>
 
-                        {/* Board Score Badge pinned near bottom right like reference */}
+                        {/* Board Score Badge on bottom right matching reference */}
                         <div className="absolute bottom-3 right-3 rounded-lg bg-[#071F3B]/95 backdrop-blur-sm border border-cyan-400/30 px-3 py-1.5 text-right shadow-lg">
                           <span className="block text-[9px] font-bold tracking-wider text-cyan-300 uppercase">
                             BOARD SCORE
                           </span>
                           <span className="font-serif font-black text-lg text-white">
-                            {item.score}
+                            {student.score}
                           </span>
                         </div>
                       </div>
 
-                      {/* Card Content Footer */}
+                      {/* Card Content & Student Name */}
                       <div className="p-4 flex flex-col justify-between flex-1 bg-white">
                         <div>
-                          <h3 className="font-bold text-base text-[#0F172A] group-hover:text-[#1D4ED8] transition-colors line-clamp-1">
-                            {item.name}
+                          <h3 className="font-bold text-base sm:text-[17px] text-[#0F172A] group-hover:text-[#1D4ED8] transition-colors line-clamp-1">
+                            {student.name}
                           </h3>
                           <p className="text-xs text-[#64748B] mt-1 font-medium">
-                            {item.category} · {item.rankText}
+                            ICSE 2025 · Distinction Laureate
                           </p>
                         </div>
                         <div className="mt-3 pt-3 border-t border-[#F1F5F9] flex items-center justify-between text-xs">
                           <span className="font-semibold text-emerald-600">
-                            ICSE 2025 Distinction
+                            First Division
                           </span>
                           <span className="text-[#94A3B8] font-mono text-[11px]">BGHS</span>
                         </div>
@@ -371,11 +327,12 @@ export default function TriumphsSection() {
                 championItems.map((champ) => (
                   <div
                     key={champ.id}
-                    className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 shrink-0 px-3"
+                    className="shrink-0 px-3"
+                    style={{ width: `${100 / visibleCards}%` }}
                   >
                     <div className="group relative flex flex-col h-full rounded-2xl bg-white shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-[#E5E7EB]">
                       {/* Image Container */}
-                      <div className="relative aspect-[4/4.2] overflow-hidden bg-slate-900">
+                      <div className="relative aspect-[4/4.3] overflow-hidden bg-slate-900">
                         <img
                           src={champ.image}
                           alt={champ.title}
@@ -430,15 +387,15 @@ export default function TriumphsSection() {
           </div>
 
           {/* Dots Indicator */}
-          <div className="mt-8 flex justify-center items-center gap-2">
-            {Array.from({ length: maxSlide + 1 }).map((_, idx) => (
+          <div className="mt-8 flex justify-center items-center gap-1.5 flex-wrap max-w-xl mx-auto">
+            {Array.from({ length: Math.min(12, maxSlide + 1) }).map((_, idx) => (
               <button
                 key={idx}
                 type="button"
-                onClick={() => setCurrentSlide(idx)}
+                onClick={() => setCurrentSlide(idx * Math.floor(maxSlide / Math.min(12, maxSlide + 1)))}
                 aria-label={`Go to slide ${idx + 1}`}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  currentSlide === idx
+                  currentSlide === idx * Math.floor(maxSlide / Math.min(12, maxSlide + 1))
                     ? "w-8 h-2.5 bg-[#C59B27]"
                     : "w-2.5 h-2.5 bg-[#CBD5E1] hover:bg-[#94A3B8]"
                 }`}
@@ -488,4 +445,3 @@ export default function TriumphsSection() {
     </section>
   );
 }
-
