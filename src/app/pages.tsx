@@ -1,4 +1,4 @@
-﻿import { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { AcademicCards, Arrow, PageHero, SectionIntro } from "./components";
 import ExploreBGHS from "./ExploreBGHS";
