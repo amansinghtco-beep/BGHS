@@ -4,6 +4,7 @@ import { AcademicCards, Arrow, PageHero, SectionIntro } from "./components";
 import ExploreBGHS from "./ExploreBGHS";
 import SleekEnquirySection from "./SleekEnquirySection";
 import InteractiveAbout from "./InteractiveAbout";
+import TriumphsSection from "./TriumphsSection";
 import { admissionSteps, programmes, school } from "./data";
 
 export function Home() {
@@ -175,6 +176,9 @@ export function Home() {
       </section>
 
       <ExploreBGHS />
+
+      {/* Academic & Athletic Triumphs Section (pulled from baldwingirls.edu.in) */}
+      <TriumphsSection />
 
       <section className="section-pad">
         <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
