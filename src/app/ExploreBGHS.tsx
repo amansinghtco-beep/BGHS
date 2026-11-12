@@ -220,6 +220,84 @@ export default function ExploreBGHS() {
             }}
           />
 
+          {/* Background School & Subject Illustrations */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+            {/* Protractor (Top-Left) */}
+            <svg
+              className="absolute w-24 h-24 sm:w-32 sm:h-32 text-[#1D4ED8]/[0.09] transition-transform duration-700 hover:scale-105"
+              style={{ top: "14%", left: "14%" }}
+              viewBox="0 0 100 65"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {/* Semi-circle protractor with ruler ticks */}
+              <path d="M 6 58 A 44 44 0 0 1 94 58 Z" />
+              <line x1="50" y1="58" x2="50" y2="44" strokeWidth="2.5" />
+              <line x1="26" y1="58" x2="29" y2="47" strokeWidth="2" />
+              <line x1="74" y1="58" x2="71" y2="47" strokeWidth="2" />
+              <line x1="38" y1="58" x2="40" y2="50" strokeWidth="1.8" />
+              <line x1="62" y1="58" x2="60" y2="50" strokeWidth="1.8" />
+            </svg>
+
+            {/* Document / Worksheet / Notepad (Top-Right) */}
+            <svg
+              className="absolute w-20 h-28 sm:w-28 sm:h-36 text-[#1D4ED8]/[0.09]"
+              style={{ top: "12%", right: "14%" }}
+              viewBox="0 0 70 90"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {/* Rounded notepad with text lines */}
+              <rect x="8" y="6" width="54" height="78" rx="8" />
+              <line x1="20" y1="26" x2="50" y2="26" strokeWidth="3" />
+              <line x1="20" y1="44" x2="50" y2="44" strokeWidth="3" />
+              <line x1="20" y1="62" x2="38" y2="62" strokeWidth="3" />
+            </svg>
+
+            {/* Science Laboratory Flask / Beaker (Bottom-Left) */}
+            <svg
+              className="absolute w-22 h-28 sm:w-28 sm:h-36 text-[#1D4ED8]/[0.09]"
+              style={{ bottom: "14%", left: "15%" }}
+              viewBox="0 0 75 95"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {/* Conical flask with neck and liquid level */}
+              <path d="M 30 8 L 45 8 L 45 32 L 67 78 A 7 7 0 0 1 61 88 L 14 88 A 7 7 0 0 1 8 78 L 30 32 Z" />
+              <line x1="20" y1="66" x2="55" y2="66" strokeWidth="2.5" />
+            </svg>
+
+            {/* Basketball Backboard & Net / Hoop (Bottom-Right) */}
+            <svg
+              className="absolute w-24 h-28 sm:w-32 sm:h-36 text-[#1D4ED8]/[0.09]"
+              style={{ bottom: "14%", right: "15%" }}
+              viewBox="0 0 90 90"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {/* Backboard */}
+              <rect x="12" y="8" width="66" height="46" rx="5" />
+              {/* Inner target box */}
+              <rect x="28" y="22" width="34" height="26" rx="2" />
+              {/* Rim and net */}
+              <ellipse cx="45" cy="54" rx="18" ry="5" />
+              <path d="M 28 54 L 35 80 L 55 80 L 62 54" />
+              <path d="M 45 59 L 45 80" strokeWidth="1.5" />
+            </svg>
+          </div>
+
           {/* Dashed orbit ring */}
           <div
             className="absolute rounded-full border border-dashed border-[#1D4ED8]/15 pointer-events-none"
