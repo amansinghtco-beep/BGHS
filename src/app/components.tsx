@@ -102,10 +102,11 @@ export function Layout() {
       hasDropdown: true,
       children: [
         { title: "Academic Overview", desc: "Rigorous ICSE curriculum & holistic learning", to: "/academics" },
-        { title: "Pre-Primary Wing", desc: "Pre-KG to Standard II joyful foundation", to: "/academics/pre-primary" },
-        { title: "Primary School", desc: "Standard III to V active discovery", to: "/academics/primary" },
-        { title: "Middle School", desc: "Standard VI to VIII critical reasoning", to: "/academics/middle-school" },
-        { title: "High School", desc: "Standard IX & X ICSE examination excellence", to: "/academics/high-school" },
+        { title: "Pre-Primary", desc: "Pre-KG to Standard II joyful foundation", to: "/academics#pre-primary" },
+        { title: "Primary School", desc: "Standard III to V active discovery", to: "/academics#primary" },
+        { title: "Middle School", desc: "Standard VI to VIII critical reasoning", to: "/academics#middle-school" },
+        { title: "High School", desc: "Standard IX & X ICSE examination excellence", to: "/academics#high-school" },
+        { title: "ICSE Framework", desc: "Subjects, electives & assessment structure", to: "/academics#curriculum-framework" },
       ],
     },
     {

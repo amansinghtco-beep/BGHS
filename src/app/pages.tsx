@@ -290,28 +290,7 @@ export function About() {
   return <InteractiveAbout />;
 }
 
-export function Academics() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="Academics"
-        title="Curiosity, cultivated."
-        text="Four thoughtfully structured stages support every learner from her first classroom experience to ICSE success."
-        image={`${school}/static/media/preprimary.d0e9cf0ed8eaa69d48f8.png`}
-      />
-      <section className="section-pad">
-        <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
-          <SectionIntro eyebrow="Our programmes" title="A clear path forward.">
-            <p>Each stage builds knowledge, independence and character in equal measure.</p>
-          </SectionIntro>
-          <div className="mt-12">
-            <AcademicCards />
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+export { default as Academics } from "./AcademicsPage";
 
 export function Programme() {
   const { programme } = useParams();
