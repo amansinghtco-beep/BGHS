@@ -37,14 +37,47 @@ const marqueeAnnouncements = [
 export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const location = useLocation();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setMenuOpen(false);
     setActiveDropdown(null);
+    setIsHeaderVisible(true);
+    lastScrollY.current = window.scrollY;
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  // Hide header on scroll down, show on scroll up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Keep visible near the very top of the page
+      if (currentScrollY <= 60) {
+        setIsHeaderVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // If scrolling down by more than 8px, hide header
+      if (currentScrollY > lastScrollY.current + 8) {
+        setIsHeaderVisible(false);
+        setActiveDropdown(null);
+      }
+      // If scrolling up by more than 8px, reveal header
+      else if (currentScrollY < lastScrollY.current - 8) {
+        setIsHeaderVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleMouseEnter = (name: string) => {
     if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
@@ -109,64 +142,70 @@ export function Layout() {
 
   return (
     <div className="min-h-screen bg-[#f8f7f2] text-[#0b1d38]">
-      {/* 1. TOP ANNOUNCEMENT BAR (AUTOMATIC MOVING MARQUEE BANNER) */}
-      <div className="bg-[#002248] text-white py-2.5 overflow-hidden border-b border-[#003066]/60 relative select-none">
-        <div className="animate-marquee-track flex items-center">
-          {/* Set 1 */}
-          {marqueeAnnouncements.map((item, idx) => (
-            <Link
-              key={`m1-${idx}`}
-              to={item.to}
-              className="inline-flex items-center gap-2.5 mx-8 shrink-0 group/item hover:opacity-100 transition-opacity text-xs sm:text-[13px] cursor-pointer"
-            >
-              <span className="text-[#38BDF8] flex items-center shrink-0 group-hover/item:scale-110 transition-transform">
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M21 4.25a.75.75 0 0 0-.75-.75H17a1 1 0 0 0-.8.4L11.5 10H5a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1.27l1.08 4.33A2 2 0 0 0 9.29 24h1.42a1 1 0 0 0 .97-1.24L10.5 18h1.7l4.7 6.35a1 1 0 0 0 .8.4h3.25a.75.75 0 0 0 .75-.75V4.25zm-2 15.65-4.4-5.94a1 1 0 0 0-.8-.41H10l1.18 4.73a.5.5 0 0 1-.49.62H9.29a.5.5 0 0 1-.48-.38L7.66 14H5a1.5 1.5 0 0 1-1.5-1.5v-2A1.5 1.5 0 0 1 5 9h6.7a1 1 0 0 0 .8-.4l4.5-6.1h2v17.4z" />
-                </svg>
-              </span>
-              <span className="text-white/30 select-none">|</span>
-              <span className="font-bold text-[#38BDF8] group-hover/item:underline underline-offset-2">
-                {item.badge}
-              </span>
-              <span className="text-white/90">
-                {item.detail}
-              </span>
-              <span className="text-white/30 select-none">|</span>
-              <span className="text-white/80 font-normal">
-                {item.tagline}
-              </span>
-            </Link>
-          ))}
-          {/* Set 2 (Duplicate for continuous loop) */}
-          {marqueeAnnouncements.map((item, idx) => (
-            <Link
-              key={`m2-${idx}`}
-              to={item.to}
-              className="inline-flex items-center gap-2.5 mx-8 shrink-0 group/item hover:opacity-100 transition-opacity text-xs sm:text-[13px] cursor-pointer"
-            >
-              <span className="text-[#38BDF8] flex items-center shrink-0 group-hover/item:scale-110 transition-transform">
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M21 4.25a.75.75 0 0 0-.75-.75H17a1 1 0 0 0-.8.4L11.5 10H5a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1.27l1.08 4.33A2 2 0 0 0 9.29 24h1.42a1 1 0 0 0 .97-1.24L10.5 18h1.7l4.7 6.35a1 1 0 0 0 .8.4h3.25a.75.75 0 0 0 .75-.75V4.25zm-2 15.65-4.4-5.94a1 1 0 0 0-.8-.41H10l1.18 4.73a.5.5 0 0 1-.49.62H9.29a.5.5 0 0 1-.48-.38L7.66 14H5a1.5 1.5 0 0 1-1.5-1.5v-2A1.5 1.5 0 0 1 5 9h6.7a1 1 0 0 0 .8-.4l4.5-6.1h2v17.4z" />
-                </svg>
-              </span>
-              <span className="text-white/30 select-none">|</span>
-              <span className="font-bold text-[#38BDF8] group-hover/item:underline underline-offset-2">
-                {item.badge}
-              </span>
-              <span className="text-white/90">
-                {item.detail}
-              </span>
-              <span className="text-white/30 select-none">|</span>
-              <span className="text-white/80 font-normal">
-                {item.tagline}
-              </span>
-            </Link>
-          ))}
+      {/* WRAPPER FOR FLOATING / SMART-HIDING HEADER CONTAINER */}
+      <div
+        className={`sticky top-0 z-50 transition-transform duration-300 ease-in-out ${
+          isHeaderVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        {/* 1. TOP ANNOUNCEMENT BAR (AUTOMATIC MOVING MARQUEE BANNER) */}
+        <div className="bg-[#002248] text-white py-2.5 overflow-hidden border-b border-[#003066]/60 relative select-none">
+          <div className="animate-marquee-track flex items-center">
+            {/* Set 1 */}
+            {marqueeAnnouncements.map((item, idx) => (
+              <Link
+                key={`m1-${idx}`}
+                to={item.to}
+                className="inline-flex items-center gap-2.5 mx-8 shrink-0 group/item hover:opacity-100 transition-opacity text-xs sm:text-[13px] cursor-pointer"
+              >
+                <span className="text-[#38BDF8] flex items-center shrink-0 group-hover/item:scale-110 transition-transform">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M21 4.25a.75.75 0 0 0-.75-.75H17a1 1 0 0 0-.8.4L11.5 10H5a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1.27l1.08 4.33A2 2 0 0 0 9.29 24h1.42a1 1 0 0 0 .97-1.24L10.5 18h1.7l4.7 6.35a1 1 0 0 0 .8.4h3.25a.75.75 0 0 0 .75-.75V4.25zm-2 15.65-4.4-5.94a1 1 0 0 0-.8-.41H10l1.18 4.73a.5.5 0 0 1-.49.62H9.29a.5.5 0 0 1-.48-.38L7.66 14H5a1.5 1.5 0 0 1-1.5-1.5v-2A1.5 1.5 0 0 1 5 9h6.7a1 1 0 0 0 .8-.4l4.5-6.1h2v17.4z" />
+                  </svg>
+                </span>
+                <span className="text-white/30 select-none">|</span>
+                <span className="font-bold text-[#38BDF8] group-hover/item:underline underline-offset-2">
+                  {item.badge}
+                </span>
+                <span className="text-white/90">
+                  {item.detail}
+                </span>
+                <span className="text-white/30 select-none">|</span>
+                <span className="text-white/80 font-normal">
+                  {item.tagline}
+                </span>
+              </Link>
+            ))}
+            {/* Set 2 (Duplicate for continuous loop) */}
+            {marqueeAnnouncements.map((item, idx) => (
+              <Link
+                key={`m2-${idx}`}
+                to={item.to}
+                className="inline-flex items-center gap-2.5 mx-8 shrink-0 group/item hover:opacity-100 transition-opacity text-xs sm:text-[13px] cursor-pointer"
+              >
+                <span className="text-[#38BDF8] flex items-center shrink-0 group-hover/item:scale-110 transition-transform">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M21 4.25a.75.75 0 0 0-.75-.75H17a1 1 0 0 0-.8.4L11.5 10H5a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1.27l1.08 4.33A2 2 0 0 0 9.29 24h1.42a1 1 0 0 0 .97-1.24L10.5 18h1.7l4.7 6.35a1 1 0 0 0 .8.4h3.25a.75.75 0 0 0 .75-.75V4.25zm-2 15.65-4.4-5.94a1 1 0 0 0-.8-.41H10l1.18 4.73a.5.5 0 0 1-.49.62H9.29a.5.5 0 0 1-.48-.38L7.66 14H5a1.5 1.5 0 0 1-1.5-1.5v-2A1.5 1.5 0 0 1 5 9h6.7a1 1 0 0 0 .8-.4l4.5-6.1h2v17.4z" />
+                  </svg>
+                </span>
+                <span className="text-white/30 select-none">|</span>
+                <span className="font-bold text-[#38BDF8] group-hover/item:underline underline-offset-2">
+                  {item.badge}
+                </span>
+                <span className="text-white/90">
+                  {item.detail}
+                </span>
+                <span className="text-white/30 select-none">|</span>
+                <span className="text-white/80 font-normal">
+                  {item.tagline}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* 2. MAIN HEADER */}
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+        {/* 2. MAIN HEADER */}
+        <header className="bg-white border-b border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-8 py-3">
           {/* Logo Brand on Left using the Official Baldwin Crest */}
           <div className="flex items-center min-w-0">
@@ -345,6 +384,7 @@ export function Layout() {
           </nav>
         )}
       </header>
+      </div>
 
       <Outlet />
       <Footer />
