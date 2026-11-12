@@ -172,8 +172,8 @@ export default function ExploreBGHS() {
   const radius = useContainerRadius();
 
   const profileSize = radius < 210 ? 65 : radius < 270 ? 76 : radius < 320 ? 92 : 116;
-  // Radius + full profileSize + label height + safe clearance so labels are never cut off
-  const containerSize = (radius + profileSize + 48) * 2;
+  // Tight container height so there is no excess blank space above/below top & bottom circles
+  const containerSize = (radius + profileSize * 0.5 + 24) * 2;
 
   const getRotation = React.useCallback(
     (i: number) => (i - activeIndex) * (360 / sections.length),
@@ -201,7 +201,7 @@ export default function ExploreBGHS() {
   }, [isHovering]);
 
   return (
-    <section className="relative bg-white py-12 sm:py-16 md:py-20 overflow-hidden">
+    <section className="relative bg-white py-2 sm:py-2.5 md:py-3 overflow-hidden">
       {/* Background Academic & School Outline Illustrations Scattered All Over Section */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
         {/* --- Top Left Area --- */}
