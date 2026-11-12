@@ -71,11 +71,13 @@ function useContainerRadius() {
   React.useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      if (w < 480) setRadius(190);
-      else if (w < 640) setRadius(230);
-      else if (w < 768) setRadius(265);
-      else if (w < 1024) setRadius(300);
-      else if (w < 1280) setRadius(335);
+      if (w < 380) setRadius(120);
+      else if (w < 440) setRadius(135);
+      else if (w < 520) setRadius(160);
+      else if (w < 640) setRadius(200);
+      else if (w < 768) setRadius(245);
+      else if (w < 1024) setRadius(290);
+      else if (w < 1280) setRadius(330);
       else setRadius(365);
     };
     update();
@@ -152,10 +154,10 @@ function OrbitItem({
           </motion.div>
           {/* Label below circle */}
           <span
-            className={`text-center leading-tight font-medium transition-colors duration-200 ${
-              isActive ? "text-[#1D4ED8]" : "text-[#1a2f5a] group-hover:text-[#1D4ED8]"
+            className={`text-center leading-tight font-medium transition-colors duration-200 line-clamp-2 px-0.5 ${
+              isActive ? "text-[#1D4ED8] font-bold" : "text-[#1a2f5a] group-hover:text-[#1D4ED8]"
             }`}
-            style={{ fontSize: "clamp(8px, 1vw, 12px)", maxWidth: profileSize + 16, lineHeight: 1.2 }}
+            style={{ fontSize: "clamp(7px, 1.8vw, 12px)", maxWidth: profileSize + 20, lineHeight: 1.15 }}
           >
             {section.label}
           </span>
@@ -171,7 +173,18 @@ export default function ExploreBGHS() {
   const [isHovering, setIsHovering] = React.useState(false);
   const radius = useContainerRadius();
 
-  const profileSize = radius < 210 ? 65 : radius < 270 ? 76 : radius < 320 ? 92 : 116;
+  const profileSize =
+    radius < 140
+      ? 48
+      : radius < 180
+      ? 56
+      : radius < 220
+      ? 68
+      : radius < 270
+      ? 78
+      : radius < 320
+      ? 94
+      : 116;
   // Tight container height so there is no excess blank space above/below top & bottom circles
   const containerSize = (radius + profileSize * 0.5 + 24) * 2;
 
