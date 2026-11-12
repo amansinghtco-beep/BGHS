@@ -314,7 +314,7 @@ export function Layout() {
           <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
             <Link
               to="/admissions"
-              className="group inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#1D4ED8] hover:bg-[#1E40AF] px-3.5 sm:px-5 py-1.5 sm:py-2.5 text-[11px] sm:text-xs md:text-sm font-bold text-white shadow-sm hover:shadow-md transition-all duration-200 whitespace-nowrap"
+              className="hidden sm:inline-flex group items-center gap-1.5 sm:gap-2 rounded-full bg-[#1D4ED8] hover:bg-[#1E40AF] px-3.5 sm:px-5 py-1.5 sm:py-2.5 text-[11px] sm:text-xs md:text-sm font-bold text-white shadow-sm hover:shadow-md transition-all duration-200 whitespace-nowrap"
             >
               <span>Admissions 2026–27</span>
               <span className="text-xs sm:text-base font-bold transition-transform duration-200 group-hover:translate-x-0.5">
