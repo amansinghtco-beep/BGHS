@@ -703,21 +703,13 @@ function EnquiryForm() {
           className="w-full rounded-xl bg-white/10 border border-white/20 px-4 py-3.5 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition resize-none"
         />
       </div>
-      <div className="md:col-span-2 flex flex-col sm:flex-row gap-4">
+      <div className="md:col-span-2">
         <button
           type="submit"
-          className="flex-1 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white font-bold py-4 px-8 tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 cursor-pointer"
+          className="w-full rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white font-bold py-4 px-8 tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 cursor-pointer"
         >
           Submit Enquiry
         </button>
-        <a
-          href="https://portal.baldwingirls.edu.in/"
-          target="_blank"
-          rel="noreferrer"
-          className="flex-1 rounded-xl bg-[#781428] hover:bg-[#9F1239] text-white font-bold py-4 px-8 tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-rose-500/25 text-center"
-        >
-          Apply Online Now
-        </a>
       </div>
     </form>
   );
@@ -840,7 +832,7 @@ export default function AdmissionsPage() {
           STATS STRIP
       ═══════════════════════════════════════════════════════════════════ */}
       <section className="relative -mt-1 bg-gradient-to-r from-[#1E3A8A] to-[#781428]">
-        <div className="mx-auto max-w-[1380px] px-6 lg:px-14">
+        <div className="mx-auto max-w-[1380px] px-3 sm:px-6 lg:px-14">
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {stats.map((stat, i) => (
               <motion.div
@@ -850,14 +842,22 @@ export default function AdmissionsPage() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={i}
-                className="flex items-center gap-4 py-7 px-6 border-b lg:border-b-0 lg:border-r border-white/10 last:border-r-0 last:border-b-0"
+                className={`flex flex-col sm:flex-row items-center sm:items-start lg:items-center text-center sm:text-left gap-2 sm:gap-4 py-5 sm:py-7 px-3 sm:px-6 border-white/10 ${
+                  i % 2 === 0 ? "border-r" : ""
+                } ${
+                  i < 2 ? "border-b" : ""
+                } lg:border-b-0 lg:border-r lg:last:border-r-0`}
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10">
-                  <stat.icon className="w-6 h-6 text-[#F3C44E]" />
+                <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-white/10">
+                  <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#F3C44E]" />
                 </div>
-                <div>
-                  <p className="font-serif font-bold text-2xl text-white">{stat.value}</p>
-                  <p className="text-xs text-white/60 uppercase tracking-wider mt-0.5">{stat.label}</p>
+                <div className="min-w-0">
+                  <p className="font-serif font-bold text-lg sm:text-xl lg:text-2xl text-white whitespace-nowrap leading-tight">
+                    {stat.value}
+                  </p>
+                  <p className="text-[10px] sm:text-xs text-white/70 uppercase tracking-wider mt-0.5 sm:mt-1">
+                    {stat.label}
+                  </p>
                 </div>
               </motion.div>
             ))}
