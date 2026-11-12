@@ -736,17 +736,9 @@ export default function AdmissionsPage() {
     setReadyDocs((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const resetDocReadiness = () => {
-    setReadyDocs({});
-  };
-
   const filteredDocs = requiredDocuments.filter(
     (d) => docTab === "all" || d.gradeFilter.includes(docTab)
   );
-
-  const readyCount = filteredDocs.filter((d) => readyDocs[d.id]).length;
-  const totalCount = filteredDocs.length;
-  const readyPercent = totalCount > 0 ? Math.round((readyCount / totalCount) * 100) : 0;
 
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
@@ -1171,74 +1163,6 @@ export default function AdmissionsPage() {
                   </button>
                 );
               })}
-            </div>
-          </motion.div>
-
-          {/* Interactive Readiness Progress Dashboard */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mb-12 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm p-5 sm:p-6"
-          >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3.5">
-              <div className="flex items-center gap-3">
-                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors ${
-                  readyPercent === 100 ? "bg-emerald-600 text-white" : "bg-[#1E3A8A] text-[#F3C44E]"
-                }`}>
-                  {readyPercent === 100 ? <Icon.Check className="w-6 h-6" /> : <Icon.Clipboard className="w-5 h-5" />}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-[#0A1628] text-base sm:text-lg">Dossier Preparation Progress</span>
-                    {readyPercent === 100 && (
-                      <span className="rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5">
-                        Complete & Ready for Desk
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-xs sm:text-sm text-[#5A6778]">
-                    {readyCount} of {totalCount} required documents compiled for selected grade level ({readyPercent}%)
-                  </p>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center gap-2 self-start md:self-auto">
-                {readyCount > 0 && (
-                  <button
-                    type="button"
-                    onClick={resetDocReadiness}
-                    className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-[#781428] hover:bg-rose-50 transition cursor-pointer"
-                    title="Clear all checked items"
-                  >
-                    <Icon.RotateCcw className="w-3.5 h-3.5" />
-                    <span>Reset</span>
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#CBD5E1] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#0A1628] hover:bg-slate-50 transition shadow-xs cursor-pointer"
-                  title="Print or save this checklist"
-                >
-                  <Icon.Download className="w-3.5 h-3.5 text-[#1E3A8A]" />
-                  <span>Print Checklist</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Visual Bar */}
-            <div className="w-full bg-[#E2E8F0] h-3 rounded-full overflow-hidden p-0.5">
-              <motion.div
-                className={`h-full rounded-full transition-all duration-500 ${
-                  readyPercent === 100
-                    ? "bg-emerald-600"
-                    : "bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#781428]"
-                }`}
-                style={{ width: `${readyPercent}%` }}
-              />
             </div>
           </motion.div>
 
