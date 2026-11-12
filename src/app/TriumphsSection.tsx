@@ -25,44 +25,13 @@ interface ChampionCard {
   accentColor: string;
 }
 
-// Tone configurations matching the reference screenshot:
-// 1 = Royal Blue, 2 = Emerald/Mint Green, 3 = Vibrant Amber/Orange, 4 = Purple/Violet, 5 = Deep Pink/Rose
-const TONE_CONFIG = {
-  1: {
-    ribbon: "from-blue-600 via-blue-500 to-blue-700",
-    headerBg: "bg-blue-600",
-    border: "border-blue-500/30",
-    glow: "rgba(37,99,235,0.35)",
-    tagBg: "bg-blue-950/60 text-blue-300 border-blue-500/30",
-  },
-  2: {
-    ribbon: "from-emerald-500 via-teal-400 to-emerald-600",
-    headerBg: "bg-emerald-500",
-    border: "border-emerald-500/30",
-    glow: "rgba(16,185,129,0.35)",
-    tagBg: "bg-emerald-950/60 text-emerald-300 border-emerald-500/30",
-  },
-  3: {
-    ribbon: "from-amber-500 via-orange-400 to-amber-600",
-    headerBg: "bg-amber-500",
-    border: "border-amber-500/30",
-    glow: "rgba(245,158,11,0.35)",
-    tagBg: "bg-amber-950/60 text-amber-300 border-amber-500/30",
-  },
-  4: {
-    ribbon: "from-purple-600 via-fuchsia-500 to-purple-700",
-    headerBg: "bg-purple-600",
-    border: "border-purple-500/30",
-    glow: "rgba(168,85,247,0.35)",
-    tagBg: "bg-purple-950/60 text-purple-300 border-purple-500/30",
-  },
-  5: {
-    ribbon: "from-rose-500 via-pink-500 to-rose-600",
-    headerBg: "bg-rose-500",
-    border: "border-rose-500/30",
-    glow: "rgba(244,63,94,0.35)",
-    tagBg: "bg-rose-950/60 text-rose-300 border-rose-500/30",
-  },
+// Tone configurations: Unified to Baldwin Maroon (#781428) as requested
+const MAROON_CONFIG = {
+  ribbon: "from-[#8E1830] via-[#781428] to-[#5C0F1E]",
+  headerBg: "bg-[#781428]",
+  border: "border-[#781428]/40",
+  glow: "rgba(120,20,40,0.45)",
+  tagBg: "bg-[#5C0F1E]/80 text-rose-200 border-[#781428]/50",
 };
 
 const DROPS = [8, 22, 2, 16, 26, 6, 18, 12];
@@ -356,7 +325,7 @@ export default function TriumphsSection() {
                 toppers.map((student) => {
                   const isFlipped = flippedBadge === student.id;
                   const isHovered = hoveredBadge === student.id;
-                  const tone = TONE_CONFIG[student.tone];
+                  const tone = MAROON_CONFIG;
                   const offset = mouseOffset[student.id] || { x: 0, y: 0 };
 
                   // Dynamic physics transformation when hovering and swinging
