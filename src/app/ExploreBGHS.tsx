@@ -200,8 +200,244 @@ export default function ExploreBGHS() {
   }, [isHovering]);
 
   return (
-    <section className="bg-white py-4 sm:py-6 overflow-hidden">
-      <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
+    <section className="relative bg-white py-12 sm:py-16 md:py-20 overflow-hidden">
+      {/* Background Academic & School Outline Illustrations Scattered All Over Section */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+        {/* --- Top Left Area --- */}
+        {/* Protractor 1 */}
+        <svg
+          className="absolute w-24 h-16 sm:w-32 sm:h-20 text-[#1D4ED8]/[0.08] -rotate-12"
+          style={{ top: "6%", left: "4%" }}
+          viewBox="0 0 100 65"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M 6 58 A 44 44 0 0 1 94 58 Z" />
+          <line x1="50" y1="58" x2="50" y2="44" strokeWidth="2.5" />
+          <line x1="26" y1="58" x2="29" y2="47" strokeWidth="2" />
+          <line x1="74" y1="58" x2="71" y2="47" strokeWidth="2" />
+          <line x1="38" y1="58" x2="40" y2="50" strokeWidth="1.8" />
+          <line x1="62" y1="58" x2="60" y2="50" strokeWidth="1.8" />
+        </svg>
+
+        {/* Notepad / Worksheet 1 */}
+        <svg
+          className="absolute w-16 h-22 sm:w-22 sm:h-30 text-[#1D4ED8]/[0.07] rotate-6"
+          style={{ top: "28%", left: "8%" }}
+          viewBox="0 0 70 90"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="8" y="6" width="54" height="78" rx="8" />
+          <line x1="20" y1="26" x2="50" y2="26" strokeWidth="3" />
+          <line x1="20" y1="44" x2="50" y2="44" strokeWidth="3" />
+          <line x1="20" y1="62" x2="38" y2="62" strokeWidth="3" />
+        </svg>
+
+        {/* --- Top Center Area --- */}
+        {/* Flask 1 */}
+        <svg
+          className="absolute w-14 h-18 sm:w-20 sm:h-26 text-[#1D4ED8]/[0.07] -rotate-6"
+          style={{ top: "4%", left: "38%" }}
+          viewBox="0 0 75 95"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M 30 8 L 45 8 L 45 32 L 67 78 A 7 7 0 0 1 61 88 L 14 88 A 7 7 0 0 1 8 78 L 30 32 Z" />
+          <line x1="20" y1="66" x2="55" y2="66" strokeWidth="2.5" />
+        </svg>
+
+        {/* Basketball Net 1 */}
+        <svg
+          className="absolute w-20 h-22 sm:w-26 sm:h-28 text-[#1D4ED8]/[0.07] rotate-12"
+          style={{ top: "5%", right: "34%" }}
+          viewBox="0 0 90 90"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="12" y="8" width="66" height="46" rx="5" />
+          <rect x="28" y="22" width="34" height="26" rx="2" />
+          <ellipse cx="45" cy="54" rx="18" ry="5" />
+          <path d="M 28 54 L 35 80 L 55 80 L 62 54" />
+          <path d="M 45 59 L 45 80" strokeWidth="1.5" />
+        </svg>
+
+        {/* --- Top Right Area --- */}
+        {/* Notepad / Worksheet 2 */}
+        <svg
+          className="absolute w-18 h-24 sm:w-26 sm:h-34 text-[#1D4ED8]/[0.08] -rotate-12"
+          style={{ top: "8%", right: "6%" }}
+          viewBox="0 0 70 90"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="8" y="6" width="54" height="78" rx="8" />
+          <line x1="20" y1="26" x2="50" y2="26" strokeWidth="3" />
+          <line x1="20" y1="44" x2="50" y2="44" strokeWidth="3" />
+          <line x1="20" y1="62" x2="38" y2="62" strokeWidth="3" />
+        </svg>
+
+        {/* Protractor 2 */}
+        <svg
+          className="absolute w-22 h-16 sm:w-30 sm:h-20 text-[#1D4ED8]/[0.07] rotate-15"
+          style={{ top: "32%", right: "7%" }}
+          viewBox="0 0 100 65"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M 6 58 A 44 44 0 0 1 94 58 Z" />
+          <line x1="50" y1="58" x2="50" y2="44" strokeWidth="2.5" />
+          <line x1="26" y1="58" x2="29" y2="47" strokeWidth="2" />
+          <line x1="74" y1="58" x2="71" y2="47" strokeWidth="2" />
+          <line x1="38" y1="58" x2="40" y2="50" strokeWidth="1.8" />
+          <line x1="62" y1="58" x2="60" y2="50" strokeWidth="1.8" />
+        </svg>
+
+        {/* --- Middle Flanks --- */}
+        {/* Basketball Net 2 (Left Mid) */}
+        <svg
+          className="absolute w-20 h-22 sm:w-28 sm:h-30 text-[#1D4ED8]/[0.08] -rotate-6"
+          style={{ top: "50%", left: "3%" }}
+          viewBox="0 0 90 90"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="12" y="8" width="66" height="46" rx="5" />
+          <rect x="28" y="22" width="34" height="26" rx="2" />
+          <ellipse cx="45" cy="54" rx="18" ry="5" />
+          <path d="M 28 54 L 35 80 L 55 80 L 62 54" />
+          <path d="M 45 59 L 45 80" strokeWidth="1.5" />
+        </svg>
+
+        {/* Flask 2 (Right Mid) */}
+        <svg
+          className="absolute w-16 h-22 sm:w-24 sm:h-30 text-[#1D4ED8]/[0.08] rotate-8"
+          style={{ top: "52%", right: "4%" }}
+          viewBox="0 0 75 95"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M 30 8 L 45 8 L 45 32 L 67 78 A 7 7 0 0 1 61 88 L 14 88 A 7 7 0 0 1 8 78 L 30 32 Z" />
+          <line x1="20" y1="66" x2="55" y2="66" strokeWidth="2.5" />
+        </svg>
+
+        {/* --- Bottom Left Area --- */}
+        {/* Flask 3 */}
+        <svg
+          className="absolute w-18 h-24 sm:w-26 sm:h-34 text-[#1D4ED8]/[0.08] rotate-12"
+          style={{ bottom: "10%", left: "6%" }}
+          viewBox="0 0 75 95"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M 30 8 L 45 8 L 45 32 L 67 78 A 7 7 0 0 1 61 88 L 14 88 A 7 7 0 0 1 8 78 L 30 32 Z" />
+          <line x1="20" y1="66" x2="55" y2="66" strokeWidth="2.5" />
+        </svg>
+
+        {/* Protractor 3 */}
+        <svg
+          className="absolute w-20 h-14 sm:w-28 sm:h-18 text-[#1D4ED8]/[0.07] -rotate-8"
+          style={{ bottom: "24%", left: "18%" }}
+          viewBox="0 0 100 65"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M 6 58 A 44 44 0 0 1 94 58 Z" />
+          <line x1="50" y1="58" x2="50" y2="44" strokeWidth="2.5" />
+          <line x1="26" y1="58" x2="29" y2="47" strokeWidth="2" />
+          <line x1="74" y1="58" x2="71" y2="47" strokeWidth="2" />
+          <line x1="38" y1="58" x2="40" y2="50" strokeWidth="1.8" />
+          <line x1="62" y1="58" x2="60" y2="50" strokeWidth="1.8" />
+        </svg>
+
+        {/* --- Bottom Center Area --- */}
+        {/* Notepad / Worksheet 3 */}
+        <svg
+          className="absolute w-16 h-22 sm:w-22 sm:h-30 text-[#1D4ED8]/[0.07] rotate-6"
+          style={{ bottom: "4%", left: "46%" }}
+          viewBox="0 0 70 90"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="8" y="6" width="54" height="78" rx="8" />
+          <line x1="20" y1="26" x2="50" y2="26" strokeWidth="3" />
+          <line x1="20" y1="44" x2="50" y2="44" strokeWidth="3" />
+          <line x1="20" y1="62" x2="38" y2="62" strokeWidth="3" />
+        </svg>
+
+        {/* --- Bottom Right Area --- */}
+        {/* Basketball Net 3 */}
+        <svg
+          className="absolute w-22 h-24 sm:w-30 sm:h-32 text-[#1D4ED8]/[0.08] -rotate-12"
+          style={{ bottom: "8%", right: "8%" }}
+          viewBox="0 0 90 90"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="12" y="8" width="66" height="46" rx="5" />
+          <rect x="28" y="22" width="34" height="26" rx="2" />
+          <ellipse cx="45" cy="54" rx="18" ry="5" />
+          <path d="M 28 54 L 35 80 L 55 80 L 62 54" />
+          <path d="M 45 59 L 45 80" strokeWidth="1.5" />
+        </svg>
+
+        {/* Protractor 4 */}
+        <svg
+          className="absolute w-18 h-12 sm:w-24 sm:h-16 text-[#1D4ED8]/[0.07] rotate-10"
+          style={{ bottom: "25%", right: "20%" }}
+          viewBox="0 0 100 65"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M 6 58 A 44 44 0 0 1 94 58 Z" />
+          <line x1="50" y1="58" x2="50" y2="44" strokeWidth="2.5" />
+          <line x1="26" y1="58" x2="29" y2="47" strokeWidth="2" />
+          <line x1="74" y1="58" x2="71" y2="47" strokeWidth="2" />
+          <line x1="38" y1="58" x2="40" y2="50" strokeWidth="1.8" />
+          <line x1="62" y1="58" x2="60" y2="50" strokeWidth="1.8" />
+        </svg>
+      </div>
+
+      <div className="relative mx-auto max-w-[1380px] px-5 lg:px-10">
         {/* Orbit container */}
         <div
           className="relative mx-auto flex items-center justify-center select-none"
@@ -219,84 +455,6 @@ export default function ExploreBGHS() {
                 "radial-gradient(circle, rgba(29,78,216,0.30) 0%, rgba(29,78,216,0.18) 45%, rgba(29,78,216,0.06) 70%, transparent 85%)",
             }}
           />
-
-          {/* Background School & Subject Illustrations */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-            {/* Protractor (Top-Left) */}
-            <svg
-              className="absolute w-24 h-24 sm:w-32 sm:h-32 text-[#1D4ED8]/[0.09] transition-transform duration-700 hover:scale-105"
-              style={{ top: "14%", left: "14%" }}
-              viewBox="0 0 100 65"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {/* Semi-circle protractor with ruler ticks */}
-              <path d="M 6 58 A 44 44 0 0 1 94 58 Z" />
-              <line x1="50" y1="58" x2="50" y2="44" strokeWidth="2.5" />
-              <line x1="26" y1="58" x2="29" y2="47" strokeWidth="2" />
-              <line x1="74" y1="58" x2="71" y2="47" strokeWidth="2" />
-              <line x1="38" y1="58" x2="40" y2="50" strokeWidth="1.8" />
-              <line x1="62" y1="58" x2="60" y2="50" strokeWidth="1.8" />
-            </svg>
-
-            {/* Document / Worksheet / Notepad (Top-Right) */}
-            <svg
-              className="absolute w-20 h-28 sm:w-28 sm:h-36 text-[#1D4ED8]/[0.09]"
-              style={{ top: "12%", right: "14%" }}
-              viewBox="0 0 70 90"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {/* Rounded notepad with text lines */}
-              <rect x="8" y="6" width="54" height="78" rx="8" />
-              <line x1="20" y1="26" x2="50" y2="26" strokeWidth="3" />
-              <line x1="20" y1="44" x2="50" y2="44" strokeWidth="3" />
-              <line x1="20" y1="62" x2="38" y2="62" strokeWidth="3" />
-            </svg>
-
-            {/* Science Laboratory Flask / Beaker (Bottom-Left) */}
-            <svg
-              className="absolute w-22 h-28 sm:w-28 sm:h-36 text-[#1D4ED8]/[0.09]"
-              style={{ bottom: "14%", left: "15%" }}
-              viewBox="0 0 75 95"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {/* Conical flask with neck and liquid level */}
-              <path d="M 30 8 L 45 8 L 45 32 L 67 78 A 7 7 0 0 1 61 88 L 14 88 A 7 7 0 0 1 8 78 L 30 32 Z" />
-              <line x1="20" y1="66" x2="55" y2="66" strokeWidth="2.5" />
-            </svg>
-
-            {/* Basketball Backboard & Net / Hoop (Bottom-Right) */}
-            <svg
-              className="absolute w-24 h-28 sm:w-32 sm:h-36 text-[#1D4ED8]/[0.09]"
-              style={{ bottom: "14%", right: "15%" }}
-              viewBox="0 0 90 90"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {/* Backboard */}
-              <rect x="12" y="8" width="66" height="46" rx="5" />
-              {/* Inner target box */}
-              <rect x="28" y="22" width="34" height="26" rx="2" />
-              {/* Rim and net */}
-              <ellipse cx="45" cy="54" rx="18" ry="5" />
-              <path d="M 28 54 L 35 80 L 55 80 L 62 54" />
-              <path d="M 45 59 L 45 80" strokeWidth="1.5" />
-            </svg>
-          </div>
 
           {/* Dashed orbit ring */}
           <div
