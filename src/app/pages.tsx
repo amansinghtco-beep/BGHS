@@ -535,61 +535,7 @@ export function Events() {
   );
 }
 
-export function Admissions() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="Admissions 2026â€“27"
-        title="Begin her Baldwin journey."
-        text="Our admissions team is ready to guide your family through every step."
-        image={`${school}/static/media/mainbanner2.312bdec586ff6695246f.png`}
-      />
-      <section className="section-pad">
-        <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
-          <SectionIntro eyebrow="How to apply" title="A simple, guided process.">
-            <a
-              href="https://portal.baldwingirls.edu.in/"
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full bg-[#071a33] px-7 py-4 text-xs font-bold tracking-[.14em] text-white uppercase"
-            >
-              Apply online
-            </a>
-          </SectionIntro>
-          <ol className="mt-12 grid gap-px bg-[#0b1d38]/15 md:grid-cols-2 lg:grid-cols-3">
-            {admissionSteps.map((step, index) => (
-              <li className="flex gap-5 bg-[#f8f7f2] p-7" key={step}>
-                <span className="font-serif text-3xl text-[#2563EB]">0{index + 1}</span>
-                <p className="text-sm leading-6 text-[#5a6778]">{step}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-12 grid gap-px bg-[#0b1d38]/15 md:grid-cols-2">
-            <div className="bg-white p-8">
-              <p className="eyebrow text-[#2563EB]">Age criteria</p>
-              <ul className="mt-6 space-y-3 text-[#5a6778]">
-                <li>Pre-KG: 3 years as on 1 June</li>
-                <li>LKG: 4 years as on 1 June</li>
-                <li>UKG: 5 years as on 1 June</li>
-                <li>Standard 1: 6 years as on 1 June</li>
-              </ul>
-            </div>
-            <div className="bg-white p-8">
-              <p className="eyebrow text-[#2563EB]">Documents required</p>
-              <ul className="mt-6 space-y-3 text-[#5a6778]">
-                <li>Parentsâ€™ declaration and photographs</li>
-                <li>Original and attested birth certificate</li>
-                <li>Medical fitness certificate</li>
-                <li>Category certificate where applicable</li>
-                <li>Passport copy for NRI students</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+export { default as Admissions } from "./AdmissionsPage";
 
 export function Contact() {
   const portals = [
