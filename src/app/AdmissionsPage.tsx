@@ -116,6 +116,36 @@ const Icon = {
       <path d="M3 18v-6a9 9 0 0 1 18 0v6" /><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
     </svg>
   ),
+  Download: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  ),
+  Info: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
+    </svg>
+  ),
+  RotateCcw: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M1 4v6h6" /><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+    </svg>
+  ),
+  Check: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  ),
+  FileCheck: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><path d="m9 15 2 2 4-4" />
+    </svg>
+  ),
+  Filter: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+    </svg>
+  ),
 };
 
 
@@ -335,16 +365,128 @@ const applicationSteps = [
   },
 ];
 
-const requiredDocuments = [
-  { doc: "Parents' Declaration Form", detail: "Signed declaration by both parents/guardians" },
-  { doc: "Original Birth Certificate", detail: "For reference and verification at the time of admission" },
-  { doc: "Attested Xerox of Birth Certificate", detail: "Attested by a Gazetted Officer or with Notary seal and signature" },
-  { doc: "Medical Fitness Certificate", detail: "From CDMO or any registered medical practitioner" },
-  { doc: "Caste / Category Certificate", detail: "Applicable for SC / ST / OBC candidates only" },
-  { doc: "Passport Copy (NRI students)", detail: "Required for students with NRI status" },
-  { doc: "Photographs of Child & Parents", detail: "Recent passport-size photographs as specified" },
-  { doc: "Transfer Certificate (TC)", detail: "Required for admissions to Standard II and above" },
-  { doc: "Previous School Report Cards", detail: "Last two years' progress reports for lateral entry" },
+interface RequiredDoc {
+  id: string;
+  doc: string;
+  category: "Identity & Age" | "Academic & Transfer" | "Medical & Declaration" | "Special Category";
+  grades: string;
+  gradeFilter: ("all" | "pre-primary" | "primary-middle" | "high-school" | "special")[];
+  type: "Mandatory" | "Conditional" | "Lateral Entry Only";
+  format: string;
+  detail: string;
+  tip: string;
+  icon: keyof typeof Icon;
+}
+
+const requiredDocuments: RequiredDoc[] = [
+  {
+    id: "birth-cert-orig",
+    doc: "Original Birth Certificate",
+    category: "Identity & Age",
+    grades: "Pre-KG to Standard X",
+    gradeFilter: ["all", "pre-primary", "primary-middle", "high-school"],
+    type: "Mandatory",
+    format: "Original certificate for in-person spot verification",
+    detail: "Issued by Municipal Corporation, Panchayat, or Registrar of Births. Mandatory to verify date of birth as per CISCE regulations.",
+    tip: "Will be verified on the spot by the Admissions Desk and returned immediately.",
+    icon: "Shield",
+  },
+  {
+    id: "birth-cert-attested",
+    doc: "Attested Xerox of Birth Certificate",
+    category: "Identity & Age",
+    grades: "Pre-KG to Standard X",
+    gradeFilter: ["all", "pre-primary", "primary-middle", "high-school"],
+    type: "Mandatory",
+    format: "2 copies with Gazetted Officer / Notary seal & signature",
+    detail: "Clear photocopy bearing the official stamp, seal and signature of a Gazetted Officer or authorized Notary Public.",
+    tip: "Retained permanently in the student's official CISCE admission dossier.",
+    icon: "FileCheck",
+  },
+  {
+    id: "photos",
+    doc: "Photographs of Child & Parents",
+    category: "Identity & Age",
+    grades: "Pre-KG to Standard X",
+    gradeFilter: ["all", "pre-primary", "primary-middle", "high-school"],
+    type: "Mandatory",
+    format: "Child: 4 copies | Parents: 2 copies each (35mm × 45mm)",
+    detail: "Recent colour passport photographs against a light plain background. Clear frontal face view without headwear.",
+    tip: "Please write the student's full name and provisional form number on the reverse in pencil.",
+    icon: "Camera",
+  },
+  {
+    id: "parent-declaration",
+    doc: "Parents' Declaration Form",
+    category: "Medical & Declaration",
+    grades: "Pre-KG to Standard X",
+    gradeFilter: ["all", "pre-primary", "primary-middle", "high-school"],
+    type: "Mandatory",
+    format: "Original signed proforma (available at portal)",
+    detail: "Joint undertaking signed by both parents/guardians accepting the school rules, academic discipline, and attendance policy.",
+    tip: "Can be downloaded below or collected from the admissions counter during office hours.",
+    icon: "FileText",
+  },
+  {
+    id: "medical-cert",
+    doc: "Medical Fitness Certificate",
+    category: "Medical & Declaration",
+    grades: "Pre-KG to Standard X",
+    gradeFilter: ["all", "pre-primary", "primary-middle", "high-school"],
+    type: "Mandatory",
+    format: "Signed by CDMO or Registered Medical Practitioner",
+    detail: "Physical fitness certificate including blood group certification and updated childhood immunization / vaccination record.",
+    tip: "Ensures our full-time campus infirmary and nursing team can provide personalized medical care.",
+    icon: "Heart",
+  },
+  {
+    id: "tc",
+    doc: "Transfer Certificate (TC)",
+    category: "Academic & Transfer",
+    grades: "Standard II to Standard X",
+    gradeFilter: ["all", "primary-middle", "high-school"],
+    type: "Lateral Entry Only",
+    format: "Original TC with Education Department Countersignature",
+    detail: "Original TC from the previous recognized school. For schools outside Karnataka, TC must be countersigned by BEO / DDPI / Board Inspector.",
+    tip: "Mandatory prior to commencement of classes; provisional admission granted pending TC.",
+    icon: "GraduationCap",
+  },
+  {
+    id: "report-cards",
+    doc: "Previous School Report Cards",
+    category: "Academic & Transfer",
+    grades: "Standard I to Standard X",
+    gradeFilter: ["all", "primary-middle", "high-school"],
+    type: "Lateral Entry Only",
+    format: "Photocopies of preceding 2 academic years' grade sheets",
+    detail: "Cumulative academic records showing scholastic achievement, attendance percentage, and promotion remarks from previous institution.",
+    tip: "Assists the academic department in understanding your daughter's subject baseline.",
+    icon: "BookOpen",
+  },
+  {
+    id: "caste-cert",
+    doc: "Caste / Category Certificate",
+    category: "Special Category",
+    grades: "Applicable for SC / ST / OBC only",
+    gradeFilter: ["all", "special"],
+    type: "Conditional",
+    format: "Attested photocopy of government revenue certificate",
+    detail: "Issued by the competent revenue authority (Tahsildar / SDM) in the name of the student or father for official category records.",
+    tip: "Only required for families seeking enrollment under government-notified categories.",
+    icon: "Award",
+  },
+  {
+    id: "nri-passport",
+    doc: "Passport Copy (NRI Students)",
+    category: "Special Category",
+    grades: "NRI & Foreign Nationals",
+    gradeFilter: ["all", "special"],
+    type: "Conditional",
+    format: "First & last passport pages + valid Indian visa / OCI card",
+    detail: "Photocopy of student's and sponsoring parent's valid passport along with valid residential permit or OCI card endorsement.",
+    tip: "Admissions Office provides dedicated liaison support for foreign equivalency certificates.",
+    icon: "Globe",
+  },
 ];
 
 const ageCriteria = [
@@ -572,6 +714,25 @@ function EnquiryForm() {
 ───────────────────────────────────────────────────────────────────────── */
 export default function AdmissionsPage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(0);
+  const [docTab, setDocTab] = useState<"all" | "pre-primary" | "primary-middle" | "high-school" | "special">("all");
+  const [readyDocs, setReadyDocs] = useState<Record<string, boolean>>({});
+
+  const toggleDocReady = (id: string) => {
+    setReadyDocs((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const resetDocReadiness = () => {
+    setReadyDocs({});
+  };
+
+  const filteredDocs = requiredDocuments.filter(
+    (d) => docTab === "all" || d.gradeFilter.includes(docTab)
+  );
+
+  const readyCount = filteredDocs.filter((d) => readyDocs[d.id]).length;
+  const totalCount = filteredDocs.length;
+  const readyPercent = totalCount > 0 ? Math.round((readyCount / totalCount) * 100) : 0;
+
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const heroParallax = useTransform(scrollYProgress, [0, 0.3], [0, -80]);
@@ -935,66 +1096,396 @@ export default function AdmissionsPage() {
 
 
       {/* ═══════════════════════════════════════════════════════════════════
-          REQUIRED DOCUMENTS CHECKLIST
+          REQUIRED DOCUMENTS CHECKLIST — REDESIGNED DOSSIER & VERIFICATION
       ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 lg:py-32 bg-gradient-to-b from-[#F1F5F9] to-[#F8FAFC]">
-        <div className="mx-auto max-w-[1380px] px-6 lg:px-14">
-          <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 items-start">
-            {/* Left: Header */}
+      <section className="relative py-24 lg:py-32 bg-gradient-to-b from-[#F1F5F9] via-[#F8FAFC] to-white overflow-hidden">
+        <FloatingBackground />
+        <div className="relative z-10 mx-auto max-w-[1380px] px-6 lg:px-14">
+          
+          {/* Section Header */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto mb-12"
+          >
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#781428]/10 px-5 py-2 mb-4 border border-[#781428]/20">
+              <Icon.FileCheck className="w-4 h-4 text-[#781428]" />
+              <span className="text-xs font-bold tracking-[0.16em] text-[#781428] uppercase">Enrollment Dossier & Verification</span>
+            </div>
+            <h2 className="font-serif font-bold text-4xl sm:text-5xl text-[#0A1628] leading-tight mb-4">
+              Required Documents &{" "}
+              <span className="bg-gradient-to-r from-[#781428] to-[#9F1239] bg-clip-text text-transparent">
+                Checklist
+              </span>
+            </h2>
+            <p className="text-base sm:text-lg text-[#5A6778] leading-relaxed">
+              Ensure a seamless verification on interaction day. Filter by your daughter's grade level below to review exact requirements, check off items as you collect them, and download official proformas.
+            </p>
+
+            {/* Interactive Grade Filter Tabs */}
+            <div className="mt-8 flex flex-wrap justify-center gap-2 sm:gap-2.5">
+              {[
+                { id: "all", label: "All Documents", count: requiredDocuments.length },
+                { id: "pre-primary", label: "Pre-Primary (Pre-KG – Std I)", count: requiredDocuments.filter(d => d.gradeFilter.includes("pre-primary")).length },
+                { id: "primary-middle", label: "Primary & Middle (Std II – VIII)", count: requiredDocuments.filter(d => d.gradeFilter.includes("primary-middle")).length },
+                { id: "high-school", label: "High School (Std IX – X)", count: requiredDocuments.filter(d => d.gradeFilter.includes("high-school")).length },
+                { id: "special", label: "Special / NRI", count: requiredDocuments.filter(d => d.gradeFilter.includes("special")).length },
+              ].map((tab) => {
+                const isActive = docTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setDocTab(tab.id as typeof docTab)}
+                    className={`inline-flex items-center gap-2 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer ${
+                      isActive
+                        ? "bg-[#781428] text-white shadow-md shadow-rose-950/20 scale-[1.02]"
+                        : "bg-white text-[#334155] hover:bg-[#DBEAFE]/40 border border-[#CBD5E1]"
+                    }`}
+                  >
+                    <span>{tab.label}</span>
+                    <span
+                      className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-extrabold ${
+                        isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      {tab.count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* Interactive Readiness Progress Dashboard */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mb-12 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm p-5 sm:p-6"
+          >
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3.5">
+              <div className="flex items-center gap-3">
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors ${
+                  readyPercent === 100 ? "bg-emerald-600 text-white" : "bg-[#1E3A8A] text-[#F3C44E]"
+                }`}>
+                  {readyPercent === 100 ? <Icon.Check className="w-6 h-6" /> : <Icon.Clipboard className="w-5 h-5" />}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-[#0A1628] text-base sm:text-lg">Dossier Preparation Progress</span>
+                    {readyPercent === 100 && (
+                      <span className="rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5">
+                        Complete & Ready for Desk
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#5A6778]">
+                    {readyCount} of {totalCount} required documents compiled for selected grade level ({readyPercent}%)
+                  </p>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2 self-start md:self-auto">
+                {readyCount > 0 && (
+                  <button
+                    type="button"
+                    onClick={resetDocReadiness}
+                    className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-[#781428] hover:bg-rose-50 transition cursor-pointer"
+                    title="Clear all checked items"
+                  >
+                    <Icon.RotateCcw className="w-3.5 h-3.5" />
+                    <span>Reset</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#CBD5E1] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#0A1628] hover:bg-slate-50 transition shadow-xs cursor-pointer"
+                  title="Print or save this checklist"
+                >
+                  <Icon.Download className="w-3.5 h-3.5 text-[#1E3A8A]" />
+                  <span>Print Checklist</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Visual Bar */}
+            <div className="w-full bg-[#E2E8F0] h-3 rounded-full overflow-hidden p-0.5">
+              <motion.div
+                className={`h-full rounded-full transition-all duration-500 ${
+                  readyPercent === 100
+                    ? "bg-emerald-600"
+                    : "bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#781428]"
+                }`}
+                style={{ width: `${readyPercent}%` }}
+              />
+            </div>
+          </motion.div>
+
+          {/* Asymmetric 2-Column Main Dossier Area */}
+          <div className="grid lg:grid-cols-[1fr_2.1fr] gap-8 items-start">
+            
+            {/* Left Column: Official Pass & Guidelines (Sticky) */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="lg:sticky lg:top-32"
+              className="space-y-6 lg:sticky lg:top-28"
             >
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#781428]/10 px-5 py-2 mb-5">
-                <Icon.FileText className="w-4 h-4 text-[#781428]" />
-                <span className="text-xs font-bold tracking-[0.15em] text-[#781428] uppercase">Document Checklist</span>
-              </div>
-              <h2 className="font-serif font-bold text-4xl sm:text-5xl text-[#0A1628] leading-tight mb-5">
-                Required{" "}
-                <span className="text-[#781428]">Documents</span>
-              </h2>
-              <p className="text-lg text-[#5A6778] leading-relaxed mb-8">
-                Please keep the following documents ready when applying. Missing documents can be
-                submitted later, but must be provided before admission is finalised.
-              </p>
-              <div className="rounded-2xl bg-[#1E3A8A]/5 border border-[#1E3A8A]/10 p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <Icon.Calendar className="w-5 h-5 text-[#1E3A8A]" />
-                  <p className="font-bold text-[#0A1628]">Office Hours</p>
+              {/* Card 1: Official Verification Counter Pass */}
+              <div className="rounded-2xl bg-gradient-to-b from-[#0A1628] to-[#12233f] text-white p-6 shadow-xl border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-44 h-44 rounded-full bg-[#3B82F6]/10 blur-3xl pointer-events-none" />
+                
+                <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                  <div>
+                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#F3C44E] uppercase block">Official Desk Pass</span>
+                    <h3 className="font-serif font-bold text-lg text-white">Admissions Secretariat</h3>
+                  </div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 border border-white/15">
+                    <Icon.Building className="w-5 h-5 text-[#F3C44E]" />
+                  </div>
                 </div>
-                <p className="text-sm text-[#5A6778] leading-6">
-                  Monday to Friday: 8:15 AM – 3:00 PM<br />
-                  Saturday: 8:15 AM – 12:30 PM (Admissions only)<br />
-                  Document submission at the school office, #90 Richmond Road, Bengaluru
-                </p>
+
+                <div className="space-y-3.5 text-xs text-white/80">
+                  <div className="flex items-start gap-2.5">
+                    <Icon.MapPin className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white">Verification Venue</p>
+                      <p className="text-white/70">Main Heritage Quadrangle, Room 104, #90 Richmond Road, Bengaluru</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2.5">
+                    <Icon.Clock className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white">Counter Timings</p>
+                      <p className="text-white/70">Mon – Fri: 8:15 AM – 3:00 PM</p>
+                      <p className="text-white/70">Saturday: 8:15 AM – 12:30 PM</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2.5">
+                    <Icon.Phone className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white">Helpline / Liaison</p>
+                      <a href="tel:+919148780138" className="text-[#38BDF8] hover:underline font-semibold">
+                        +91 91487 80138
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-white/10 flex items-center gap-2 text-[11px] text-white/60">
+                  <Icon.Info className="w-3.5 h-3.5 text-[#F3C44E] shrink-0" />
+                  <span>Obtain your Visitor Security Token at Gate 1 on entry.</span>
+                </div>
               </div>
+
+              {/* Card 2: 4 Golden Submission Guidelines */}
+              <div className="rounded-2xl bg-white p-6 border border-[#E2E8F0] shadow-sm">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#781428]/10 text-[#781428]">
+                    <Icon.Shield className="w-4 h-4" />
+                  </div>
+                  <h4 className="font-bold text-[#0A1628] text-sm tracking-wide">4 Important Submission Rules</h4>
+                </div>
+
+                <ul className="space-y-3.5 text-xs text-[#5A6778] leading-relaxed">
+                  <li className="flex items-start gap-2.5">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#DBEAFE] text-[#1E3A8A] font-bold text-[10px]">1</span>
+                    <span><strong>Keep 3 Photocopy Sets:</strong> One for CISCE records, one for the school file, and one acknowledged parent copy.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#DBEAFE] text-[#1E3A8A] font-bold text-[10px]">2</span>
+                    <span><strong>Spot Verification:</strong> Present original Birth Certificate & TC in person; they are returned immediately after verification.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#DBEAFE] text-[#1E3A8A] font-bold text-[10px]">3</span>
+                    <span><strong>Photograph Standard:</strong> 35×45mm matte colour photos. Write the student's full name & form number in pencil on the back.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#DBEAFE] text-[#1E3A8A] font-bold text-[10px]">4</span>
+                    <span><strong>Attestation Seal:</strong> Birth certificate photocopies must bear a Gazetted Officer or authorized Notary seal.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Card 3: Proforma Templates Download */}
+              <div className="rounded-2xl bg-[#DBEAFE]/40 border border-[#93C5FD]/40 p-5">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">
+                  <Icon.Download className="w-4 h-4" />
+                  <span>Official Form Proformas</span>
+                </div>
+                <p className="text-xs text-[#475569] mb-3 leading-relaxed">
+                  Parents may download the official declaration format and physician medical certificate before attending the interaction:
+                </p>
+                <div className="flex flex-col gap-2">
+                  <a
+                    href="https://portal.baldwingirls.edu.in/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-between rounded-xl bg-white px-3.5 py-2.5 text-xs font-semibold text-[#0A1628] hover:text-[#1E3A8A] border border-[#CBD5E1] transition group shadow-2xs"
+                  >
+                    <span>Parent Declaration Format</span>
+                    <Icon.ArrowRight className="w-3.5 h-3.5 text-[#1E3A8A] group-hover:translate-x-0.5 transition-transform" />
+                  </a>
+                  <a
+                    href="https://portal.baldwingirls.edu.in/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-between rounded-xl bg-white px-3.5 py-2.5 text-xs font-semibold text-[#0A1628] hover:text-[#1E3A8A] border border-[#CBD5E1] transition group shadow-2xs"
+                  >
+                    <span>Medical Fitness Proforma (CDMO)</span>
+                    <Icon.ArrowRight className="w-3.5 h-3.5 text-[#1E3A8A] group-hover:translate-x-0.5 transition-transform" />
+                  </a>
+                </div>
+              </div>
+
             </motion.div>
 
-            {/* Right: Checklist */}
-            <div className="space-y-3">
-              {requiredDocuments.map((item, i) => (
-                <motion.div
-                  key={item.doc}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i}
-                  className="flex items-start gap-4 rounded-2xl bg-white p-6 border border-[#E2E8F0] hover:border-[#3B82F6]/30 hover:shadow-md transition-all duration-300 group"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#DBEAFE] group-hover:bg-[#3B82F6] transition-colors duration-300">
-                    <Icon.CheckCircle className="w-5 h-5 text-[#1E3A8A] group-hover:text-white transition-colors duration-300" />
+            {/* Right Column: Responsive 2-Column Cards Grid */}
+            <div>
+              <div className="grid sm:grid-cols-2 gap-4.5">
+                {filteredDocs.map((item, i) => {
+                  const isChecked = !!readyDocs[item.id];
+                  const IconComp = Icon[item.icon] || Icon.FileText;
+
+                  return (
+                    <motion.div
+                      key={item.id}
+                      variants={scaleUp}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      custom={i}
+                      onClick={() => toggleDocReady(item.id)}
+                      className={`relative rounded-2xl p-5 sm:p-6 transition-all duration-300 cursor-pointer flex flex-col justify-between group ${
+                        isChecked
+                          ? "bg-emerald-50/70 border-2 border-emerald-500/80 shadow-md shadow-emerald-500/10"
+                          : "bg-white border border-[#E2E8F0] hover:border-[#3B82F6]/50 hover:shadow-lg hover:-translate-y-0.5"
+                      }`}
+                    >
+                      <div>
+                        {/* Top Bar: Icon + Toggle Checkbox Button */}
+                        <div className="flex items-center justify-between gap-3 mb-4">
+                          <div
+                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors duration-300 ${
+                              isChecked
+                                ? "bg-emerald-600 text-white"
+                                : item.type === "Mandatory"
+                                ? "bg-[#781428]/10 text-[#781428] group-hover:bg-[#781428] group-hover:text-white"
+                                : "bg-[#1E3A8A]/10 text-[#1E3A8A] group-hover:bg-[#1E3A8A] group-hover:text-white"
+                            }`}
+                          >
+                            <IconComp className="w-5 h-5" />
+                          </div>
+
+                          {/* Checkbox Pill */}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleDocReady(item.id);
+                            }}
+                            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold transition-all ${
+                              isChecked
+                                ? "bg-emerald-600 text-white shadow-xs"
+                                : "bg-slate-100 text-slate-600 hover:bg-[#DBEAFE] hover:text-[#1E3A8A]"
+                            }`}
+                          >
+                            {isChecked ? (
+                              <>
+                                <Icon.Check className="w-3.5 h-3.5" />
+                                <span>Ready</span>
+                              </>
+                            ) : (
+                              <>
+                                <span className="h-2 w-2 rounded-full border border-slate-400" />
+                                <span>Mark Ready</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+
+                        {/* Title */}
+                        <h4
+                          className={`font-serif font-bold text-base sm:text-[17px] mb-2 leading-snug transition-colors ${
+                            isChecked ? "text-emerald-950 line-through decoration-emerald-500/40" : "text-[#0A1628]"
+                          }`}
+                        >
+                          {item.doc}
+                        </h4>
+
+                        {/* Badges Row */}
+                        <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                          <span
+                            className={`text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider ${
+                              item.type === "Mandatory"
+                                ? "bg-[#781428]/10 text-[#781428] border border-[#781428]/20"
+                                : item.type === "Lateral Entry Only"
+                                ? "bg-[#1E3A8A]/10 text-[#1E3A8A] border border-[#1E3A8A]/20"
+                                : "bg-amber-500/10 text-amber-800 border border-amber-500/20"
+                            }`}
+                          >
+                            {item.type}
+                          </span>
+                          <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
+                            {item.grades}
+                          </span>
+                        </div>
+
+                        {/* Detail text */}
+                        <p className="text-xs text-[#5A6778] leading-relaxed mb-4">
+                          {item.detail}
+                        </p>
+                      </div>
+
+                      {/* Bottom Info Spec & Tip */}
+                      <div className="space-y-2 pt-3 border-t border-slate-100">
+                        <div className="rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] px-3 py-2 text-[11px] text-[#334155]">
+                          <span className="font-bold text-[#0A1628] block mb-0.5">Required Format:</span>
+                          <span>{item.format}</span>
+                        </div>
+
+                        <div className="flex items-start gap-1.5 text-[11px] text-[#64748B] italic">
+                          <Icon.Info className="w-3.5 h-3.5 text-[#3B82F6] shrink-0 mt-0.5 not-italic" />
+                          <span>{item.tip}</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* Bottom Support Banner */}
+              <div className="mt-8 rounded-2xl bg-gradient-to-r from-[#1E3A8A]/5 via-white to-[#781428]/5 border border-[#E2E8F0] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3 text-center sm:text-left">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#1E3A8A] text-white">
+                    <Icon.Headphones className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="font-semibold text-[#0A1628] mb-1">{item.doc}</p>
-                    <p className="text-sm text-[#5A6778]">{item.detail}</p>
+                    <h5 className="font-bold text-sm text-[#0A1628]">Missing or Awaiting Any Document?</h5>
+                    <p className="text-xs text-[#5A6778]">
+                      Documents can be submitted within 10 working days of selection. Speak with our admissions desk for provisional waivers.
+                    </p>
                   </div>
-                </motion.div>
-              ))}
+                </div>
+                <a
+                  href="tel:+919148780138"
+                  className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-[#0A1628] hover:bg-[#1E3A8A] text-white px-5 py-2.5 text-xs font-bold tracking-wide transition shadow-sm"
+                >
+                  <Icon.Phone className="w-3.5 h-3.5" />
+                  <span>Call Admissions Desk</span>
+                </a>
+              </div>
             </div>
+
           </div>
         </div>
       </section>
