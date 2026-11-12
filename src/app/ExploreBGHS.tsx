@@ -66,16 +66,17 @@ const sections = [
 
 // --- Responsive hook ---
 function useContainerRadius() {
-  const [radius, setRadius] = React.useState(220);
+  const [radius, setRadius] = React.useState(330);
 
   React.useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      if (w < 480) setRadius(140);
-      else if (w < 640) setRadius(160);
-      else if (w < 768) setRadius(180);
-      else if (w < 1024) setRadius(200);
-      else setRadius(230);
+      if (w < 480) setRadius(190);
+      else if (w < 640) setRadius(230);
+      else if (w < 768) setRadius(265);
+      else if (w < 1024) setRadius(300);
+      else if (w < 1280) setRadius(335);
+      else setRadius(365);
     };
     update();
     window.addEventListener("resize", update);
@@ -170,7 +171,7 @@ export default function ExploreBGHS() {
   const [isHovering, setIsHovering] = React.useState(false);
   const radius = useContainerRadius();
 
-  const profileSize = radius < 160 ? 65 : radius < 180 ? 75 : radius < 210 ? 95 : 128;
+  const profileSize = radius < 210 ? 65 : radius < 270 ? 76 : radius < 320 ? 92 : 116;
   // Radius + full profileSize + label height + safe clearance so labels are never cut off
   const containerSize = (radius + profileSize + 48) * 2;
 
