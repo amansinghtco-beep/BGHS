@@ -222,25 +222,25 @@ export default function TriumphsSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#0A0D14] py-16 sm:py-20 text-white border-t border-slate-800">
-      {/* Background Dot Grid like the reference screenshot */}
+    <section className="relative overflow-hidden bg-[#0C2544] py-16 sm:py-20 text-white border-t border-[#163863]">
+      {/* Background Dot Grid */}
       <div
-        className="absolute inset-0 opacity-25 pointer-events-none"
+        className="absolute inset-0 opacity-20 pointer-events-none"
         style={{
-          backgroundImage: "radial-gradient(#64748b 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(#93c5fd 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
 
       {/* Subtle top ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-64 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-64 bg-blue-400/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative mx-auto max-w-[1550px] px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div className="max-w-2xl">
             {/* Pill Eyebrow */}
-            <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/90 px-3.5 py-1.5 border border-slate-700/80 mb-3 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#081B33]/90 px-3.5 py-1.5 border border-blue-400/20 mb-3 backdrop-blur-md">
               <span className="flex h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
               <span className="text-[11px] font-bold tracking-[0.2em] text-amber-300 uppercase font-sans">
                 Honour Roll & Hall of Trophies
@@ -248,11 +248,11 @@ export default function TriumphsSection() {
             </div>
 
             <h2 className="font-serif font-black text-3xl sm:text-4xl lg:text-[42px] leading-tight text-white tracking-tight">
-              Triumphs in <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Academia</span> &{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-amber-300">Athletics</span>
+              Triumphs in <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-200">Academia</span> &{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-300 to-amber-300">Athletics</span>
             </h2>
 
-            <p className="mt-2 text-sm sm:text-base text-slate-400 leading-relaxed">
+            <p className="mt-2 text-sm sm:text-base text-blue-100/80 leading-relaxed">
               Baldwin is set to pursue excellence in the classroom and beyond. Hover over the lanyards to swing them, or click to flip the ID badge!
             </p>
           </div>
@@ -260,7 +260,7 @@ export default function TriumphsSection() {
           {/* Right Controls: Filter Toggle + Slider Arrows */}
           <div className="flex flex-wrap items-center gap-3">
             {/* Segmented Control */}
-            <div className="inline-flex rounded-xl bg-slate-900/90 p-1 border border-slate-800 shadow-inner backdrop-blur-md">
+            <div className="inline-flex rounded-xl bg-[#081B33]/90 p-1 border border-blue-400/20 shadow-inner backdrop-blur-md">
               <button
                 type="button"
                 onClick={() => {
@@ -270,8 +270,8 @@ export default function TriumphsSection() {
                 }}
                 className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
                   activeTab === "icse"
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-900/50"
+                    : "text-blue-200/70 hover:text-white"
                 }`}
               >
                 <svg className="w-4 h-4 fill-current text-amber-300" viewBox="0 0 24 24">
@@ -289,8 +289,8 @@ export default function TriumphsSection() {
                 }}
                 className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
                   activeTab === "champions"
-                    ? "bg-[#800020] text-white shadow-lg shadow-red-900/40"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-[#800020] text-white shadow-lg shadow-red-950/50"
+                    : "text-blue-200/70 hover:text-white"
                 }`}
               >
                 <svg className="w-4 h-4 fill-current text-amber-300" viewBox="0 0 24 24">
@@ -306,7 +306,7 @@ export default function TriumphsSection() {
                 type="button"
                 onClick={handlePrev}
                 aria-label="Previous Slide"
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-slate-300 shadow-md border border-slate-800 hover:bg-slate-800 hover:text-white active:scale-95 transition-all cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#081B33] text-blue-200 shadow-md border border-blue-400/20 hover:bg-blue-900/60 hover:text-white active:scale-95 transition-all cursor-pointer"
               >
                 <svg className="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -316,7 +316,7 @@ export default function TriumphsSection() {
                 type="button"
                 onClick={handleNext}
                 aria-label="Next Slide"
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-slate-300 shadow-md border border-slate-800 hover:bg-slate-800 hover:text-white active:scale-95 transition-all cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#081B33] text-blue-200 shadow-md border border-blue-400/20 hover:bg-blue-900/60 hover:text-white active:scale-95 transition-all cursor-pointer"
               >
                 <svg className="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -681,47 +681,47 @@ export default function TriumphsSection() {
           })}
         </div>
 
-        {/* Results Stats Strip (Sleek Dark Theme) */}
-        <div className="mt-10 rounded-2xl bg-[#111620] border border-slate-800/80 shadow-xl p-5 sm:p-6 backdrop-blur-md">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 divide-y md:divide-y-0 md:divide-x divide-slate-800 text-center">
+        {/* Results Stats Strip */}
+        <div className="mt-10 rounded-2xl bg-[#081B33]/90 border border-blue-400/20 shadow-xl p-5 sm:p-6 backdrop-blur-md">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 divide-y md:divide-y-0 md:divide-x divide-blue-400/20 text-center">
             <div className="pt-2 md:pt-0">
               <span className="font-serif font-black text-2xl sm:text-3xl text-amber-400 block tracking-tight">
                 100%
               </span>
-              <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mt-1 block">
+              <span className="text-[11px] font-bold text-blue-100 uppercase tracking-wider mt-1 block">
                 Pass Percentage
               </span>
-              <span className="text-[10px] text-slate-400 block mt-0.5">Consecutive decade</span>
+              <span className="text-[10px] text-blue-200/70 block mt-0.5">Consecutive decade</span>
             </div>
 
             <div className="pt-2 md:pt-0">
-              <span className="font-serif font-black text-2xl sm:text-3xl text-blue-400 block tracking-tight">
+              <span className="font-serif font-black text-2xl sm:text-3xl text-cyan-300 block tracking-tight">
                 99.0%
               </span>
-              <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mt-1 block">
+              <span className="text-[11px] font-bold text-blue-100 uppercase tracking-wider mt-1 block">
                 Highest ICSE Score
               </span>
-              <span className="text-[10px] text-slate-400 block mt-0.5">Yukthi D (School Topper)</span>
+              <span className="text-[10px] text-blue-200/70 block mt-0.5">Yukthi D (School Topper)</span>
             </div>
 
             <div className="pt-2 md:pt-0">
               <span className="font-serif font-black text-2xl sm:text-3xl text-emerald-400 block tracking-tight">
                 85%+
               </span>
-              <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mt-1 block">
+              <span className="text-[11px] font-bold text-blue-100 uppercase tracking-wider mt-1 block">
                 Distinction Rate
               </span>
-              <span className="text-[10px] text-slate-400 block mt-0.5">Over 200+ students</span>
+              <span className="text-[10px] text-blue-200/70 block mt-0.5">Over 200+ students</span>
             </div>
 
             <div className="pt-2 md:pt-0">
-              <span className="font-serif font-black text-2xl sm:text-3xl text-purple-400 block tracking-tight">
+              <span className="font-serif font-black text-2xl sm:text-3xl text-purple-300 block tracking-tight">
                 144+
               </span>
-              <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mt-1 block">
+              <span className="text-[11px] font-bold text-blue-100 uppercase tracking-wider mt-1 block">
                 Years of Legacy
               </span>
-              <span className="text-[10px] text-slate-400 block mt-0.5">Estd. 1880 in Bengaluru</span>
+              <span className="text-[10px] text-blue-200/70 block mt-0.5">Estd. 1880 in Bengaluru</span>
             </div>
           </div>
         </div>
