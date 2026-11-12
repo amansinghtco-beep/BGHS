@@ -167,6 +167,33 @@ export default function TriumphsSection() {
     setCurrentSlide((prev) => (prev < maxSlide ? prev + 1 : 0));
   };
 
+  // Touch / Swipe handling for mobile & touchscreens
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const diff = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 45; // pixels
+    if (diff > minSwipeDistance) {
+      // Swiped Left -> show next cards
+      handleNext();
+    } else if (diff < -minSwipeDistance) {
+      // Swiped Right -> show previous cards
+      handlePrev();
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   const toggleFlip = (id: string) => {
     setFlippedBadge((current) => (current === id ? null : id));
   };
@@ -312,10 +339,15 @@ export default function TriumphsSection() {
           </div>
         )}
 
-        {/* Carousel Viewport */}
-        <div className="overflow-visible pt-0 pb-6 px-1">
+        {/* Carousel Viewport with Touch / Swipe for Mobile Fingers */}
+        <div
+          className="overflow-visible pt-0 pb-6 px-1 touch-pan-y"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
-            className="flex transition-transform duration-500 ease-out"
+            className="flex transition-transform duration-500 ease-out cursor-grab active:cursor-grabbing"
             style={{
               transform: `translateX(-${currentSlide * (100 / effectiveCardsPerFrame)}%)`,
             }}
