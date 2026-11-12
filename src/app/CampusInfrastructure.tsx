@@ -269,14 +269,14 @@ export default function CampusInfrastructure() {
 
       <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
         {/* Top Header Block matching the reference layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
           {/* Main Headline with Triple Spark Dash */}
           <div className="lg:col-span-5">
             {/* Spark Dash Graphic */}
-            <div className="flex items-center gap-1 mb-2">
-              <span className="w-1.5 h-3 bg-amber-300 rounded-full rotate-[-20deg]" />
-              <span className="w-1.5 h-4 bg-amber-300 rounded-full" />
-              <span className="w-1.5 h-3 bg-amber-300 rounded-full rotate-[20deg]" />
+            <div className="flex items-center gap-1 mb-3">
+              <span className="w-1.5 h-3.5 bg-amber-300 rounded-full rotate-[-20deg]" />
+              <span className="w-1.5 h-4.5 bg-amber-300 rounded-full" />
+              <span className="w-1.5 h-3.5 bg-amber-300 rounded-full rotate-[20deg]" />
             </div>
 
             <h2 className="font-serif font-black text-4xl sm:text-5xl lg:text-[56px] leading-[1.05] tracking-tight text-white">
@@ -284,11 +284,8 @@ export default function CampusInfrastructure() {
               <br />
               Infrastructure
             </h2>
-          </div>
 
-          {/* Editorial Paragraph Description */}
-          <div className="lg:col-span-4 lg:pt-3">
-            <p className="text-white/80 text-sm sm:text-base leading-relaxed">
+            <p className="mt-4 text-white/80 text-sm sm:text-base leading-relaxed max-w-lg">
               Baldwin's infrastructure is designed to inspire learning, encourage exploration
               and create opportunities to thrive. Our world-class indoor and outdoor spaces
               are a hub where potential takes shape.
@@ -296,13 +293,13 @@ export default function CampusInfrastructure() {
           </div>
 
           {/* Right Controls: Pill Category Switcher */}
-          <div className="lg:col-span-3 flex flex-col items-start lg:items-end justify-between h-full pt-1">
+          <div className="lg:col-span-7 flex flex-col items-start lg:items-end justify-end h-full">
             <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-amber-300/90 mb-3">
               CAMPUS INFRASTRUCTURE
             </span>
 
-            {/* Segmented Pill Toggle matching reference */}
-            <div className="inline-flex rounded-full bg-[#520C1A]/80 p-1.5 border border-white/10 shadow-lg">
+            {/* Segmented Pill Toggle */}
+            <div className="inline-flex rounded-full bg-[#520C1A]/80 p-1.5 border border-white/10 shadow-lg backdrop-blur-md">
               <button
                 type="button"
                 onClick={() => {
@@ -311,11 +308,11 @@ export default function CampusInfrastructure() {
                 }}
                 className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all duration-300 cursor-pointer ${
                   activeTab === "indoor"
-                    ? "bg-[#3D0813] text-white shadow-md border border-white/15"
+                    ? "bg-[#F3C44E] text-[#520C1A] shadow-md font-extrabold"
                     : "text-white/70 hover:text-white"
                 }`}
               >
-                <svg className="w-3.5 h-3.5 fill-current text-amber-300" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                   <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z" />
                 </svg>
                 <span>INDOOR {indoorFacilities.length}</span>
@@ -421,20 +418,23 @@ export default function CampusInfrastructure() {
                       </svg>
                     </div>
 
-                    {/* Bottom Foreground Content */}
-                    <div className="absolute bottom-0 inset-x-0 p-5 flex items-end justify-between gap-3">
-                      <div>
-                        <h3 className="font-sans font-black text-lg sm:text-xl text-white tracking-wide uppercase drop-shadow-md">
+                    {/* Enhanced Bottom Foreground Content with optimal contrast & typography */}
+                    <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 flex items-end justify-between gap-3 bg-gradient-to-t from-black/95 via-black/70 to-transparent pt-12">
+                      <div className="pr-1">
+                        <span className="inline-block text-[10px] font-mono font-bold tracking-[0.2em] text-amber-300 uppercase mb-1 drop-shadow">
+                          Baldwin Campus
+                        </span>
+                        <h3 className="font-sans font-black text-lg sm:text-xl text-white tracking-normal leading-snug drop-shadow-md group-hover:text-amber-200 transition-colors">
                           {item.name}
                         </h3>
-                        <p className="text-xs text-white/70 line-clamp-2 mt-1 leading-relaxed">
+                        <p className="text-xs text-white/80 line-clamp-2 mt-1.5 leading-relaxed font-normal">
                           {item.subtitle}
                         </p>
                       </div>
 
-                      {/* Small Circular Arrow Icon matching the screenshot */}
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 backdrop-blur-md text-white group-hover:bg-[#F3C44E] group-hover:text-black transition-all shadow-md">
-                        <svg className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+                      {/* Circular Arrow Button with smooth hover effect */}
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/20 group-hover:bg-[#F3C44E] group-hover:text-[#520C1A] group-hover:border-transparent transition-all duration-300 shadow-lg group-hover:scale-105">
+                        <svg className="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
                         </svg>
                       </div>
