@@ -631,8 +631,19 @@ export default function AcademicsPage() {
         />
 
         {/* ── HERO ─────────────────────────────────── */}
-        <section ref={heroRef} className="relative overflow-hidden min-h-[72vh] flex items-center">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0F2563] via-[#1E3A8A] to-[#781428]" />
+        <section ref={heroRef} className="relative overflow-hidden min-h-[76vh] flex items-center">
+          {/* Background campus photo with rich architectural overlay */}
+          <div className="absolute inset-0">
+            <img
+              src="/academics-hero-campus.jpg"
+              alt="Baldwin Girls' High School Campus"
+              className="w-full h-full object-cover object-center scale-105"
+            />
+            {/* Rich multi-layer blue/burgundy gradient overlay for atmospheric elegance and text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#071738]/92 via-[#0F2563]/80 to-[#781428]/75 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-[#081836]/40 backdrop-blur-[0.5px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A2342] via-transparent to-[#071738]/70" />
+          </div>
           <AnimatedBackground />
 
           <motion.div
