@@ -160,7 +160,7 @@ export default function TriumphsSection() {
       description:
         "Comprehensive athletics and field sports nurturing speed, endurance, and teamwork. Star athletes have dominated inter-school track meets across Karnataka.",
       badge: "INTER-SCHOOL GOLD",
-      image: "/sports.jpg",
+      image: "/bghs-sports-action.png",
       accentColor: "#16A34A",
     },
     {
@@ -171,13 +171,15 @@ export default function TriumphsSection() {
       description:
         "Exemplary discipline, parade drill, and house sports cup tournaments fostering resilience, high athletic values, and team spirit across all grades.",
       badge: "CHAMPIONSHIP CUP",
-      image: "/story4.png",
+      image: "/bghs-investiture.png",
       accentColor: "#7C3AED",
     },
   ];
 
+  const championCardsPerFrame = Math.min(4, cardsPerFrame);
+  const effectiveCardsPerFrame = activeTab === "icse" ? cardsPerFrame : championCardsPerFrame;
   const totalItems = activeTab === "icse" ? toppers.length : championItems.length;
-  const maxSlide = Math.max(0, totalItems - cardsPerFrame);
+  const maxSlide = Math.max(0, totalItems - effectiveCardsPerFrame);
 
   // Auto-slide every 6 seconds (pauses if user is interacting/hovering/flipping)
   useEffect(() => {
@@ -324,27 +326,29 @@ export default function TriumphsSection() {
           </div>
         </div>
 
-        {/* Lanyard Overhead Hanging Rail (Continuous Chrome Bar exactly as screenshot) */}
-        <div className="relative mb-0 mx-2 z-20">
-          {/* Main Metallic Rail Bar */}
-          <div
-            className="h-2 w-full rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
-            style={{
-              background:
-                "linear-gradient(180deg, #e2e8f0 0%, #ffffff 30%, #94a3b8 65%, #334155 100%)",
-            }}
-          />
-          {/* Metal End Knobs */}
-          <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-4 h-6 rounded-sm bg-gradient-to-r from-slate-300 via-slate-100 to-slate-400 shadow-lg border border-slate-500" />
-          <div className="absolute -right-2.5 top-1/2 -translate-y-1/2 w-4 h-6 rounded-sm bg-gradient-to-r from-slate-400 via-slate-100 to-slate-300 shadow-lg border border-slate-500" />
-        </div>
+        {/* Lanyard Overhead Hanging Rail (Only displayed when ICSE Lanyard tab is active) */}
+        {activeTab === "icse" && (
+          <div className="relative mb-0 mx-2 z-20">
+            {/* Main Metallic Rail Bar */}
+            <div
+              className="h-2 w-full rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
+              style={{
+                background:
+                  "linear-gradient(180deg, #e2e8f0 0%, #ffffff 30%, #94a3b8 65%, #334155 100%)",
+              }}
+            />
+            {/* Metal End Knobs */}
+            <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-4 h-6 rounded-sm bg-gradient-to-r from-slate-300 via-slate-100 to-slate-400 shadow-lg border border-slate-500" />
+            <div className="absolute -right-2.5 top-1/2 -translate-y-1/2 w-4 h-6 rounded-sm bg-gradient-to-r from-slate-400 via-slate-100 to-slate-300 shadow-lg border border-slate-500" />
+          </div>
+        )}
 
-        {/* Lanyard Badges Carousel Viewport (Strictly 6 cards per frame on desktop) */}
+        {/* Carousel Viewport */}
         <div className="overflow-visible pt-0 pb-6 px-1">
           <div
             className="flex transition-transform duration-500 ease-out"
             style={{
-              transform: `translateX(-${currentSlide * (100 / cardsPerFrame)}%)`,
+              transform: `translateX(-${currentSlide * (100 / effectiveCardsPerFrame)}%)`,
             }}
           >
             {activeTab === "icse"
@@ -592,61 +596,61 @@ export default function TriumphsSection() {
                     </div>
                   );
                 })
-              : /* CHAMPIONS TAB (6 cards per frame) */
+              : /* CHAMPIONS TAB: Normal, high-impact athletic cards (4 in 1 frame, no overhead rail) */
                 championItems.map((champ) => (
                   <div
                     key={champ.id}
-                    className="shrink-0 px-2 sm:px-2.5"
-                    style={{ width: `${100 / cardsPerFrame}%` }}
+                    className="shrink-0 px-3 sm:px-3.5"
+                    style={{ width: `${100 / effectiveCardsPerFrame}%` }}
                   >
-                    <div className="group relative flex flex-col h-full rounded-2xl bg-[#161B22] border border-slate-700/80 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                    <div className="group relative flex flex-col h-full rounded-2xl bg-[#161B22] border border-slate-700/80 shadow-xl hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
                       {/* Photo Container */}
-                      <div className="relative aspect-[4/4.8] overflow-hidden bg-slate-900">
+                      <div className="relative aspect-[4/3.2] overflow-hidden bg-slate-900">
                         <img
                           src={champ.image}
                           alt={champ.title}
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#161B22] via-[#161B22]/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#161B22] via-[#161B22]/20 to-transparent" />
 
                         {/* Top Sport Pill */}
-                        <div className="absolute top-2.5 left-2.5">
+                        <div className="absolute top-3 left-3">
                           <span
-                            className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-white backdrop-blur-md shadow-sm border border-white/20"
-                            style={{ backgroundColor: `${champ.accentColor}dd` }}
+                            className="inline-flex items-center rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white backdrop-blur-md shadow-md border border-white/20"
+                            style={{ backgroundColor: `${champ.accentColor}ee` }}
                           >
                             {champ.sport}
                           </span>
                         </div>
 
                         {/* Honor Tag Bottom Right */}
-                        <div className="absolute bottom-2.5 right-2.5">
-                          <span className="inline-block rounded-lg bg-black/80 backdrop-blur-md px-2 py-1 shadow-lg border border-slate-700 text-[9px] font-bold text-amber-400 uppercase tracking-wider">
+                        <div className="absolute bottom-3 right-3">
+                          <span className="inline-block rounded-xl bg-black/80 backdrop-blur-md px-3 py-1.5 shadow-lg border border-slate-700 text-[10px] font-bold text-amber-400 uppercase tracking-wider">
                             🏆 {champ.badge}
                           </span>
                         </div>
                       </div>
 
                       {/* Content Section */}
-                      <div className="p-3.5 flex flex-col justify-between flex-1">
+                      <div className="p-5 flex flex-col justify-between flex-1">
                         <div>
-                          <h3 className="font-bold text-sm text-white group-hover:text-amber-300 transition-colors leading-snug line-clamp-1">
+                          <h3 className="font-serif font-bold text-base sm:text-lg text-white group-hover:text-amber-300 transition-colors leading-snug">
                             {champ.title}
                           </h3>
 
-                          <p className="text-[11px] font-medium text-slate-300 mt-0.5 line-clamp-1">
+                          <p className="text-xs font-semibold text-slate-300 mt-1">
                             {champ.subtitle}
                           </p>
 
-                          <p className="text-[10px] text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                          <p className="text-xs text-slate-400 mt-2.5 line-clamp-3 leading-relaxed">
                             {champ.description}
                           </p>
                         </div>
 
-                        <div className="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-medium">
+                        <div className="mt-5 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-medium">
                           <span className="font-semibold text-rose-400">BGHS Athletics</span>
-                          <span className="text-amber-400 font-semibold group-hover:translate-x-0.5 transition-transform">
-                            Details →
+                          <span className="text-amber-400 font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                            Explore Honours →
                           </span>
                         </div>
                       </div>
