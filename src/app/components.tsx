@@ -114,7 +114,7 @@ export function Layout() {
       to: "/admissions",
       hasDropdown: true,
       children: [
-        { title: "Admissions 2026–27", desc: "Online registration open now", to: "/admissions" },
+        { title: "Admissions 2026–27", desc: "Online registration open now", to: "/admissions#overview" },
         { title: "Admission Criteria & Steps", desc: "Simple 4-step admission guide", to: "/admissions#steps" },
         { title: "Prospectus & Fee Info", desc: "Timings, documents and guidelines", to: "/admissions#info" },
       ],
@@ -275,6 +275,17 @@ export function Layout() {
                             <Link
                               key={sub.to}
                               to={sub.to}
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                if (sub.to.includes("#")) {
+                                  const targetId = sub.to.split("#")[1];
+                                  if (location.pathname === "/admissions" || location.pathname === "/admissions/") {
+                                    setTimeout(() => {
+                                      document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                    }, 50);
+                                  }
+                                }
+                              }}
                               className="block rounded-lg px-3.5 py-2.5 transition-colors hover:bg-[#f8f7f2]"
                             >
                               <p className="font-semibold text-xs text-[#0B1B3D]">
@@ -364,6 +375,17 @@ export function Layout() {
                         <Link
                           key={sub.to}
                           to={sub.to}
+                          onClick={() => {
+                            setMenuOpen(false);
+                            if (sub.to.includes("#")) {
+                              const targetId = sub.to.split("#")[1];
+                              if (location.pathname === "/admissions" || location.pathname === "/admissions/") {
+                                setTimeout(() => {
+                                  document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                }, 50);
+                              }
+                            }
+                          }}
                           className="block py-1 text-xs text-[#637083] hover:text-[#0B1B3D]"
                         >
                           • {sub.title}

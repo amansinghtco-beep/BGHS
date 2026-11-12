@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { motion, useScroll, useTransform, AnimatePresence, type Variants } from "framer-motion";
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -732,6 +732,21 @@ export default function AdmissionsPage() {
     (d) => docTab === "all" || d.gradeFilter.includes(docTab)
   );
 
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const timer = setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [location.hash, location.pathname]);
+
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const heroParallax = useTransform(scrollYProgress, [0, 0.3], [0, -80]);
@@ -753,7 +768,7 @@ export default function AdmissionsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
+      <section id="overview" ref={heroRef} className="relative min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden scroll-mt-24">
         {/* Background Image with Parallax */}
         <motion.div className="absolute inset-0" style={{ y: heroParallax }}>
           <img
@@ -1041,7 +1056,8 @@ export default function AdmissionsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           STEP-BY-STEP APPLICATION PROCESS
       ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 lg:py-32 bg-white">
+      <section id="steps" className="relative py-24 lg:py-32 bg-white scroll-mt-24">
+        <div id="process" className="absolute -top-24" />
         <FloatingBackground />
         <div className="relative z-10 mx-auto max-w-[1380px] px-6 lg:px-14">
           <motion.div
@@ -1105,7 +1121,9 @@ export default function AdmissionsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           REQUIRED DOCUMENTS CHECKLIST — REDESIGNED DOSSIER & VERIFICATION
       ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 lg:py-32 bg-gradient-to-b from-[#F1F5F9] via-[#F8FAFC] to-white overflow-hidden">
+      <section id="info" className="relative py-24 lg:py-32 bg-gradient-to-b from-[#F1F5F9] via-[#F8FAFC] to-white overflow-hidden scroll-mt-24">
+        <div id="documents" className="absolute -top-24" />
+        <div id="prospectus" className="absolute -top-24" />
         <FloatingBackground />
         <div className="relative z-10 mx-auto max-w-[1380px] px-6 lg:px-14">
           
@@ -1538,7 +1556,8 @@ export default function AdmissionsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           AGE & ELIGIBILITY CRITERIA TABLE
       ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 lg:py-32 bg-white">
+      <section id="criteria" className="relative py-24 lg:py-32 bg-white scroll-mt-24">
+        <div id="eligibility" className="absolute -top-24" />
         <div className="mx-auto max-w-[1380px] px-6 lg:px-14">
           <motion.div
             variants={fadeUp}
@@ -1621,7 +1640,8 @@ export default function AdmissionsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           ONLINE ENQUIRY FORM
       ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 lg:py-32 bg-[#0A1628] text-white overflow-hidden">
+      <section id="apply" className="relative py-24 lg:py-32 bg-[#0A1628] text-white overflow-hidden scroll-mt-24">
+        <div id="enquiry" className="absolute -top-24" />
         {/* Decorative */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-[#1E3A8A]/10 blur-[150px]" />
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-[#781428]/10 blur-[120px]" />
@@ -1705,7 +1725,7 @@ export default function AdmissionsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           FAQ SECTION
       ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 lg:py-32 bg-gradient-to-b from-white to-[#F8FAFC]">
+      <section id="faqs" className="relative py-24 lg:py-32 bg-gradient-to-b from-white to-[#F8FAFC] scroll-mt-24">
         <FloatingBackground />
         <div className="relative z-10 mx-auto max-w-[1380px] px-6 lg:px-14">
           <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-12 items-start">
