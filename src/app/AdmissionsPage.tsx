@@ -146,6 +146,21 @@ const Icon = {
       <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
     </svg>
   ),
+  MessageSquare: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  ),
+  HelpCircle: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" />
+    </svg>
+  ),
+  Footprints: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.5-2 8.5V16" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.5 2 8.5V20" /><circle cx="6" cy="20" r="2" /><circle cx="18" cy="12" r="2" />
+    </svg>
+  ),
 };
 
 
@@ -1230,13 +1245,13 @@ export default function AdmissionsPage() {
           {/* Asymmetric 2-Column Main Dossier Area */}
           <div className="grid lg:grid-cols-[1fr_2.1fr] gap-8 items-start">
             
-            {/* Left Column: Official Pass & Guidelines (Sticky) */}
+            {/* Left Column: Official Pass & Guidelines */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="space-y-6 lg:sticky lg:top-28"
+              className="space-y-6"
             >
               {/* Card 1: Official Verification Counter Pass */}
               <div className="rounded-2xl bg-gradient-to-b from-[#0A1628] to-[#12233f] text-white p-6 shadow-xl border border-white/10 relative overflow-hidden">
@@ -1343,6 +1358,111 @@ export default function AdmissionsPage() {
                   >
                     <span>Medical Fitness Proforma (CDMO)</span>
                     <Icon.ArrowRight className="w-3.5 h-3.5 text-[#1E3A8A] group-hover:translate-x-0.5 transition-transform" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Card 4: Interaction Day Protocol & Walkthrough */}
+              <div className="rounded-2xl bg-white p-6 border border-[#E2E8F0] shadow-sm">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1E3A8A]/10 text-[#1E3A8A]">
+                    <Icon.Footprints className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold tracking-[0.16em] text-[#1E3A8A] uppercase block">Campus Protocol</span>
+                    <h4 className="font-bold text-[#0A1628] text-sm">Interaction Day Walkthrough</h4>
+                  </div>
+                </div>
+
+                <ol className="relative border-l-2 border-[#DBEAFE] ml-2 space-y-4 text-xs text-[#5A6778]">
+                  <li className="ml-4">
+                    <span className="absolute -left-1.5 mt-0.5 h-3 w-3 rounded-full bg-[#1E3A8A] border-2 border-white" />
+                    <p className="font-bold text-[#0A1628]">1. Gate 1 Security Clearance</p>
+                    <p className="mt-0.5 text-slate-500">Collect visitor token at Gate 1 on Richmond Road. Dedicated parent parking available.</p>
+                  </li>
+                  <li className="ml-4">
+                    <span className="absolute -left-1.5 mt-0.5 h-3 w-3 rounded-full bg-[#3B82F6] border-2 border-white" />
+                    <p className="font-bold text-[#0A1628]">2. Handover Dossier Sets</p>
+                    <p className="mt-0.5 text-slate-500">Submit your 3 attested photocopy sets at Counter 1, Room 104, Heritage Quadrangle.</p>
+                  </li>
+                  <li className="ml-4">
+                    <span className="absolute -left-1.5 mt-0.5 h-3 w-3 rounded-full bg-[#781428] border-2 border-white" />
+                    <p className="font-bold text-[#0A1628]">3. Instant Spot Verification</p>
+                    <p className="mt-0.5 text-slate-500">Admissions officer reviews original Birth Certificate & TC and returns them on the spot.</p>
+                  </li>
+                  <li className="ml-4">
+                    <span className="absolute -left-1.5 mt-0.5 h-3 w-3 rounded-full bg-emerald-600 border-2 border-white" />
+                    <p className="font-bold text-[#0A1628]">4. Interactive Session & Slip</p>
+                    <p className="mt-0.5 text-slate-500">Encouraging interaction with faculty, followed by formal provisional acknowledgement slip.</p>
+                  </li>
+                </ol>
+              </div>
+
+              {/* Card 5: Common Document Questions & Answers */}
+              <div className="rounded-2xl bg-white p-6 border border-[#E2E8F0] shadow-sm">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#781428]/10 text-[#781428]">
+                    <Icon.HelpCircle className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold tracking-[0.16em] text-[#781428] uppercase block">Quick Assistance</span>
+                    <h4 className="font-bold text-[#0A1628] text-sm">Document FAQ & Rules</h4>
+                  </div>
+                </div>
+
+                <div className="space-y-3.5 text-xs">
+                  <div className="rounded-xl bg-[#F8FAFC] border border-slate-200 p-3">
+                    <p className="font-bold text-[#0A1628] mb-1">Q: What if the current school delays the TC?</p>
+                    <p className="text-slate-600 leading-relaxed">
+                      Submit a bonafide student letter from the current institution. You will be given a 10-day provisional grace period to submit the final original TC.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl bg-[#F8FAFC] border border-slate-200 p-3">
+                    <p className="font-bold text-[#0A1628] mb-1">Q: Transferring from outside Karnataka state?</p>
+                    <p className="text-slate-600 leading-relaxed">
+                      The Transfer Certificate must be countersigned by the respective district education authority (BEO / DDPI / Board Inspector) of that state.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl bg-[#F8FAFC] border border-slate-200 p-3">
+                    <p className="font-bold text-[#0A1628] mb-1">Q: Can guardians attend if parents are travelling?</p>
+                    <p className="text-slate-600 leading-relaxed">
+                      Yes. Please provide a signed parental authorization letter alongside a government photo ID of the accompanying guardian.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 6: Direct Admissions Liaison & Hotline */}
+              <div className="rounded-2xl bg-gradient-to-br from-[#1E3A8A] via-[#152e6f] to-[#781428] text-white p-6 shadow-md relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2.5 py-1 border border-emerald-400/30">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Admissions Desk Active
+                  </span>
+                  <Icon.MessageSquare className="w-4 h-4 text-[#F3C44E]" />
+                </div>
+
+                <h4 className="font-serif font-bold text-base text-white mb-1">Need Clarification on Any Document?</h4>
+                <p className="text-xs text-white/75 leading-relaxed mb-4">
+                  Our admissions counsellors are available to review your documents prior to your scheduled interaction.
+                </p>
+
+                <div className="grid grid-cols-2 gap-2 text-center text-xs">
+                  <a
+                    href="tel:+919148780138"
+                    className="rounded-xl bg-white text-[#1E3A8A] font-bold py-2.5 px-3 hover:bg-[#DBEAFE] transition flex items-center justify-center gap-1.5 shadow-sm"
+                  >
+                    <Icon.Phone className="w-3.5 h-3.5" />
+                    <span>Call Helpline</span>
+                  </a>
+                  <a
+                    href="mailto:baldwingirls@gmail.com"
+                    className="rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold py-2.5 px-3 transition flex items-center justify-center gap-1.5 border border-white/20 backdrop-blur-sm"
+                  >
+                    <Icon.Mail className="w-3.5 h-3.5" />
+                    <span>Email Desk</span>
                   </a>
                 </div>
               </div>
