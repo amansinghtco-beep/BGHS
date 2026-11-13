@@ -1,7 +1,5 @@
 // Configuration for Google Sheets Integration via Google Apps Script
-// You can either paste your deployed Google Apps Script Web App URL below,
-// or provide it in a .env file as VITE_GOOGLE_SHEETS_WEBAPP_URL.
-
+// Deployed BGHS Google Apps Script Web App URL:
 export const GOOGLE_SHEETS_SCRIPT_URL: string =
   (import.meta as any).env?.VITE_GOOGLE_SHEETS_WEBAPP_URL ||
-  "https://script.google.com/macros/s/AKfycby_PASTE_YOUR_DEPLOYED_APP_SCRIPT_URL_HERE/exec";
+  "https://script.google.com/macros/s/AKfycbyfVGsWdmY__CzsShvF4PlaCq6U6Z8sTXospViv4pF9v8a8KWU4ouThjCs6qsnTPQuj/exec";
