@@ -120,11 +120,21 @@ export function Layout() {
       ],
     },
     {
-      label: "Campus Life",
+      label: "Facilities",
       to: "/campus",
       hasDropdown: true,
       children: [
         { title: "Campus & Infrastructure", desc: "Heritage architecture & modern science labs", to: "/campus" },
+        { title: "Indoor Facilities", desc: "Laboratories, library, robotics lab & auditorium", to: "/campus#indoor" },
+        { title: "Outdoor Facilities", desc: "Swimming pool, sports grounds & eco-commute", to: "/campus#outdoor" },
+        { title: "Hostel & Boarding", desc: "Safe residential hostel & dining hall", to: "/campus#boarding" },
+      ],
+    },
+    {
+      label: "Campus Life",
+      to: "/student-life",
+      hasDropdown: true,
+      children: [
         { title: "Student Life & Clubs", desc: "Debating, music, drama, science & arts", to: "/student-life" },
         { title: "Sports & Athletics", desc: "Swimming, basketball, athletics & fitness", to: "/sports" },
       ],
@@ -234,7 +244,7 @@ export function Layout() {
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-[14.5px] font-medium text-[#0B1B3D]">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-[13.5px] xl:text-[14.5px] font-medium text-[#0B1B3D]">
             {navItems.map((item) => {
               if (item.hasDropdown) {
                 const isOpen = activeDropdown === item.label;
@@ -322,8 +332,35 @@ export function Layout() {
             })}
           </nav>
 
-          {/* Right Action Button (Admissions 2026-27 / Apply Now) & Mobile Toggle */}
-          <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
+          {/* Right Action Buttons (Facilities & Admissions 2026-27) & Mobile Toggle */}
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* Facilities Button */}
+            <Link
+              to="/campus"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#0B1B3D]/15 hover:border-[#1D4ED8] bg-transparent hover:bg-blue-50/60 px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs md:text-sm font-bold text-[#0B1B3D] hover:text-[#1D4ED8] transition-all duration-200 whitespace-nowrap group shadow-2xs"
+            >
+              <svg
+                className="w-3.5 h-3.5 text-[#1D4ED8] group-hover:scale-110 transition-transform shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+                <path d="M9 22v-4h6v4" />
+                <line x1="8" y1="6" x2="10" y2="6" />
+                <line x1="14" y1="6" x2="16" y2="6" />
+                <line x1="8" y1="10" x2="10" y2="10" />
+                <line x1="14" y1="10" x2="16" y2="10" />
+                <line x1="8" y1="14" x2="10" y2="14" />
+                <line x1="14" y1="14" x2="16" y2="14" />
+              </svg>
+              <span>Facilities</span>
+            </Link>
+
+            {/* Admissions 2026–27 Button */}
             <Link
               to="/admissions"
               className="hidden sm:inline-flex group items-center gap-1.5 sm:gap-2 rounded-full bg-[#1D4ED8] hover:bg-[#1E40AF] px-3.5 sm:px-5 py-1.5 sm:py-2.5 text-[11px] sm:text-xs md:text-sm font-bold text-white shadow-sm hover:shadow-md transition-all duration-200 whitespace-nowrap"
@@ -396,12 +433,25 @@ export function Layout() {
                 </div>
               ))}
             </div>
-            <div className="pt-4 pb-2">
+            <div className="pt-4 pb-2 grid grid-cols-2 gap-2.5">
+              <Link
+                to="/campus"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center justify-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 py-2.5 text-xs font-bold text-[#0B1B3D] shadow-2xs hover:bg-gray-100 transition"
+              >
+                <svg className="w-3.5 h-3.5 text-[#1D4ED8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+                  <path d="M9 22v-4h6v4" />
+                </svg>
+                <span>Facilities</span>
+              </Link>
               <Link
                 to="/admissions"
-                className="w-full flex items-center justify-center gap-2 rounded-full bg-[#1D4ED8] py-2.5 text-xs font-bold text-white shadow-md"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center justify-center gap-1 rounded-full bg-[#1D4ED8] py-2.5 text-xs font-bold text-white shadow-md hover:bg-[#1E40AF] transition"
               >
-                Apply Now →
+                <span>Admissions 2026–27</span>
+                <span className="text-sm font-bold">›</span>
               </Link>
             </div>
           </nav>
