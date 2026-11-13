@@ -401,69 +401,7 @@ export { default as Events, default as News, default as NewsEventsPage } from ".
 
 export { default as Admissions } from "./AdmissionsPage";
 
-export function Contact() {
-  const portals = [
-    ["Admission portal", "https://portal.baldwingirls.edu.in/"],
-    ["Student portal", "https://baldwinvapsecampus.com/#/login/103"],
-    ["Transport portal", "https://transport.baldwingirls.edu.in/"],
-    ["Instagram", "https://www.instagram.com/baldwingirlshighschool/"],
-    ["Facebook", "https://www.facebook.com/Baldwingirls"],
-  ];
-
-  return (
-    <main>
-      <PageHero
-        eyebrow="Contact"
-        title="Weâ€™re here to help."
-        text="Visit us in the heart of Bengaluru or speak with our school and admissions teams."
-        image={`${school}/static/media/mainbanner3.04766c6109cb4c6d1124.png`}
-      />
-      <section className="section-pad">
-        <div className="mx-auto grid max-w-[1380px] gap-8 px-5 md:grid-cols-2 lg:px-10">
-          <div>
-            <p className="eyebrow text-[#2563EB]">Baldwin Girlsâ€™ High School</p>
-            <h2 className="section-title mt-5">Come and meet us.</h2>
-            <div className="mt-9 space-y-5 text-lg text-[#5a6778]">
-              <p>
-                #90, Richmond Road
-                <br />
-                Bengaluru, Karnataka
-              </p>
-              <p>
-                <a href="tel:+919148780138">+91 91487 80138</a>
-              </p>
-              <p>
-                <a href="mailto:baldwingirls@gmail.com">baldwingirls@gmail.com</a>
-              </p>
-              <p>
-                Mondayâ€“Friday
-                <br />
-                8:15 amâ€“3:00 pm
-              </p>
-            </div>
-          </div>
-          <div className="bg-[#071a33] p-9 text-white">
-            <p className="eyebrow text-[#38BDF8]">Useful portals</p>
-            <div className="mt-8 flex flex-col">
-              {portals.map(([label, href]) => (
-                <a
-                  className="flex justify-between border-b border-white/15 py-5 text-lg"
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  key={label}
-                >
-                  {label}
-                  <Arrow />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+export { default as Contact, default as ContactPage } from "./ContactPage";
 
 function AdmissionCTA() {
   return (
