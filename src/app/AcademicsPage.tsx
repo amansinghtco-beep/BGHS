@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useOutletContext } from "react-router";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { school } from "./data";
 
@@ -589,6 +589,10 @@ function SectionCard({ section }: { section: typeof SECTIONS[0] }) {
 ───────────────────────────────────────────────────────────────────────── */
 export default function AcademicsPage() {
   const location = useLocation();
+  const outlet = useOutletContext<{ isHeaderVisible?: boolean; headerHeight?: number }>();
+  const [localHeaderVisible, setLocalHeaderVisible] = useState(true);
+  const lastY = useRef(0);
+
   const [activeSection, setActiveSection] = useState("pre-primary");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -608,7 +612,25 @@ export default function AcademicsPage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPos = window.scrollY + 260;
+      const currentScrollY = window.scrollY;
+
+      // Track header visibility locally (as sync & fallback)
+      if (currentScrollY <= 60) {
+        setLocalHeaderVisible(true);
+      } else if (currentScrollY > lastY.current + 8) {
+        setLocalHeaderVisible(false);
+      } else if (currentScrollY < lastY.current - 8) {
+        setLocalHeaderVisible(true);
+      }
+      lastY.current = currentScrollY;
+
+      // Close mobile dropdown menu on active scroll
+      if (sidebarOpen) {
+        setSidebarOpen(false);
+      }
+
+      // Track active academic section
+      const scrollPos = currentScrollY + 260;
       SECTIONS.forEach(({ id }) => {
         const el = document.getElementById(id);
         if (el && scrollPos >= el.offsetTop && scrollPos < el.offsetTop + el.offsetHeight) {
@@ -618,7 +640,13 @@ export default function AcademicsPage() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [sidebarOpen]);
+
+  const isHeaderVisible = outlet?.isHeaderVisible ?? localHeaderVisible;
+  const headerHeight = outlet?.headerHeight ?? 106;
+  // When menu disappears, attach secondary nav to top: 0px. When menu is visible, sit right below header.
+  const mobileTopOffset = isHeaderVisible ? headerHeight : 0;
+  const desktopTopOffset = isHeaderVisible ? headerHeight + 20 : 20;
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -715,46 +743,67 @@ export default function AcademicsPage() {
         </section>
 
         {/* ── MOBILE STICKY NAV ────────────────────── */}
-        <div className="lg:hidden sticky top-16 z-30 bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm">
-          <span className="flex items-center gap-2 text-sm font-bold text-[#1E3A8A]">
-            {(() => { const s = SECTIONS.find((x) => x.id === activeSection); if (!s) return null; const { SectionIcon } = s; return <SectionIcon className="w-4 h-4" />; })()}
-            {SECTIONS.find((s) => s.id === activeSection)?.label}
-          </span>
-          <button onClick={() => setSidebarOpen((v) => !v)}
-            className="flex items-center gap-1.5 text-xs font-bold text-[#781428] border border-[#781428] rounded-lg px-3 py-1.5">
-            All Sections
-            <Icon.ChevronDown className="w-3.5 h-3.5" />
-          </button>
-        </div>
+        <div
+          style={{ top: `${mobileTopOffset}px` }}
+          className="lg:hidden sticky z-30 bg-white border-b border-slate-200 shadow-sm transition-[top] duration-300 ease-in-out"
+        >
+          <div className="px-4 py-3 flex items-center justify-between">
+            <span className="flex items-center gap-2 text-sm font-bold text-[#1E3A8A] min-w-0">
+              {(() => { const s = SECTIONS.find((x) => x.id === activeSection); if (!s) return null; const { SectionIcon } = s; return <SectionIcon className="w-4 h-4 shrink-0" />; })()}
+              <span className="truncate">{SECTIONS.find((s) => s.id === activeSection)?.label}</span>
+            </span>
+            <button
+              onClick={() => setSidebarOpen((v) => !v)}
+              className="flex items-center gap-1.5 text-xs font-bold text-[#781428] border border-[#781428] rounded-lg px-3 py-1.5 transition-colors hover:bg-[#781428]/5 shrink-0"
+              aria-expanded={sidebarOpen}
+            >
+              All Sections
+              <Icon.ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${sidebarOpen ? "rotate-180" : ""}`} />
+            </button>
+          </div>
 
-        <AnimatePresence>
-          {sidebarOpen && (
-            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
-              className="lg:hidden fixed top-28 left-0 right-0 z-40 bg-white border-b border-slate-200 shadow-xl px-4 py-4 space-y-1">
-              {SECTIONS.map((s) => {
-                const { SectionIcon } = s;
-                return (
-                  <button key={s.id} onClick={() => scrollTo(s.id)}
-                    className={`w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                      activeSection === s.id ? "bg-[#1E3A8A] text-white font-bold" : "text-slate-700 hover:bg-blue-50"
-                    }`}>
-                    <SectionIcon className={`w-4 h-4 ${activeSection === s.id ? "text-white" : "text-blue-600"}`} />
-                    <div>
-                      <div>{s.label}</div>
-                      <div className="text-[11px] opacity-60">{s.grades}</div>
-                    </div>
-                  </button>
-                );
-              })}
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <AnimatePresence>
+            {sidebarOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden border-t border-slate-100 bg-white/98 backdrop-blur-md shadow-2xl px-4 py-3 space-y-1 max-h-[65vh] overflow-y-auto"
+              >
+                {SECTIONS.map((s) => {
+                  const { SectionIcon } = s;
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => scrollTo(s.id)}
+                      className={`w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                        activeSection === s.id
+                          ? "bg-[#1E3A8A] text-white font-bold shadow-sm"
+                          : "text-slate-700 hover:bg-blue-50"
+                      }`}
+                    >
+                      <SectionIcon className={`w-4 h-4 ${activeSection === s.id ? "text-white" : "text-blue-600"} shrink-0`} />
+                      <div>
+                        <div>{s.label}</div>
+                        <div className="text-[11px] opacity-70">{s.grades}</div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* ── MAIN BODY ─────────────────────────────── */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 flex gap-10 items-start">
 
           {/* ── STICKY LEFT SIDEBAR ──────────────────── */}
-          <aside className="hidden lg:block w-72 shrink-0 sticky top-24">
+          <aside
+            style={{ top: `${desktopTopOffset}px` }}
+            className="hidden lg:block w-72 shrink-0 sticky transition-[top] duration-300 ease-in-out"
+          >
 
             {/* Nav card */}
             <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-200">

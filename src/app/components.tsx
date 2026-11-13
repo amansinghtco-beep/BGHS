@@ -1,7 +1,17 @@
 import { useEffect, useState, useRef, type ReactNode } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router";
+import { Link, NavLink, Outlet, useLocation, useOutletContext } from "react-router";
 import FloatingActions from "./FloatingActions";
 import { programmes, school } from "./data";
+
+export type LayoutOutletContext = {
+  isHeaderVisible: boolean;
+  headerHeight: number;
+};
+
+export function useHeaderVisibility(): LayoutOutletContext {
+  const ctx = useOutletContext<LayoutOutletContext>();
+  return ctx || { isHeaderVisible: true, headerHeight: 106 };
+}
 
 export function Arrow() {
   return <span aria-hidden="true">↗</span>;
@@ -38,9 +48,33 @@ export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [headerHeight, setHeaderHeight] = useState(106);
+  const headerContainerRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
   const location = useLocation();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Measure dynamic header height
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerContainerRef.current) {
+        setHeaderHeight(headerContainerRef.current.offsetHeight);
+      }
+    };
+    updateHeaderHeight();
+    window.addEventListener("resize", updateHeaderHeight);
+    return () => window.removeEventListener("resize", updateHeaderHeight);
+  }, []);
+
+  // Update CSS variables on root document for sticky sub-elements
+  useEffect(() => {
+    document.documentElement.style.setProperty("--bghs-header-height", `${headerHeight}px`);
+    document.documentElement.style.setProperty(
+      "--bghs-header-offset",
+      isHeaderVisible ? `${headerHeight}px` : "0px"
+    );
+    document.documentElement.setAttribute("data-header-visible", isHeaderVisible ? "true" : "false");
+  }, [isHeaderVisible, headerHeight]);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -160,6 +194,7 @@ export function Layout() {
     <div className="min-h-screen bg-[#f8f7f2] text-[#0b1d38]">
       {/* WRAPPER FOR FLOATING / SMART-HIDING HEADER CONTAINER */}
       <div
+        ref={headerContainerRef}
         className={`sticky top-0 z-50 transition-transform duration-300 ease-in-out ${
           isHeaderVisible ? "translate-y-0" : "-translate-y-full"
         }`}
@@ -424,7 +459,7 @@ export function Layout() {
       </header>
       </div>
 
-      <Outlet />
+      <Outlet context={{ isHeaderVisible, headerHeight }} />
       <Footer />
       <FloatingActions />
     </div>
