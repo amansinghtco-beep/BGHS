@@ -1219,3 +1219,4 @@ export default function CampusLifePage() {
     </main>
   );
 }
+

@@ -132,14 +132,14 @@ export function Layout() {
     },
     {
       label: "Campus Life",
-      to: "/student-life",
+      to: "/campus-life",
       hasDropdown: true,
       children: [
-        { title: "Student Life & Culture", desc: "Beyond the classroom & 4 core development pillars", to: "/student-life#culture" },
-        { title: "Sports & Athletics", desc: "18 sports, swimming pool & roll of honor", to: "/student-life#sports" },
-        { title: "Co-Curricular Activities", desc: "Dance, art, craft, music, NCC & quiz", to: "/student-life#co-curricular" },
-        { title: "Leadership & NCC", desc: "Student council roster & cadet corps training", to: "/student-life#leadership" },
-        { title: "Events & Celebrations", desc: "Inter-house, graduation, prize day & robotics", to: "/student-life#events" },
+        { title: "Student Life & Culture", desc: "Beyond the classroom & 4 core development pillars", to: "/campus-life#culture" },
+        { title: "Sports & Athletics", desc: "18 sports, swimming pool & roll of honor", to: "/campus-life#sports" },
+        { title: "Co-Curricular Activities", desc: "Dance, art, craft, music, NCC & quiz", to: "/campus-life#co-curricular" },
+        { title: "Leadership & NCC", desc: "Student council roster & cadet corps training", to: "/campus-life#leadership" },
+        { title: "Events & Celebrations", desc: "Inter-house, graduation, prize day & robotics", to: "/campus-life#events" },
       ],
     },
     {
@@ -510,6 +510,7 @@ function Footer() {
             <Link to="/about">About us</Link>
             <Link to="/academics">Academics</Link>
             <Link to="/admissions">Admissions</Link>
+            <Link to="/campus-life">Campus Life</Link>
             <Link to="/facilities">Facilities</Link>
             <Link to="/events">Events</Link>
             <Link to="/sports">Sports</Link>

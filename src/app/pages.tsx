@@ -69,7 +69,7 @@ export function Home() {
 
         {/* Top Right Floating / Action Button: Campus Tour */}
         <Link
-          to="/campus"
+          to="/facilities"
           className="absolute top-6 sm:top-8 right-6 sm:right-10 z-20 hidden sm:inline-flex items-center gap-2.5 rounded-full bg-[#8B0000]/85 hover:bg-[#8B0000] text-white px-5 py-2.5 text-xs sm:text-sm font-bold backdrop-blur-md border border-white/20 transition-all duration-300 shadow-xl hover:scale-105 active:scale-95 group"
           title="Schedule a Campus Tour"
         >
@@ -242,21 +242,21 @@ export function Home() {
         <div className="mx-auto grid max-w-[1380px] gap-6 px-5 md:grid-cols-3 lg:px-10">
           {[
             [
-              "Campus",
-              "Purpose-built spaces for learning, wellness and discovery.",
-              "/campus",
+              "Facilities & Infrastructure",
+              "Purpose-built laboratories, swimming pool, auditorium and boarding.",
+              "/facilities",
               "ScienceLab.d689eb9af7d97ee94b32.JPG",
             ],
             [
-              "Student life",
-              "Arts, NCC, robotics, AI and experiences beyond books.",
-              "/student-life",
+              "Campus Life & Culture",
+              "Arts, sports, NCC, student council & vibrant student community.",
+              "/campus-life",
               "cocurriculumm.bd27fcabaa35d7bc4e4e.png",
             ],
             [
-              "Sports",
-              "18 indoor and outdoor sports guided by skilled coaches.",
-              "/sports",
+              "Sports & Athletics",
+              "18 indoor and outdoor sports guided by skilled national coaches.",
+              "/campus-life#sports",
               "sports2.f53c208cf86412fab174.png",
             ],
           ].map(([title, text, to, image]) => (
@@ -347,9 +347,9 @@ const facilities = [
 ];
 
 export { default as Facilities } from "./FacilitiesPage";
-export { default as Campus } from "./FacilitiesPage";
-export { default as StudentLife } from "./CampusLifePage";
+export { default as Campus } from "./CampusLifePage";
 export { default as CampusLife } from "./CampusLifePage";
+export { default as StudentLife } from "./CampusLifePage";
 
 export function Sports() {
   return (
