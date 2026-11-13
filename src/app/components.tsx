@@ -46,6 +46,7 @@ const marqueeAnnouncements = [
 
 export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuOpenRef = useRef(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [headerHeight, setHeaderHeight] = useState(106);
@@ -53,6 +54,20 @@ export function Layout() {
   const lastScrollY = useRef(0);
   const location = useLocation();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Keep menuOpenRef in sync, lock body scroll when mobile menu is open,
+  // and guarantee header remains visible
+  useEffect(() => {
+    menuOpenRef.current = menuOpen;
+    if (menuOpen) {
+      setIsHeaderVisible(true);
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [menuOpen]);
 
   // Measure dynamic header height
   useEffect(() => {
@@ -84,9 +99,15 @@ export function Layout() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // Hide header on scroll down, show on scroll up
+  // Hide header on scroll down, show on scroll up (unless mobile menu is open)
   useEffect(() => {
     const handleScroll = () => {
+      // NEVER hide header when mobile drawer menu is open
+      if (menuOpenRef.current) {
+        setIsHeaderVisible(true);
+        return;
+      }
+
       const currentScrollY = window.scrollY;
       
       // Keep visible near the very top of the page
@@ -405,16 +426,16 @@ export function Layout() {
 
         {/* Mobile Dropdown Navigation Drawer */}
         {menuOpen && (
-          <nav className="border-t border-gray-100 bg-white px-5 py-4 lg:hidden max-h-[80vh] overflow-y-auto">
-            <div className="space-y-1">
+          <nav className="border-t border-gray-100 bg-white px-5 py-4 lg:hidden max-h-[calc(100dvh-5.5rem)] overflow-y-auto overscroll-contain touch-pan-y shadow-2xl">
+            <div className="space-y-1 pb-2">
               {navItems.map((item) => (
                 <div key={item.label} className="border-b border-gray-50 py-1.5">
                   <NavLink
                     to={item.to}
                     end={item.to === "/"}
+                    onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
-                      `block py-2 text-sm font-bold ${isActive ? "text-[#1D4ED8]" : "text-[#0B1B3D]"
-                      }`
+                      `block py-2 text-sm font-bold ${isActive ? "text-[#1D4ED8]" : "text-[#0B1B3D]"}`
                     }
                   >
                     {item.label}
@@ -446,10 +467,11 @@ export function Layout() {
                 </div>
               ))}
             </div>
-            <div className="pt-4 pb-2">
+            <div className="pt-3 pb-6">
               <Link
                 to="/admissions"
-                className="w-full flex items-center justify-center gap-2 rounded-full bg-[#1D4ED8] py-2.5 text-xs font-bold text-white shadow-md"
+                onClick={() => setMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 rounded-full bg-[#1D4ED8] py-2.5 text-xs font-bold text-white shadow-md active:scale-95 transition-transform"
               >
                 Apply Now →
               </Link>
