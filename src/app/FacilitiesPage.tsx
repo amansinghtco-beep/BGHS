@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router";
 import { motion, useScroll, useTransform, AnimatePresence, type Variants } from "framer-motion";
 
 /* ─────────────────────────────────────────────────────────────────────────
-   INLINE SVG ICON LIBRARY — pure vectors, zero emojis, zero external icon packages
+   INLINE SVG ICON LIBRARY — pure vectors, zero emojis, zero external packages
 ───────────────────────────────────────────────────────────────────────── */
 const Icon = {
   Building: (p: React.SVGProps<SVGSVGElement>) => (
@@ -132,7 +132,7 @@ function FloatingBackground() {
       {floatingIcons.map((item, idx) => (
         <item.C
           key={idx}
-          className="absolute opacity-[0.04] text-[#1E3A8A]"
+          className="absolute opacity-[0.035] text-[#1E3A8A]"
           style={{
             top: item.top,
             left: item.left,
@@ -146,11 +146,8 @@ function FloatingBackground() {
   );
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   ANIMATION VARIANTS
-───────────────────────────────────────────────────────────────────────── */
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 35 },
+  hidden: { opacity: 0, y: 30 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
@@ -158,223 +155,118 @@ const fadeUp: Variants = {
   }),
 };
 
-const scaleUp: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: (i: number = 0) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as const },
-  }),
-};
-
 /* ─────────────────────────────────────────────────────────────────────────
-   DATA: FACILITIES CATALOG
+   DATA: INDOOR ACADEMIC & SCIENCE LABS
 ───────────────────────────────────────────────────────────────────────── */
-interface FacilityDetail {
+interface LabSpace {
   id: string;
   name: string;
-  category: "indoor" | "outdoor" | "residential";
-  categoryBadge: string;
-  subtitle: string;
+  badge: string;
+  tagline: string;
   description: string;
   image: string;
-  features: string[];
   specs: string;
+  capacity: string;
+  features: string[];
   icon: keyof typeof Icon;
 }
 
-const allFacilities: FacilityDetail[] = [
+const indoorLabs: LabSpace[] = [
   {
     id: "physics-lab",
     name: "Physics Laboratory",
-    category: "indoor",
-    categoryBadge: "INDOOR SCIENCE",
-    subtitle: "Optics, Mechanics & Advanced Experiments Studio",
-    description: "Equipped with state-of-the-art optical benches, electrical circuit trainers, vernier systems, and darkroom facilities for ICSE senior experiments.",
+    badge: "ICSE Senior Science",
+    tagline: "Optics, Mechanics & Advanced Experiments Studio",
+    description: "Equipped with state-of-the-art optical benches, electrical circuit trainers, vernier systems, and darkroom facilities for ICSE senior experiments. Provides an exploratory environment where concepts of mechanics and electromagnetism come to life.",
     image: "/campus-sciencelab.jpg",
-    features: ["Advanced Optical Benches", "Laser & Optics Darkroom", "Individual Workstations"],
-    specs: "Capacity: 40 Students · Digital Interface",
+    specs: "Digital Interface · Vernier Precision Systems",
+    capacity: "40 Students Simultaneously",
+    features: ["Advanced Optical Benches", "Laser & Optics Darkroom", "Individual Workstations", "Galvanometers & Potentiometers"],
     icon: "Flask",
   },
   {
     id: "chemistry-lab",
     name: "Chemistry Laboratory",
-    category: "indoor",
-    categoryBadge: "INDOOR SCIENCE",
-    subtitle: "Fume-Protected Chemical Apparatus & Analysis Station",
-    description: "Spacious laboratory with individual acid-resistant workstations, centralized LPG supplies, high-efficiency fume hoods, and fire safety systems.",
+    badge: "Chemical Analysis",
+    tagline: "Fume-Protected Chemical Apparatus & Analysis Station",
+    description: "Spacious laboratory with individual acid-resistant workstations, centralized LPG supplies, high-efficiency fume hoods, and fire safety systems. Designed for complete safety during qualitative and quantitative inorganic chemistry procedures.",
     image: "/campus-sciencelab.jpg",
-    features: ["Individual Bunsen Lines", "Fume Extraction Hoods", "Analytical Precision Balances"],
     specs: "Full safety showers & eye wash stations",
+    capacity: "42 Students Simultaneously",
+    features: ["Individual Bunsen Lines", "Fume Extraction Hoods", "Analytical Precision Balances", "Emergency Drench Showers"],
     icon: "Flask",
   },
   {
     id: "biology-lab",
     name: "Biology Laboratory",
-    category: "indoor",
-    categoryBadge: "INDOOR SCIENCE",
-    subtitle: "Microscopy & Life Sciences Specimen Studio",
-    description: "Features binocular compound microscopes, human anatomical models, preserved specimen banks, and projection microscopy for botanical study.",
+    badge: "Life Sciences",
+    tagline: "Microscopy & Life Sciences Specimen Studio",
+    description: "Features binocular compound microscopes, human anatomical models, preserved specimen banks, and projection microscopy for botanical study. Students study cellular structures and physiological models with hands-on specimen investigation.",
     image: "/campus-sciencelab.jpg",
-    features: ["Digital Compound Microscopes", "300+ Specimen Archive", "Human Physiology Models"],
-    specs: "Capacity: 40 Students · Bio-Safety Compliant",
+    specs: "Bio-Safety Level 1 Compliant",
+    capacity: "40 Students Simultaneously",
+    features: ["Digital Compound Microscopes", "300+ Specimen Archive", "Human Physiology Models", "Dissection & Staining Kits"],
     icon: "Microscope",
   },
   {
     id: "robotics-ai-lab",
     name: "Robotics & Artificial Intelligence Lab",
-    category: "indoor",
-    categoryBadge: "INDOOR TECH",
-    subtitle: "STEM Automation, Coding & IoT Workspace",
-    description: "Hands-on makerspace with Arduino, Raspberry Pi, robotics kits, sensors, 3D printing equipment, and specialized visual block programming platforms.",
+    badge: "Next-Gen STEM",
+    tagline: "STEM Automation, Coding & IoT Workspace",
+    description: "Hands-on makerspace with Arduino, Raspberry Pi, robotics kits, sensors, 3D printing equipment, and specialized visual block programming platforms. Empowers young innovators from Standard III upwards in coding and automation.",
     image: "/bghs-events.png",
-    features: ["Microcontroller Platforms", "3D Modeling Printers", "Robotics Arena Turf"],
-    specs: "All grades from Standard III onwards",
+    specs: "High-Speed IoT Network & 3D Printers",
+    capacity: "35 Students Simultaneously",
+    features: ["Microcontroller Platforms", "3D Modeling Printers", "Robotics Arena Turf", "Python & Block Coding"],
     icon: "Cpu",
   },
   {
     id: "senior-library",
     name: "Senior Academic Library",
-    category: "indoor",
-    categoryBadge: "INDOOR LEARNING",
-    subtitle: "Extensive Research Center & Silent Reading Hall",
-    description: "A sanctuary of knowledge holding over 20,000 reference books, encyclopedias, journals, national dailies, and digital catalog workstations.",
+    badge: "Research & Literature",
+    tagline: "Extensive Research Center & Silent Reading Hall",
+    description: "A sanctuary of knowledge holding over 20,000 reference books, encyclopedias, journals, national dailies, and digital catalog workstations. Features quiet study carrels, scholarly periodicals, and a serene reading atmosphere.",
     image: "/campus-library.jpg",
-    features: ["20,000+ Print Titles", "JSTOR & Digital Databases", "Private Study Carrels"],
-    specs: "Seating Capacity: 150 · Silent Reading Zone",
+    specs: "20,000+ Print Titles · Digital OPAC",
+    capacity: "150 Seated Scholars",
+    features: ["20,000+ Print Titles", "JSTOR & Digital Databases", "Private Study Carrels", "Heritage Fiction & Reference"],
     icon: "BookOpen",
   },
   {
     id: "junior-library",
     name: "Junior Primary Library",
-    category: "indoor",
-    categoryBadge: "INDOOR LEARNING",
-    subtitle: "Early Reading & Illustrated Storybooks Wing",
-    description: "Colorful, child-friendly reading space stocked with picture books, fairy tales, early phonics resources, and story-telling audio nooks.",
+    badge: "Early Literacy",
+    tagline: "Early Reading & Illustrated Storybooks Wing",
+    description: "Colorful, child-friendly reading space stocked with picture books, fairy tales, early phonics resources, and story-telling audio nooks curated especially for Pre-KG to Standard II learners.",
     image: "/campus-library.jpg",
-    features: ["Graded Phonics Readers", "Cozy Floor Cushions", "Interactive Story Sessions"],
     specs: "Curated for Pre-KG to Standard II",
+    capacity: "60 Young Readers",
+    features: ["Graded Phonics Readers", "Cozy Floor Cushions", "Interactive Story Sessions", "Illustrated Picture Books"],
     icon: "BookOpen",
   },
   {
     id: "auditorium",
     name: "School Grand Auditorium",
-    category: "indoor",
-    categoryBadge: "INDOOR ARTS",
-    subtitle: "Acoustic Multi-Purpose Theater & Assembly Hall",
-    description: "Air-conditioned 1,200+ capacity auditorium equipped with professional theatrical lighting, surround sound system, stage wings, and green rooms.",
+    badge: "Theatrical Arts",
+    tagline: "Acoustic Multi-Purpose Theater & Assembly Hall",
+    description: "Air-conditioned 1,200+ capacity auditorium equipped with professional theatrical lighting, surround sound system, stage wings, and green rooms. Hosts annual days, inter-school debates, choir rehearsals, and investitures.",
     image: "/campus-auditorium.jpg",
-    features: ["Dolby Acoustic Paneling", "1,200+ Padded Theater Seats", "Green Rooms & Backstage"],
-    specs: "Hosts Annual Day, Debates & Investiture",
+    specs: "Dolby Acoustic Surround · Theatrical Rig",
+    capacity: "1,200+ Plump Theater Seats",
+    features: ["Dolby Acoustic Paneling", "1,200+ Padded Theater Seats", "Green Rooms & Backstage", "Motorized Stage Curtains"],
     icon: "Building",
   },
   {
     id: "computer-lab",
     name: "Computer & Cyber Labs",
-    category: "indoor",
-    categoryBadge: "INDOOR TECH",
-    subtitle: "High-Speed Computing & Digital Literacy Hub",
-    description: "Modern network of 120+ desktop terminals with high-speed optical fiber internet, programming software, cybersecurity filters, and smart displays.",
+    badge: "Digital Skills",
+    tagline: "High-Speed Computing & Digital Literacy Hub",
+    description: "Modern network of 120+ desktop terminals with high-speed optical fiber internet, programming software, cybersecurity filters, and smart displays for ICSE computer applications and coding curriculum.",
     image: "/campus-sciencelab.jpg",
-    features: ["Dedicated Terminals per Student", "High-Speed Leased Line", "ICSE Java / Python Setup"],
     specs: "Dual Air-Conditioned Laboratories",
+    capacity: "80 Terminals Simultaneously",
+    features: ["Dedicated Terminals per Student", "High-Speed Leased Line", "ICSE Java / Python Setup", "Safe Educational Firewall"],
     icon: "Monitor",
-  },
-  {
-    id: "swimming-pool",
-    name: "Olympic-Dimension Swimming Pool",
-    category: "outdoor",
-    categoryBadge: "OUTDOOR SPORTS",
-    subtitle: "International-Standard Aquatics Center",
-    description: "Built to international competitive standards with dedicated beginner shallow zones, diving blocks, continuous filtration, and certified female lifeguards.",
-    image: "/bghs-swimming.png",
-    features: ["25-Meter Heated Racing Lanes", "Continuous Water Ozone Plant", "Certified Lifeguards & Coaches"],
-    specs: "Inter-School CISCE Aquatic Venue",
-    icon: "Waves",
-  },
-  {
-    id: "basketball-court",
-    name: "FIBA Basketball Courts",
-    category: "outdoor",
-    categoryBadge: "OUTDOOR SPORTS",
-    subtitle: "Championship Hardcourt with Floodlight Arena",
-    description: "Multi-court basketball complex with synthetic acrylic shock-absorbing surface, professional spring-loaded backboards, and evening floodlights.",
-    image: "/bghs-sports-hero.png",
-    features: ["Shock-Absorbent Acrylic Surface", "Night Floodlit Practice", "Tournament Scoreboards"],
-    specs: "Host to State ICSE Tournaments",
-    icon: "Trophy",
-  },
-  {
-    id: "playground",
-    name: "Athletics Grounds & Turf",
-    category: "outdoor",
-    categoryBadge: "OUTDOOR SPORTS",
-    subtitle: "Expansive Sports Grounds & Running Track",
-    description: "Multi-sport outdoor arena accommodating 200m athletic track, football ground, cricket nets, volleyball, and physical conditioning stations.",
-    image: "/campus-playground.jpg",
-    features: ["200m Cinder Track", "Cricket & Football Fields", "Dedicated Throwing Sectors"],
-    specs: "Supervised by 8 Certified Coaches",
-    icon: "Trophy",
-  },
-  {
-    id: "boarding-facility",
-    name: "Residential Boarding Quarters",
-    category: "residential",
-    categoryBadge: "RESIDENTIAL",
-    subtitle: "Safe, Nurturing Home Away from Home",
-    description: "Modern residential dormitories with air-cooled rooms, personal study desks, secure wardrobes, 24/7 matron supervision, and CCTV protection.",
-    image: "/campus-boarding.jpg",
-    features: ["Pastoral Female Wardens", "Evening Supervised Study", "Wi-Fi Guided Study Lab"],
-    specs: "Accommodates girls from Std III to X",
-    icon: "Building",
-  },
-  {
-    id: "dining-hall",
-    name: "Hostel Dining Hall & Kitchen",
-    category: "residential",
-    categoryBadge: "RESIDENTIAL",
-    subtitle: "Hygienic Multi-Cuisine Meal Service Area",
-    description: "Large dining hall serving balanced, nutritionist-planned vegetarian and non-vegetarian meals prepared in a steam-operated hygienic kitchen.",
-    image: "/campus-dininghall.jpg",
-    features: ["Nutrient-Balanced Menus", "FSSAI Certified Kitchen", "Filtered RO Drinking Water"],
-    specs: "500-seat simultaneous capacity",
-    icon: "Building",
-  },
-  {
-    id: "infirmary",
-    name: "Campus Infirmary & Medical Bay",
-    category: "residential",
-    categoryBadge: "WELLBEING",
-    subtitle: "Round-the-Clock First Aid & Medical Care",
-    description: "Dedicated healthcare center staffed with a full-time certified resident nurse, oxygen equipment, observation beds, and emergency hospital tie-ups.",
-    image: "/campus-infirmary.jpg",
-    features: ["Resident Qualified Nurse", "Observation Beds & First Aid", "Emergency Ambulance Tie-up"],
-    specs: "Immediate care for day & boarding girls",
-    icon: "Heart",
-  },
-  {
-    id: "school-transport",
-    name: "GPS School Bus Fleet",
-    category: "outdoor",
-    categoryBadge: "TRANSPORT",
-    subtitle: "Comprehensive Monitored Transit Network",
-    description: "Fleet of modern yellow school buses covering all major residential corridors of Bengaluru, equipped with real-time GPS tracking and female attendants.",
-    image: "/campus-parking.jpg",
-    features: ["Live GPS Parent Tracking App", "CCTV & Speed Governors", "Trained Female Bus Attendants"],
-    specs: "30+ Routes across Bengaluru",
-    icon: "Bus",
-  },
-  {
-    id: "green-gardens",
-    name: "Heritage Quadrangle & Botanical Gardens",
-    category: "outdoor",
-    categoryBadge: "CAMPUS ENVIRONMENT",
-    subtitle: "Lush Tree-Lined Courtyards & Green Spaces",
-    description: "Century-old rain trees, landscaped gardens, shaded quadrangle benches, and quiet outdoor learning pavilions across the 7-acre property.",
-    image: "/campus-garden.jpg",
-    features: ["Centennial Rain Trees", "Outdoor Eco-Pavilions", "Zero-Waste Composting Unit"],
-    specs: "Eco-Friendly Green Campus",
-    icon: "Tree",
   },
 ];
 
@@ -408,7 +300,7 @@ const facilitiesFaqs = [
    MAIN FACILITIES PAGE COMPONENT
 ───────────────────────────────────────────────────────────────────────── */
 export default function FacilitiesPage() {
-  const [filter, setFilter] = useState<"all" | "indoor" | "outdoor" | "residential">("all");
+  const [selectedLabId, setSelectedLabId] = useState<string>("physics-lab");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const heroRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
@@ -431,10 +323,8 @@ export default function FacilitiesPage() {
     }
   }, [location.hash, location.pathname]);
 
-  const filteredFacilities = allFacilities.filter((item) => {
-    if (filter === "all") return true;
-    return item.category === filter;
-  });
+  const activeLab = indoorLabs.find((l) => l.id === selectedLabId) || indoorLabs[0];
+  const ActiveIcon = Icon[activeLab.icon] || Icon.Building;
 
   return (
     <main className="relative bg-white overflow-x-hidden">
@@ -448,7 +338,7 @@ export default function FacilitiesPage() {
       />
 
       {/* ═══════════════════════════════════════════════════════════════════
-          HERO BANNER
+          HERO BANNER & QUICK ANCHORS
       ═══════════════════════════════════════════════════════════════════ */}
       <section ref={heroRef} id="overview" className="relative min-h-[580px] lg:min-h-[660px] flex items-center overflow-hidden scroll-mt-24">
         {/* Parallax Background Campus Photo */}
@@ -500,20 +390,34 @@ export default function FacilitiesPage() {
               collegiate Gothic architecture with cutting-edge laboratories, Olympic sports facilities, and nurturing residential boarding.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-4">
+            {/* Quick Navigation Anchor Pills */}
+            <div className="flex flex-wrap gap-2.5 sm:gap-3">
               <a
-                href="#facilities-grid"
-                className="inline-flex items-center gap-2.5 rounded-full bg-[#3B82F6] hover:bg-[#2563EB] text-white px-7 py-3.5 sm:px-8 sm:py-4 font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 group cursor-pointer"
+                href="#indoor"
+                className="inline-flex items-center gap-2 rounded-full bg-white/15 hover:bg-white/25 text-white px-5 py-2.5 text-xs sm:text-sm font-semibold border border-white/20 backdrop-blur-sm transition"
               >
-                <span>Explore All Facilities</span>
-                <Icon.ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <Icon.Flask className="w-4 h-4 text-[#38BDF8]" />
+                <span>Indoor Labs & Tech</span>
+              </a>
+              <a
+                href="#outdoor"
+                className="inline-flex items-center gap-2 rounded-full bg-white/15 hover:bg-white/25 text-white px-5 py-2.5 text-xs sm:text-sm font-semibold border border-white/20 backdrop-blur-sm transition"
+              >
+                <Icon.Waves className="w-4 h-4 text-[#38BDF8]" />
+                <span>Olympic Sports & Pool</span>
+              </a>
+              <a
+                href="#boarding"
+                className="inline-flex items-center gap-2 rounded-full bg-white/15 hover:bg-white/25 text-white px-5 py-2.5 text-xs sm:text-sm font-semibold border border-white/20 backdrop-blur-sm transition"
+              >
+                <Icon.Heart className="w-4 h-4 text-[#38BDF8]" />
+                <span>Boarding & Dining</span>
               </a>
               <Link
                 to="/admissions"
-                className="inline-flex items-center gap-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white px-7 py-3.5 sm:px-8 sm:py-4 font-bold text-sm tracking-wide transition-all duration-300 border border-white/20 backdrop-blur-sm cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-full bg-[#3B82F6] hover:bg-[#2563EB] text-white px-5 py-2.5 text-xs sm:text-sm font-bold transition shadow-md"
               >
-                <Icon.Camera className="w-4 h-4 text-[#F3C44E]" />
+                <Icon.Camera className="w-4 h-4 text-white" />
                 <span>Book Campus Tour</span>
               </Link>
             </div>
@@ -525,10 +429,10 @@ export default function FacilitiesPage() {
           STATS STRIP
       ═══════════════════════════════════════════════════════════════════ */}
       <section className="relative -mt-1 bg-gradient-to-r from-[#1E3A8A] to-[#781428] text-white">
-        <div className="mx-auto max-w-[1380px] px-3 sm:px-6 lg:px-14">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto max-w-[1380px] px-6 sm:px-10 lg:px-14">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
             {[
-              { val: "7+ Acres", label: "Sprawling City Campus", icon: Icon.Building },
+              { val: "7+ Acres", label: "Heritage City Campus", icon: Icon.Building },
               { val: "16+ Labs", label: "Science & Tech Studios", icon: Icon.Microscope },
               { val: "18+ Sports", label: "Indoor & Outdoor Arenas", icon: Icon.Trophy },
               { val: "1,200 Seats", label: "Acoustic Grand Auditorium", icon: Icon.Users },
@@ -540,18 +444,18 @@ export default function FacilitiesPage() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={i}
-                className={`flex flex-col sm:flex-row items-center sm:items-start lg:items-center text-center sm:text-left gap-2 sm:gap-4 py-5 sm:py-7 px-3 sm:px-6 border-white/10 ${
+                className={`flex items-center gap-4 py-6 sm:py-8 px-4 sm:px-6 border-white/10 ${
                   i % 2 === 0 ? "border-r" : ""
-                } ${i < 2 ? "border-b" : ""} lg:border-b-0 lg:border-r lg:last:border-r-0`}
+                } ${i < 2 ? "border-b lg:border-b-0" : ""} lg:border-r lg:last:border-r-0`}
               >
-                <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-white/10">
+                <div className="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-white/10">
                   <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#F3C44E]" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-serif font-bold text-lg sm:text-xl lg:text-2xl text-white whitespace-nowrap leading-tight">
+                  <p className="font-serif font-bold text-base sm:text-xl lg:text-2xl text-white leading-tight">
                     {stat.val}
                   </p>
-                  <p className="text-[10px] sm:text-xs text-white/70 uppercase tracking-wider mt-0.5 sm:mt-1">
+                  <p className="text-[10px] sm:text-xs text-white/70 uppercase tracking-wider mt-1">
                     {stat.label}
                   </p>
                 </div>
@@ -562,76 +466,187 @@ export default function FacilitiesPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          CAMPUS PILLARS / HIGHLIGHTS
+          SECTION 1: INDOOR ACADEMIC & SCIENCE LABS (INTERACTIVE STUDIO SHOWCASE)
+          Replacing the card grid with an interactive flagship studio selector
       ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-20 lg:py-28 bg-[#F8FAFC]">
-        <div className="mx-auto max-w-[1380px] px-6 lg:px-14">
+      <section id="indoor" className="relative py-24 lg:py-32 bg-[#F8FAFC] scroll-mt-24">
+        <div id="facilities-grid" className="absolute -top-24" />
+        <FloatingBackground />
+        <div className="relative z-10 mx-auto max-w-[1380px] px-6 lg:px-14">
+          
+          {/* Section Heading */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="max-w-3xl mb-12 sm:mb-16"
           >
             <div className="inline-flex items-center gap-2 rounded-full bg-[#1E3A8A]/10 px-5 py-2 mb-4 border border-[#1E3A8A]/20">
-              <Icon.Shield className="w-4 h-4 text-[#1E3A8A]" />
-              <span className="text-xs font-bold tracking-[0.16em] text-[#1E3A8A] uppercase">Safety & Environmental Standards</span>
+              <Icon.Flask className="w-4 h-4 text-[#1E3A8A]" />
+              <span className="text-xs font-bold tracking-[0.16em] text-[#1E3A8A] uppercase">Academic Infrastructure</span>
             </div>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#0A1628] leading-tight mb-4">
-              Infrastructure Built on Trust & Care
+              Advanced Science & Innovation Studios
             </h2>
             <p className="text-base sm:text-lg text-[#5A6778] leading-relaxed">
-              Every facility at BGHS is maintained to CISCE safety benchmarks, ensuring an invigorating and secure setting where your daughter learns with freedom.
+              Click on any learning environment to inspect its high-resolution studio, safety equipment, student capacity, and curriculum integration.
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: Icon.Shield,
-                title: "24/7 Gated Security",
-                desc: "High-definition CCTV coverage across all gates, corridors, and perimeters with trained female security wardens.",
-              },
-              {
-                icon: Icon.Heart,
-                title: "Full-Time Infirmary",
-                desc: "A resident nurse and dedicated medical bay equipped with oxygen, emergency first aid, and hospital tie-ups.",
-              },
-              {
-                icon: Icon.Tree,
-                title: "7-Acre Green Canopy",
-                desc: "Historic rain trees, manicured botanical quadrangles, and outdoor reading zones supporting student wellbeing.",
-              },
-              {
-                icon: Icon.Bus,
-                title: "GPS-Tracked Transit",
-                desc: "30+ fleet buses fitted with live GPS parent tracking, speed governors, and female bus attendants.",
-              },
-            ].map((pillar, idx) => (
-              <motion.div
-                key={pillar.title}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={idx}
-                className="rounded-2xl bg-white border border-[#E2E8F0] p-6 hover:shadow-lg hover:border-[#3B82F6]/30 transition-all duration-300"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#1E3A8A]/10 text-[#1E3A8A] mb-5">
-                  <pillar.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-serif font-bold text-lg text-[#0A1628] mb-2">{pillar.title}</h3>
-                <p className="text-xs sm:text-sm text-[#5A6778] leading-relaxed">{pillar.desc}</p>
-              </motion.div>
-            ))}
+          {/* Interactive Split Showcase: Selector List on Left, Feature Spotlight on Right */}
+          <div className="grid lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-12 items-start">
+            
+            {/* Left: Navigation Menu List of Studios */}
+            <div className="space-y-2.5">
+              {indoorLabs.map((lab) => {
+                const isSelected = selectedLabId === lab.id;
+                const LabIcon = Icon[lab.icon] || Icon.Flask;
+
+                return (
+                  <button
+                    key={lab.id}
+                    type="button"
+                    onClick={() => setSelectedLabId(lab.id)}
+                    className={`w-full text-left rounded-2xl p-4 sm:p-5 transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer border ${
+                      isSelected
+                        ? "bg-white border-[#1E3A8A] shadow-lg shadow-blue-900/5 -translate-y-0.5"
+                        : "bg-white/70 hover:bg-white border-[#E2E8F0] hover:border-slate-300"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div
+                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors ${
+                          isSelected ? "bg-[#1E3A8A] text-white" : "bg-[#1E3A8A]/10 text-[#1E3A8A]"
+                        }`}
+                      >
+                        <LabIcon className="w-5 h-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <h4 className={`font-serif font-bold text-base truncate ${isSelected ? "text-[#0A1628]" : "text-slate-800"}`}>
+                            {lab.name}
+                          </h4>
+                        </div>
+                        <p className="text-xs text-[#64748B] truncate">
+                          {lab.specs}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="shrink-0 flex items-center gap-2">
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+                        isSelected ? "bg-[#DBEAFE] text-[#1E3A8A]" : "bg-slate-100 text-slate-500"
+                      }`}>
+                        {lab.badge}
+                      </span>
+                      <Icon.ArrowRight className={`w-4 h-4 transition-transform ${isSelected ? "text-[#1E3A8A] translate-x-1" : "text-slate-300"}`} />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right: Immersive High-Impact Studio Feature View */}
+            <div className="lg:sticky lg:top-28">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeLab.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="rounded-3xl bg-white border border-[#E2E8F0] overflow-hidden shadow-xl"
+                >
+                  {/* Studio Hero Image */}
+                  <div className="relative h-72 sm:h-96 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={activeLab.image}
+                      alt={activeLab.name}
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/90 via-[#0A1628]/30 to-transparent" />
+
+                    {/* Badge & Icon overlay */}
+                    <div className="absolute top-5 left-5 flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A1628]/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-bold tracking-wider text-white uppercase border border-white/20">
+                        <ActiveIcon className="w-3.5 h-3.5 text-[#F3C44E]" />
+                        <span>{activeLab.badge}</span>
+                      </span>
+                    </div>
+
+                    <div className="absolute top-5 right-5">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/90 backdrop-blur-md px-3 py-1 text-xs font-bold text-white shadow-xs">
+                        <Icon.CheckCircle className="w-3.5 h-3.5" />
+                        <span>Active ICSE Facility</span>
+                      </span>
+                    </div>
+
+                    {/* Title inside bottom of photo */}
+                    <div className="absolute bottom-6 left-6 right-6 text-white">
+                      <h3 className="font-serif font-bold text-2xl sm:text-3xl drop-shadow-sm mb-1">
+                        {activeLab.name}
+                      </h3>
+                      <p className="text-sm text-white/80 line-clamp-1">
+                        {activeLab.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Studio Information Body */}
+                  <div className="p-6 sm:p-8 space-y-6">
+                    <p className="text-sm sm:text-base text-[#475569] leading-relaxed">
+                      {activeLab.description}
+                    </p>
+
+                    {/* Specs / Capacity Bar */}
+                    <div className="grid sm:grid-cols-2 gap-3.5">
+                      <div className="rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-3.5 flex items-start gap-3">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#1E3A8A]/10 text-[#1E3A8A]">
+                          <Icon.Users className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Student Capacity</p>
+                          <p className="text-xs sm:text-sm font-semibold text-[#0A1628] mt-0.5">{activeLab.capacity}</p>
+                        </div>
+                      </div>
+
+                      <div className="rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-3.5 flex items-start gap-3">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#781428]/10 text-[#781428]">
+                          <Icon.Shield className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Compliance & Safety</p>
+                          <p className="text-xs sm:text-sm font-semibold text-[#0A1628] mt-0.5">{activeLab.specs}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Key Technical Features */}
+                    <div>
+                      <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Key Laboratory Features</h5>
+                      <div className="grid sm:grid-cols-2 gap-2.5">
+                        {activeLab.features.map((feat) => (
+                          <div key={feat} className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 bg-slate-50 px-3.5 py-2.5 rounded-xl border border-slate-200/60">
+                            <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                            <span>{feat}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          INTERACTIVE FACILITIES CATALOG (FILTERABLE GRID)
+          SECTION 2: SPORTS, AQUATICS & OUTDOOR ARENA (EDITORIAL MAGAZINE SPREAD)
       ═══════════════════════════════════════════════════════════════════ */}
-      <section id="facilities-grid" className="relative py-24 lg:py-32 bg-white scroll-mt-24">
+      <section id="outdoor" className="relative py-24 lg:py-32 bg-white scroll-mt-24">
         <FloatingBackground />
         <div className="relative z-10 mx-auto max-w-[1380px] px-6 lg:px-14">
           
@@ -641,135 +656,360 @@ export default function FacilitiesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-12"
+            className="text-center max-w-3xl mx-auto mb-16"
           >
             <div className="inline-flex items-center gap-2 rounded-full bg-[#781428]/10 px-5 py-2 mb-4 border border-[#781428]/20">
-              <Icon.Sparkles className="w-4 h-4 text-[#781428]" />
-              <span className="text-xs font-bold tracking-[0.16em] text-[#781428] uppercase">Explore Spaces</span>
+              <Icon.Trophy className="w-4 h-4 text-[#781428]" />
+              <span className="text-xs font-bold tracking-[0.16em] text-[#781428] uppercase">Athletics & Recreation</span>
             </div>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#0A1628] leading-tight mb-4">
-              Comprehensive Facility Directory
+              Championship Arenas & Outdoor Facilities
             </h2>
             <p className="text-base sm:text-lg text-[#5A6778] leading-relaxed">
-              Explore our diverse learning environments, specialized STEM laboratories, competitive sporting venues, and comfortable residential quarters.
+              Physical education is central to character at BGHS. Students train across 18 indoor and outdoor disciplines guided by certified coaches and lifeguards.
             </p>
-
-            {/* Filter Buttons */}
-            <div className="mt-8 flex flex-wrap justify-center gap-2.5">
-              {[
-                { id: "all", label: "All Facilities", count: allFacilities.length },
-                { id: "indoor", label: "Indoor Learning & Labs", count: allFacilities.filter(f => f.category === "indoor").length },
-                { id: "outdoor", label: "Outdoor & Sports", count: allFacilities.filter(f => f.category === "outdoor").length },
-                { id: "residential", label: "Boarding & Wellness", count: allFacilities.filter(f => f.category === "residential").length },
-              ].map((tab) => {
-                const isActive = filter === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setFilter(tab.id as typeof filter)}
-                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer ${
-                      isActive
-                        ? "bg-[#781428] text-white shadow-md shadow-rose-950/20 scale-[1.02]"
-                        : "bg-[#F1F5F9] text-[#334155] hover:bg-[#DBEAFE] border border-[#CBD5E1]"
-                    }`}
-                  >
-                    <span>{tab.label}</span>
-                    <span
-                      className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-extrabold ${
-                        isActive ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
-                      }`}
-                    >
-                      {tab.count}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
           </motion.div>
 
-          {/* Cards Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredFacilities.map((facility, i) => {
-              const IconComp = Icon[facility.icon] || Icon.Building;
-              return (
-                <motion.div
-                  key={facility.id}
-                  variants={scaleUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i}
-                  className="group rounded-2xl bg-white border border-[#E2E8F0] overflow-hidden hover:border-[#3B82F6]/50 hover:shadow-xl transition-all duration-300 flex flex-col"
-                >
-                  {/* Photo with Badge Overlay */}
-                  <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-900">
-                    <img
-                      src={facility.image}
-                      alt={facility.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/85 via-transparent to-black/20" />
-                    
-                    {/* Badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A1628]/80 backdrop-blur-md px-3 py-1 text-[10px] font-bold tracking-wider text-white uppercase border border-white/20">
-                        <IconComp className="w-3.5 h-3.5 text-[#F3C44E]" />
-                        <span>{facility.categoryBadge}</span>
-                      </span>
-                    </div>
+          {/* Editorial Feature 1: The Olympic-Dimension Swimming Pool */}
+          <div className="rounded-3xl bg-gradient-to-br from-[#0A1628] via-[#12233f] to-[#1E3A8A] text-white overflow-hidden shadow-2xl mb-12">
+            <div className="grid lg:grid-cols-2 items-center">
+              
+              {/* Photo Side */}
+              <div className="relative h-80 sm:h-96 lg:h-full min-h-[380px] overflow-hidden">
+                <img
+                  src="/bghs-swimming.png"
+                  alt="Baldwin Girls High School Swimming Pool"
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#12233f]" />
+                
+                {/* Floating pill badge */}
+                <div className="absolute bottom-5 left-5">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-[#1E3A8A] shadow-md">
+                    <Icon.Waves className="w-4 h-4" />
+                    <span>State & National Level CISCE Aquatic Center</span>
+                  </span>
+                </div>
+              </div>
 
-                    {/* Title inside photo bottom */}
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="font-serif font-bold text-xl text-white leading-tight drop-shadow-sm">
-                        {facility.name}
-                      </h3>
-                      <p className="text-xs text-white/80 line-clamp-1 mt-0.5 font-sans">
-                        {facility.subtitle}
-                      </p>
-                    </div>
+              {/* Text & Specs Side */}
+              <div className="p-8 sm:p-12 lg:p-14 space-y-6">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#F3C44E] block mb-2">Flagship Sports Infrastructure</span>
+                  <h3 className="font-serif font-bold text-3xl sm:text-4xl text-white leading-tight">
+                    Olympic-Dimension Swimming Pool
+                  </h3>
+                </div>
+
+                <p className="text-sm sm:text-base text-white/80 leading-relaxed">
+                  Built to international competitive standards, our aquatics center features dedicated beginner shallow zones, competition racing lanes, electronic timers, continuous ozone filtration plants, and certified female lifeguards.
+                </p>
+
+                {/* Highlight badges */}
+                <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                  <div className="flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-3 text-xs sm:text-sm text-white/90 border border-white/10">
+                    <Icon.CheckCircle className="w-4 h-4 text-[#38BDF8] shrink-0" />
+                    <span>25m Heated Racing Lanes</span>
                   </div>
-
-                  {/* Body Content */}
-                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                    <p className="text-xs sm:text-sm text-[#5A6778] leading-relaxed">
-                      {facility.description}
-                    </p>
-
-                    {/* Features Tags */}
-                    <div className="space-y-3 pt-3 border-t border-slate-100">
-                      <div className="flex flex-wrap gap-1.5">
-                        {facility.features.map((feat) => (
-                          <span
-                            key={feat}
-                            className="inline-flex items-center gap-1 rounded-md bg-[#F1F5F9] px-2.5 py-1 text-[11px] font-medium text-[#334155]"
-                          >
-                            <Icon.CheckCircle className="w-3 h-3 text-[#1E3A8A]" />
-                            <span>{feat}</span>
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Specs info */}
-                      <div className="flex items-center gap-2 text-xs text-[#1E3A8A] font-semibold bg-[#DBEAFE]/40 px-3 py-2 rounded-xl">
-                        <Icon.Clock className="w-3.5 h-3.5 shrink-0" />
-                        <span>{facility.specs}</span>
-                      </div>
-                    </div>
+                  <div className="flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-3 text-xs sm:text-sm text-white/90 border border-white/10">
+                    <Icon.CheckCircle className="w-4 h-4 text-[#38BDF8] shrink-0" />
+                    <span>Continuous Ozone Water Plant</span>
                   </div>
-                </motion.div>
-              );
-            })}
+                  <div className="flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-3 text-xs sm:text-sm text-white/90 border border-white/10">
+                    <Icon.CheckCircle className="w-4 h-4 text-[#38BDF8] shrink-0" />
+                    <span>Certified Female Coaches</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-3 text-xs sm:text-sm text-white/90 border border-white/10">
+                    <Icon.CheckCircle className="w-4 h-4 text-[#38BDF8] shrink-0" />
+                    <span>Inter-School Host Venue</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex items-center gap-3 text-xs text-white/60">
+                  <Icon.Trophy className="w-4 h-4 text-[#F3C44E] shrink-0" />
+                  <span>Home to CISCE National Swim Meet Medalists</span>
+                </div>
+              </div>
+
+            </div>
           </div>
+
+          {/* Editorial Feature 2: Basketball, Athletics Grounds & Green Campus (3 Column Bento) */}
+          <div className="grid md:grid-cols-3 gap-8">
+            
+            {/* Box 1: Basketball Courts */}
+            <div className="rounded-3xl bg-[#F8FAFC] border border-[#E2E8F0] p-8 flex flex-col justify-between hover:shadow-lg transition-all group">
+              <div>
+                <div className="relative h-48 rounded-2xl overflow-hidden mb-6 bg-slate-200">
+                  <img
+                    src="/bghs-sports-hero.png"
+                    alt="Basketball and Outdoor Sports"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#0A1628]/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                    Floodlit Arena
+                  </div>
+                </div>
+                <h4 className="font-serif font-bold text-xl text-[#0A1628] mb-2">FIBA Basketball Complex</h4>
+                <p className="text-xs sm:text-sm text-[#5A6778] leading-relaxed mb-4">
+                  Multi-court synthetic acrylic shock-absorbing surface with tournament spring backboards and evening floodlight fixtures for state matches.
+                </p>
+              </div>
+              <ul className="space-y-2 text-xs text-[#334155] border-t border-slate-200 pt-4">
+                <li className="flex items-center gap-2">
+                  <Icon.CheckCircle className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Shock-Absorbent Acrylic Floor</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Icon.CheckCircle className="w-3.5 h-3.5 text-blue-600" />
+                  <span>State Tournament Regulation</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Box 2: Athletics Grounds */}
+            <div className="rounded-3xl bg-[#F8FAFC] border border-[#E2E8F0] p-8 flex flex-col justify-between hover:shadow-lg transition-all group">
+              <div>
+                <div className="relative h-48 rounded-2xl overflow-hidden mb-6 bg-slate-200">
+                  <img
+                    src="/campus-playground.jpg"
+                    alt="Athletics Grounds and Turf"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#0A1628]/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                    200m Cinder Track
+                  </div>
+                </div>
+                <h4 className="font-serif font-bold text-xl text-[#0A1628] mb-2">Athletics Grounds & Turf</h4>
+                <p className="text-xs sm:text-sm text-[#5A6778] leading-relaxed mb-4">
+                  Expansive outdoor grounds accommodating 200m running tracks, football turf, cricket nets, volleyball courts, and march-past parade grounds.
+                </p>
+              </div>
+              <ul className="space-y-2 text-xs text-[#334155] border-t border-slate-200 pt-4">
+                <li className="flex items-center gap-2">
+                  <Icon.CheckCircle className="w-3.5 h-3.5 text-blue-600" />
+                  <span>8 Certified Full-Time Coaches</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Icon.CheckCircle className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Cricket Nets & Football Arena</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Box 3: 7-Acre Botanical Canopy & Gardens */}
+            <div className="rounded-3xl bg-[#F8FAFC] border border-[#E2E8F0] p-8 flex flex-col justify-between hover:shadow-lg transition-all group">
+              <div>
+                <div className="relative h-48 rounded-2xl overflow-hidden mb-6 bg-slate-200">
+                  <img
+                    src="/campus-garden.jpg"
+                    alt="Heritage Gardens and Quadrangle"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#0A1628]/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                    Green Canopy
+                  </div>
+                </div>
+                <h4 className="font-serif font-bold text-xl text-[#0A1628] mb-2">Heritage Botanical Quadrangle</h4>
+                <p className="text-xs sm:text-sm text-[#5A6778] leading-relaxed mb-4">
+                  Century-old rain trees, landscaped gardens, shaded quadrangle benches, and quiet outdoor learning pavilions across the 7-acre campus.
+                </p>
+              </div>
+              <ul className="space-y-2 text-xs text-[#334155] border-t border-slate-200 pt-4">
+                <li className="flex items-center gap-2">
+                  <Icon.CheckCircle className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Zero-Waste Composting Unit</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Icon.CheckCircle className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Eco-Pavilions & Shaded Courtyards</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          {/* Transport Fleet Strip */}
+          <div className="mt-8 rounded-2xl bg-[#EEF4FB] border border-[#D9E5F3] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#1E3A8A] text-white">
+                <Icon.Bus className="w-7 h-7" />
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#1E3A8A]">Transit Network</span>
+                <h4 className="font-serif font-bold text-lg sm:text-xl text-[#0A1628]">GPS-Tracked School Bus Fleet</h4>
+                <p className="text-xs sm:text-sm text-[#5A6778] mt-0.5">
+                  Over 30 designated city routes with live parent GPS tracking, CCTV monitoring, speed governors, and trained female bus attendants.
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/contact"
+              className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-[#0A1628] hover:bg-[#1E3A8A] text-white px-5 py-3 text-xs font-bold tracking-wide transition shadow-sm"
+            >
+              <span>View Route Coverage</span>
+              <Icon.ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          SECTION ANCHORS (INDOOR, OUTDOOR, BOARDING)
+          SECTION 3: RESIDENTIAL BOARDING & WELLBEING (ALTERNATING STORY SPREAD)
       ═══════════════════════════════════════════════════════════════════ */}
-      <div id="indoor" className="scroll-mt-24" />
-      <div id="outdoor" className="scroll-mt-24" />
-      <div id="boarding" className="scroll-mt-24" />
+      <section id="boarding" className="relative py-24 lg:py-32 bg-gradient-to-b from-[#F1F5F9] via-[#F8FAFC] to-white scroll-mt-24">
+        <FloatingBackground />
+        <div className="relative z-10 mx-auto max-w-[1380px] px-6 lg:px-14">
+          
+          {/* Section Header */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto mb-16"
+          >
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#781428]/10 px-5 py-2 mb-4 border border-[#781428]/20">
+              <Icon.Heart className="w-4 h-4 text-[#781428]" />
+              <span className="text-xs font-bold tracking-[0.16em] text-[#781428] uppercase">Residential Care & Boarding</span>
+            </div>
+            <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#0A1628] leading-tight mb-4">
+              A Safe, Nurturing Home Away from Home
+            </h2>
+            <p className="text-base sm:text-lg text-[#5A6778] leading-relaxed">
+              For outstation students from across India and abroad, Baldwin Girls' High School provides a secure, caring residential environment with pastoral female wardens and round-the-clock medical care.
+            </p>
+          </motion.div>
+
+          {/* Alternating Story 1: Residential Quarters */}
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16">
+            <div className="order-2 lg:order-1 space-y-5">
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#1E3A8A]/10 px-4 py-1 text-xs font-bold text-[#1E3A8A]">
+                <Icon.Building className="w-3.5 h-3.5" />
+                <span>Comfortable Living</span>
+              </div>
+              <h3 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#0A1628]">
+                Residential Boarding Quarters
+              </h3>
+              <p className="text-sm sm:text-base text-[#5A6778] leading-relaxed">
+                Supervised by experienced female wardens, our residential dormitories provide bright, air-cooled rooms with private study desks, ergonomic beds, personal wardrobes, and recreational common rooms.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>24/7 Female Matron Care</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Evening Supervised Study</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Wi-Fi Monitored Study Lab</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>CCTV Protected Perimeter</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-xl border border-slate-200">
+              <img
+                src="/campus-boarding.jpg"
+                alt="Residential Boarding Quarters"
+                className="w-full h-80 sm:h-96 object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Alternating Story 2: Hostel Dining Hall */}
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16">
+            <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-200">
+              <img
+                src="/campus-dininghall.jpg"
+                alt="Hostel Dining Hall and Kitchen"
+                className="w-full h-80 sm:h-96 object-cover"
+              />
+            </div>
+
+            <div className="space-y-5">
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#781428]/10 px-4 py-1 text-xs font-bold text-[#781428]">
+                <Icon.Heart className="w-3.5 h-3.5" />
+                <span>Nutritious & Hygienic</span>
+              </div>
+              <h3 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#0A1628]">
+                Hostel Dining Hall & Kitchen
+              </h3>
+              <p className="text-sm sm:text-base text-[#5A6778] leading-relaxed">
+                Balanced, nutritionist-planned meals prepared in our FSSAI-certified, steam-operated kitchen. Students enjoy fresh vegetarian and non-vegetarian menus in a spacious, naturally ventilated 500-seat dining hall.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Nutrient-Balanced Menus</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>FSSAI Certified Operations</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Continuous RO Water Plant</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>500-Seat Simultaneous Capacity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Alternating Story 3: Campus Infirmary */}
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="order-2 lg:order-1 space-y-5">
+              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-4 py-1 text-xs font-bold text-emerald-800">
+                <Icon.Heart className="w-3.5 h-3.5" />
+                <span>Health & Wellness</span>
+              </div>
+              <h3 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#0A1628]">
+                Campus Infirmary & Medical Bay
+              </h3>
+              <p className="text-sm sm:text-base text-[#5A6778] leading-relaxed">
+                A dedicated healthcare center staffed with a full-time resident nurse, first-aid observation beds, medical supplies, oxygen cylinders, and emergency ambulance tie-ups with leading hospitals in Bengaluru.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Resident Qualified Nurse</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Emergency Oxygen & Vitals</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Hospital Ambulance Tie-Up</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                  <Icon.CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Care for Day & Boarding Girls</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-xl border border-slate-200">
+              <img
+                src="/campus-infirmary.jpg"
+                alt="Campus Infirmary and Medical Bay"
+                className="w-full h-80 sm:h-96 object-cover"
+              />
+            </div>
+          </div>
+
+        </div>
+      </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
           FACILITIES FAQ ACCORDION
@@ -798,7 +1038,7 @@ export default function FacilitiesPage() {
               <div className="rounded-2xl bg-gradient-to-br from-[#0A1628] to-[#1E3A8A] text-white p-6 shadow-md">
                 <h4 className="font-serif font-bold text-lg mb-2">Want to see the facilities in person?</h4>
                 <p className="text-xs sm:text-sm text-white/75 mb-4 leading-relaxed">
-                  Join us for an escorted campus tour with our admissions liaison team.
+                  Join us for an escorted campus walkthrough with our admissions liaison team.
                 </p>
                 <Link
                   to="/contact"
@@ -898,4 +1138,3 @@ export default function FacilitiesPage() {
     </main>
   );
 }
-
