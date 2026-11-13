@@ -212,6 +212,7 @@ export default function InteractiveAbout() {
     {
       id: "chairman",
       name: "Bishop Dr. AnilKumar John Servand",
+      shortName: "Bishop Dr. AnilKumar",
       role: "Chairman",
       organization: "Baldwin Methodist Educational Society",
       image: "/chairman-full.png",
@@ -226,6 +227,7 @@ export default function InteractiveAbout() {
     {
       id: "principal",
       name: "Mrs. Asha Margaret Das",
+      shortName: "Mrs. Asha M. Das",
       role: "Principal",
       organization: "Baldwin Girls' High School",
       image: "/principal-full.png",
@@ -240,6 +242,7 @@ export default function InteractiveAbout() {
     {
       id: "manager",
       name: "Mrs. Anita Isaac",
+      shortName: "Mrs. Anita Isaac",
       role: "Manager",
       organization: "Baldwin Girls' High School",
       image: "/manager-full.png",
@@ -554,30 +557,73 @@ export default function InteractiveAbout() {
             </p>
           </div>
 
-          {/* Interactive Leader Switcher Tabs */}
-          <div className="flex justify-center mb-12">
-            <div className="inline-flex p-1.5 rounded-2xl bg-white border border-gray-200 shadow-sm max-w-full overflow-x-auto">
-              {leadersData.map((leader, idx) => (
+          {/* Responsive Leader Selector Cards — 3 Columns on Mobile & Desktop */}
+          <div className="grid grid-cols-3 gap-2.5 sm:gap-4 max-w-4xl mx-auto mb-10">
+            {leadersData.map((leader, idx) => {
+              const isActive = activeLeader === idx;
+              return (
                 <button
                   key={leader.id}
                   type="button"
                   onClick={() => setActiveLeader(idx)}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all cursor-pointer whitespace-nowrap ${
-                    activeLeader === idx
-                      ? "bg-[#1D4ED8] text-white shadow-md shadow-[#1D4ED8]/30"
-                      : "text-gray-600 hover:text-[#1D4ED8]"
+                  className={`flex flex-col items-center justify-between p-3 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer text-center relative group ${
+                    isActive
+                      ? "bg-white border-[#1D4ED8] shadow-xl shadow-blue-900/10 ring-2 ring-[#1D4ED8]/20 -translate-y-1"
+                      : "bg-white/80 hover:bg-white border-gray-200 hover:border-blue-300 hover:shadow-md"
                   }`}
                 >
-                  <span>{leader.name}</span>
-                  <span className="text-[10px] uppercase font-bold opacity-80">({leader.role})</span>
+                  {/* Active Indicator Top Tag */}
+                  {isActive && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1D4ED8] text-white text-[9px] sm:text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-xs tracking-wider whitespace-nowrap">
+                      Active Profile
+                    </span>
+                  )}
+
+                  {/* Leader Circular Avatar with official framing */}
+                  <div className={`h-12 w-12 sm:h-16 sm:w-16 rounded-full overflow-hidden mb-2.5 border-2 transition-transform duration-300 group-hover:scale-105 shrink-0 ${
+                    isActive ? "border-[#1D4ED8] shadow-md ring-2 ring-blue-100" : "border-gray-200"
+                  }`}>
+                    <img
+                      src={leader.image}
+                      alt={leader.name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+
+                  {/* Role Badge */}
+                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-md mb-1 ${
+                    isActive ? "bg-blue-100 text-[#1D4ED8]" : "bg-gray-100 text-gray-600"
+                  }`}>
+                    {leader.role}
+                  </span>
+
+                  {/* Name (Responsive: short on mobile, full on tablet/desktop) */}
+                  <h4 className={`font-serif font-bold text-xs sm:text-sm lg:text-base leading-snug line-clamp-2 min-h-[2.5rem] flex items-center justify-center ${
+                    isActive ? "text-[#0A2540]" : "text-gray-700"
+                  }`}>
+                    <span className="hidden sm:inline">{leader.name}</span>
+                    <span className="sm:hidden">{leader.shortName}</span>
+                  </h4>
+
+                  {/* Explicit View Info Button */}
+                  <div className={`mt-2.5 w-full py-1.5 px-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 ${
+                    isActive
+                      ? "bg-[#1D4ED8] text-white shadow-xs"
+                      : "bg-gray-100 text-gray-700 group-hover:bg-[#1D4ED8] group-hover:text-white"
+                  }`}>
+                    <span>{isActive ? "Viewing Info" : "View Info"}</span>
+                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </div>
                 </button>
-              ))}
-            </div>
+              );
+            })}
           </div>
 
           {/* Active Leader Full Profile Card with Big Uncropped High-Res Picture */}
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-gray-200 shadow-xl">
-            <div className="grid lg:grid-cols-12 gap-10 items-start">
+          <div className="bg-white rounded-3xl p-6 sm:p-12 border border-gray-200 shadow-xl transition-all">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
               {/* Leader Photo with Official Rounded Framing */}
               <div className="lg:col-span-5 flex justify-center">
                 <div className="w-full max-w-[420px] rounded-2xl overflow-hidden border-4 border-white shadow-2xl bg-slate-900 group">
@@ -587,7 +633,7 @@ export default function InteractiveAbout() {
                     className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="p-4 bg-[#0b1b3d] text-white text-center">
-                    <h4 className="font-display font-extrabold text-lg text-white">
+                    <h4 className="font-display font-extrabold text-base sm:text-lg text-white">
                       {leadersData[activeLeader].name}
                     </h4>
                     <p className="text-xs text-[#38BDF8] font-bold tracking-widest uppercase mt-0.5">
@@ -599,23 +645,52 @@ export default function InteractiveAbout() {
 
               {/* Bio & Vision */}
               <div className="lg:col-span-7 space-y-4">
-                <div className="bg-blue-50/70 border-l-4 border-[#1D4ED8] p-5 rounded-r-xl">
-                  <p className="font-serif italic text-base sm:text-lg text-[#0A2540] leading-relaxed">
+                <div className="bg-blue-50/70 border-l-4 border-[#1D4ED8] p-4 sm:p-5 rounded-r-xl">
+                  <p className="font-serif italic text-sm sm:text-base lg:text-lg text-[#0A2540] leading-relaxed">
                     {leadersData[activeLeader].quote}
                   </p>
                 </div>
 
-                <div className="space-y-3.5 text-[15px] sm:text-base leading-relaxed text-[#4b5563] pt-2">
+                <div className="space-y-3 text-sm sm:text-base leading-relaxed text-[#4b5563] pt-1">
                   {leadersData[activeLeader].bio.map((para, i) => (
                     <p key={i}>{para}</p>
                   ))}
                 </div>
 
-                <div className="pt-4 border-t border-gray-100 flex items-center gap-3">
+                <div className="pt-4 border-t border-gray-100 flex flex-wrap items-center gap-2">
                   <span className="text-xs font-bold text-[#0A2540]">Key Focus:</span>
-                  <span className="text-xs text-gray-500 font-medium">
+                  <span className="text-xs text-gray-600 font-medium">
                     {leadersData[activeLeader].focus}
                   </span>
+                </div>
+
+                {/* Quick Prev / Next Leader Switcher Controls */}
+                <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-6">
+                  <button
+                    type="button"
+                    onClick={() => setActiveLeader((prev) => (prev > 0 ? prev - 1 : leadersData.length - 1))}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D4ED8] hover:text-[#0A2540] px-3 py-2 rounded-xl hover:bg-blue-50 transition cursor-pointer"
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                    <span>Previous</span>
+                  </button>
+
+                  <span className="text-xs text-gray-400 font-medium">
+                    {activeLeader + 1} of {leadersData.length}
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveLeader((prev) => (prev < leadersData.length - 1 ? prev + 1 : 0))}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D4ED8] hover:text-[#0A2540] px-3 py-2 rounded-xl hover:bg-blue-50 transition cursor-pointer"
+                  >
+                    <span>Next</span>
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
