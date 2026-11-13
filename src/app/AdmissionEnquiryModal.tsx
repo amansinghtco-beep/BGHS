@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import CaptchaVerification from "./CaptchaVerification";
 
 export default function AdmissionEnquiryModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +15,6 @@ export default function AdmissionEnquiryModal() {
     message: "",
   });
 
-  const [captchaVerified, setCaptchaVerified] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [refId, setRefId] = useState("");
@@ -47,11 +45,6 @@ export default function AdmissionEnquiryModal() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captchaVerified) {
-      alert("Please confirm the captcha verification before submitting.");
-      return;
-    }
-
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -68,7 +61,6 @@ export default function AdmissionEnquiryModal() {
       grade: "Kindergarten (LKG & UKG)",
       message: "",
     });
-    setCaptchaVerified(false);
     setIsSubmitted(false);
     setRefId("");
     setIsOpen(false);
@@ -275,15 +267,6 @@ export default function AdmissionEnquiryModal() {
                           <option value="Middle School (Grades 6 – 8)">Middle School (Grades 6 &ndash; 8)</option>
                           <option value="High School (Grades 9 – 10 ICSE)">High School (Grades 9 &ndash; 10 ICSE)</option>
                         </select>
-                      </div>
-
-                      {/* Captcha Verification */}
-                      <div className="pt-1">
-                        <CaptchaVerification
-                          verified={captchaVerified}
-                          onVerify={() => setCaptchaVerified(true)}
-                          dark={false}
-                        />
                       </div>
 
                       {/* Submit Button */}

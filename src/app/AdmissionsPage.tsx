@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router";
 import { motion, useScroll, useTransform, AnimatePresence, type Variants } from "framer-motion";
-import CaptchaVerification from "./CaptchaVerification";
 
 /* ─────────────────────────────────────────────────────────────────────────
    INLINE SVG ICON LIBRARY — pure vectors, no emojis, no image files
@@ -627,7 +626,6 @@ function EnquiryForm() {
     notes: "",
   });
 
-  const [captchaVerified, setCaptchaVerified] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -637,10 +635,6 @@ function EnquiryForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captchaVerified) {
-      alert("Please confirm the verification checkbox before submitting.");
-      return;
-    }
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -662,7 +656,6 @@ function EnquiryForm() {
           type="button"
           onClick={() => {
             setSubmitted(false);
-            setCaptchaVerified(false);
             setFormData({
               parentName: "",
               studentName: "",
@@ -767,15 +760,6 @@ function EnquiryForm() {
           rows={3}
           placeholder="Any specific questions or requirements..."
           className="w-full rounded-xl bg-white/10 border border-white/20 px-4 py-3.5 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition resize-none"
-        />
-      </div>
-
-      {/* Captcha Verification */}
-      <div className="md:col-span-2 pt-1">
-        <CaptchaVerification
-          verified={captchaVerified}
-          onVerify={() => setCaptchaVerified(true)}
-          dark={true}
         />
       </div>
 

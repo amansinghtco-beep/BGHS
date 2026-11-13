@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import { Arrow } from "./components";
-import CaptchaVerification from "./CaptchaVerification";
 
 export default function SleekEnquirySection() {
   const [submitted, setSubmitted] = useState(false);
-  const [captchaVerified, setCaptchaVerified] = useState(false);
   const [formData, setFormData] = useState({
     parentName: "",
     phone: "",
@@ -17,10 +15,6 @@ export default function SleekEnquirySection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captchaVerified) {
-      alert("Please complete the verification checkbox before submitting.");
-      return;
-    }
     setSubmitted(true);
   };
 
@@ -97,7 +91,6 @@ export default function SleekEnquirySection() {
                     type="button"
                     onClick={() => {
                       setSubmitted(false);
-                      setCaptchaVerified(false);
                       setFormData({ parentName: "", phone: "", email: "", grade: "Kindergarten / Pre-Primary", message: "" });
                     }}
                     className="mt-6 text-xs font-bold tracking-widest text-[#1D4ED8] uppercase hover:underline"
@@ -201,15 +194,6 @@ export default function SleekEnquirySection() {
                     >
                       Questions or Campus Visit Preferences (Optional)
                     </label>
-                  </div>
-
-                  {/* Captcha Verification */}
-                  <div className="pt-2">
-                    <CaptchaVerification
-                      verified={captchaVerified}
-                      onVerify={() => setCaptchaVerified(true)}
-                      dark={false}
-                    />
                   </div>
 
                   {/* Footer & Submit Action */}

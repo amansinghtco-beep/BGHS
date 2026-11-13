@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import CaptchaVerification from "./CaptchaVerification";
 
 /* ─────────────────────────────────────────────────────────────────────────
    INLINE SVG ICONS — Pure vectors, zero external icon packages, zero emojis
@@ -143,17 +142,12 @@ export default function ContactPage() {
     message: "",
   });
 
-  const [captchaChecked, setCaptchaChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [refId, setRefId] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captchaChecked) {
-      alert("Please confirm you are not a robot by clicking the verification checkbox.");
-      return;
-    }
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -171,7 +165,6 @@ export default function ContactPage() {
       grade: "Not Applicable / General",
       message: "",
     });
-    setCaptchaChecked(false);
     setSubmitted(false);
     setRefId("");
   };
@@ -853,16 +846,7 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  {/* Row 5: Captcha Verification */}
-                  <div className="pt-2">
-                    <CaptchaVerification
-                      verified={captchaChecked}
-                      onVerify={() => setCaptchaChecked(true)}
-                      dark={false}
-                    />
-                  </div>
-
-                  {/* Row 6: Submit Button */}
+                  {/* Row 5: Submit Button */}
                   <div className="pt-2">
                     <button
                       type="submit"
