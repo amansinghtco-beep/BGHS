@@ -9,6 +9,14 @@ export default function InteractiveAbout() {
   const [activeLeader, setActiveLeader] = useState<number>(0);
   const [activeSymbol, setActiveSymbol] = useState<number>(0);
   const [prayerTab, setPrayerTab] = useState<"hymn" | "prayer">("hymn");
+  const [flippedHouses, setFlippedHouses] = useState<Record<string, boolean>>({});
+
+  const toggleHouseFlip = (houseName: string) => {
+    setFlippedHouses((prev) => ({
+      ...prev,
+      [houseName]: !prev[houseName],
+    }));
+  };
 
   // Crest symbols with custom inline vector illustrations (torch, open book, laurel wreath, harp, shield)
   const crestEmblems = [
@@ -715,87 +723,111 @@ export default function InteractiveAbout() {
 
           {/* 3D Flip Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {houses.map((house) => (
-              <div
-                key={house.name}
-                className="group perspective-1000 h-[380px] w-full cursor-pointer select-none"
-              >
-                {/* 3D Container */}
-                <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180 rounded-2xl shadow-lg">
-                  {/* FRONT FACE */}
-                  <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden bg-[#111827] text-white p-7 flex flex-col justify-between border border-white/10">
-                    {/* Diagonal Color Sash Stripe */}
-                    <div
-                      className={`absolute -left-12 top-1/2 -translate-y-1/2 w-[150%] h-8 bg-gradient-to-r ${house.gradient} rotate-[-30deg] pointer-events-none opacity-90 shadow-md`}
-                    />
-
-                    {/* Top Header */}
-                    <div className="relative z-10 flex items-center justify-between">
-                      <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/15 text-white">
-                        {house.colorName} House
-                      </span>
-                      <div className="p-1 rounded-full bg-white/10">{house.icon}</div>
-                    </div>
-
-                    {/* Center Title & Motto */}
-                    <div className="relative z-10 text-center py-4">
-                      <h3 className="font-display font-black text-xl text-white tracking-wider uppercase drop-shadow-md">
-                        {house.name}
-                      </h3>
-                      <p className="font-serif italic text-sm text-white/90 mt-2">
-                        {house.motto}
-                      </p>
-                    </div>
-
-                    {/* Bottom Prompt */}
-                    <div className="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/70">
-                      <span>Motto & Values</span>
-                      <span className="text-xs text-[#38BDF8] font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                        Flip Card ↻
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* BACK FACE (Flipped to show paragraphs) */}
+            {houses.map((house) => {
+              const isFlipped = !!flippedHouses[house.name];
+              return (
+                <div
+                  key={house.name}
+                  onClick={() => toggleHouseFlip(house.name)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      toggleHouseFlip(house.name);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${house.name} card, click or tap to flip`}
+                  aria-pressed={isFlipped}
+                  className="group perspective-1000 h-[380px] w-full cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D4ED8] rounded-2xl"
+                >
+                  {/* 3D Container with both hover and tap/click flip support */}
                   <div
-                    className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden p-6 flex flex-col justify-between text-white border-2 border-white/20 shadow-2xl"
-                    style={{
-                      background: `linear-gradient(145deg, #0f172a 0%, ${house.accent} 140%)`,
-                    }}
+                    className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d rounded-2xl shadow-lg ${
+                      isFlipped ? "rotate-y-180" : "group-hover:rotate-y-180"
+                    }`}
                   >
-                    <div>
-                      <div className="flex items-center justify-between pb-2.5 border-b border-white/15">
-                        <h4 className="font-display font-black text-sm uppercase tracking-wider text-white">
-                          {house.short} House
-                        </h4>
-                        <span className="text-[10px] font-bold uppercase bg-white/20 px-2 py-0.5 rounded-full">
-                          {house.colorName}
+                    {/* FRONT FACE */}
+                    <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden bg-[#111827] text-white p-7 flex flex-col justify-between border border-white/10">
+                      {/* Diagonal Color Sash Stripe */}
+                      <div
+                        className={`absolute -left-12 top-1/2 -translate-y-1/2 w-[150%] h-8 bg-gradient-to-r ${house.gradient} rotate-[-30deg] pointer-events-none opacity-90 shadow-md`}
+                      />
+
+                      {/* Top Header */}
+                      <div className="relative z-10 flex items-center justify-between">
+                        <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/15 text-white">
+                          {house.colorName} House
                         </span>
+                        <div className="p-1 rounded-full bg-white/10">{house.icon}</div>
                       </div>
 
-                      <p className="font-serif italic text-xs text-amber-200 mt-2 mb-2.5">
-                        {house.motto}
-                      </p>
+                      {/* Center Title & Motto */}
+                      <div className="relative z-10 text-center py-4">
+                        <h3 className="font-display font-black text-xl text-white tracking-wider uppercase drop-shadow-md">
+                          {house.name}
+                        </h3>
+                        <p className="font-serif italic text-sm text-white/90 mt-2">
+                          {house.motto}
+                        </p>
+                      </div>
 
-                      <p className="text-xs leading-relaxed text-white/90 text-left">
-                        {house.story}
-                      </p>
+                      {/* Bottom Prompt */}
+                      <div className="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/70">
+                        <span>Motto & Values</span>
+                        <span className="text-xs text-[#38BDF8] font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                          <span>{isFlipped ? "Tap to Flip Back ↺" : "Tap to Flip ↻"}</span>
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="pt-3 border-t border-white/15">
-                      <p className="text-[10px] font-bold uppercase text-white/60 mb-1">Core Values:</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {house.values.map((v) => (
-                          <span key={v} className="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded-md text-white">
-                            {v}
+                    {/* BACK FACE (Flipped to show paragraphs) */}
+                    <div
+                      className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden p-6 flex flex-col justify-between text-white border-2 border-white/20 shadow-2xl"
+                      style={{
+                        background: `linear-gradient(145deg, #0f172a 0%, ${house.accent} 140%)`,
+                      }}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between pb-2.5 border-b border-white/15">
+                          <h4 className="font-display font-black text-sm uppercase tracking-wider text-white">
+                            {house.short} House
+                          </h4>
+                          <span className="text-[10px] font-bold uppercase bg-white/20 px-2 py-0.5 rounded-full">
+                            {house.colorName}
                           </span>
-                        ))}
+                        </div>
+
+                        <p className="font-serif italic text-xs text-amber-200 mt-2 mb-2.5">
+                          {house.motto}
+                        </p>
+
+                        <p className="text-xs leading-relaxed text-white/90 text-left">
+                          {house.story}
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+                        <div>
+                          <p className="text-[9px] font-bold uppercase text-white/60 mb-1">Core Values:</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {house.values.map((v) => (
+                              <span key={v} className="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded-md text-white">
+                                {v}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <span className="text-[11px] font-bold text-amber-300 shrink-0 ml-2">
+                          Tap to Flip ↺
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
