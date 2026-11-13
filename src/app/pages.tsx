@@ -346,45 +346,8 @@ const facilities = [
   ["Library", "Library.76974d8e0d88201136b0.JPG"],
 ];
 
-export function Campus() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="Infrastructure"
-        title="A campus made to thrive."
-        text="Purposeful indoor and outdoor facilities support study, wellbeing, creativity and community."
-        image={`${school}/static/media/campus.c2695666f7a6b4f62dbe.png`}
-      />
-      <section className="section-pad">
-        <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
-          <SectionIntro eyebrow="Campus amenities" title="Every space has a purpose.">
-            <p>
-              From laboratories to the library, students learn in spaces designed for discovery.
-            </p>
-          </SectionIntro>
-          <div className="mt-12 grid auto-rows-[300px] gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {facilities.map(([name, image], index) => (
-              <figure
-                className={`group relative overflow-hidden ${index === 0 ? "lg:col-span-2" : ""}`}
-                key={name}
-              >
-                <img
-                  src={`${school}/static/media/${image}`}
-                  alt={name}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071a33]/85 via-transparent" />
-                <figcaption className="absolute bottom-6 left-6 font-serif text-3xl text-white">
-                  {name}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+export { default as Facilities } from "./FacilitiesPage";
+export { default as Campus } from "./FacilitiesPage";
 
 export function StudentLife() {
   const activities = [
