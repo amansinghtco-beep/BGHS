@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
+import CaptchaVerification from "./CaptchaVerification";
 
 /* ─────────────────────────────────────────────────────────────────────────
    INLINE SVG ICONS — Pure vectors, zero external icon packages, zero emojis
@@ -143,19 +144,9 @@ export default function ContactPage() {
   });
 
   const [captchaChecked, setCaptchaChecked] = useState(false);
-  const [captchaLoading, setCaptchaLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [refId, setRefId] = useState("");
-
-  const handleCaptchaClick = () => {
-    if (captchaChecked || captchaLoading) return;
-    setCaptchaLoading(true);
-    setTimeout(() => {
-      setCaptchaLoading(false);
-      setCaptchaChecked(true);
-    }, 600);
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -862,39 +853,13 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  {/* Row 5: Simulated reCAPTCHA matching screenshot */}
+                  {/* Row 5: Captcha Verification */}
                   <div className="pt-2">
-                    <div
-                      onClick={handleCaptchaClick}
-                      className="inline-flex items-center justify-between gap-6 px-4 py-2.5 rounded-lg border border-slate-300 bg-slate-50 hover:bg-slate-100 cursor-pointer select-none transition-colors max-w-xs shadow-sm"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`w-6 h-6 rounded border flex items-center justify-center transition-colors ${
-                            captchaChecked
-                              ? "bg-emerald-600 border-emerald-600 text-white"
-                              : "border-slate-400 bg-white"
-                          }`}
-                        >
-                          {captchaLoading ? (
-                            <div className="w-3.5 h-3.5 border-2 border-[#781428] border-t-transparent rounded-full animate-spin" />
-                          ) : captchaChecked ? (
-                            <Icon.Check className="w-4 h-4 stroke-[3]" />
-                          ) : null}
-                        </div>
-                        <span className="text-xs sm:text-sm font-medium text-slate-700">
-                          I'm not a robot
-                        </span>
-                      </div>
-
-                      <div className="flex flex-col items-center justify-center text-[9px] text-slate-400 pl-4 border-l border-slate-200">
-                        <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14h-2v-2h2zm0-4h-2V7h2z" />
-                        </svg>
-                        <span className="font-semibold text-slate-500">reCAPTCHA</span>
-                        <span>Privacy - Terms</span>
-                      </div>
-                    </div>
+                    <CaptchaVerification
+                      verified={captchaChecked}
+                      onVerify={() => setCaptchaChecked(true)}
+                      dark={false}
+                    />
                   </div>
 
                   {/* Row 6: Submit Button */}

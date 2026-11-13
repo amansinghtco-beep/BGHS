@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router";
 import { motion, useScroll, useTransform, AnimatePresence, type Variants } from "framer-motion";
+import CaptchaVerification from "./CaptchaVerification";
 
 /* ─────────────────────────────────────────────────────────────────────────
    INLINE SVG ICON LIBRARY — pure vectors, no emojis, no image files
@@ -626,15 +627,66 @@ function EnquiryForm() {
     notes: "",
   });
 
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!captchaVerified) {
+      alert("Please confirm the verification checkbox before submitting.");
+      return;
+    }
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }, 700);
+  };
+
+  if (submitted) {
+    return (
+      <div className="py-12 px-6 rounded-2xl bg-white/10 border border-white/20 text-center text-white backdrop-blur-md">
+        <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+          <Icon.CheckCircle className="w-8 h-8" />
+        </div>
+        <h3 className="text-2xl font-serif font-bold text-white mb-2">Admissions Enquiry Submitted!</h3>
+        <p className="text-white/80 text-sm max-w-md mx-auto mb-6">
+          Thank you, <span className="font-semibold text-white">{formData.parentName || "Parent"}</span>. Our admissions team will review your details and contact you via phone or email during your preferred callback window.
+        </p>
+        <button
+          type="button"
+          onClick={() => {
+            setSubmitted(false);
+            setCaptchaVerified(false);
+            setFormData({
+              parentName: "",
+              studentName: "",
+              grade: "",
+              callbackTime: "",
+              phone: "",
+              email: "",
+              notes: "",
+            });
+          }}
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 text-white text-xs font-semibold uppercase tracking-wider transition-colors"
+        >
+          Submit Another Enquiry
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <form className="grid gap-5 md:grid-cols-2" onSubmit={(e) => e.preventDefault()}>
+    <form className="grid gap-5 md:grid-cols-2" onSubmit={handleSubmit}>
       <div>
-        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Parent / Guardian Name</label>
+        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Parent / Guardian Name *</label>
         <input
+          required
           name="parentName"
           value={formData.parentName}
           onChange={handleChange}
@@ -643,8 +695,9 @@ function EnquiryForm() {
         />
       </div>
       <div>
-        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Student Name</label>
+        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Student Name *</label>
         <input
+          required
           name="studentName"
           value={formData.studentName}
           onChange={handleChange}
@@ -653,8 +706,9 @@ function EnquiryForm() {
         />
       </div>
       <div>
-        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Grade Applying For</label>
+        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Grade Applying For *</label>
         <select
+          required
           name="grade"
           value={formData.grade}
           onChange={handleChange}
@@ -681,8 +735,9 @@ function EnquiryForm() {
         </select>
       </div>
       <div>
-        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Phone Number</label>
+        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Phone Number *</label>
         <input
+          required
           name="phone"
           value={formData.phone}
           onChange={handleChange}
@@ -692,8 +747,9 @@ function EnquiryForm() {
         />
       </div>
       <div>
-        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Email Address</label>
+        <label className="block text-xs font-bold tracking-wider text-white/70 uppercase mb-2">Email Address *</label>
         <input
+          required
           name="email"
           value={formData.email}
           onChange={handleChange}
@@ -713,12 +769,23 @@ function EnquiryForm() {
           className="w-full rounded-xl bg-white/10 border border-white/20 px-4 py-3.5 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition resize-none"
         />
       </div>
+
+      {/* Captcha Verification */}
+      <div className="md:col-span-2 pt-1">
+        <CaptchaVerification
+          verified={captchaVerified}
+          onVerify={() => setCaptchaVerified(true)}
+          dark={true}
+        />
+      </div>
+
       <div className="md:col-span-2">
         <button
           type="submit"
-          className="w-full rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white font-bold py-4 px-8 tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 cursor-pointer"
+          disabled={isSubmitting}
+          className="w-full rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white font-bold py-4 px-8 tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 cursor-pointer disabled:opacity-75"
         >
-          Submit Enquiry
+          {isSubmitting ? "Submitting Enquiry..." : "Submit Enquiry"}
         </button>
       </div>
     </form>

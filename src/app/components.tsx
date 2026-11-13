@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, type ReactNode } from "react";
 import { Link, NavLink, Outlet, useLocation, useOutletContext } from "react-router";
 import FloatingActions from "./FloatingActions";
+import AdmissionEnquiryModal from "./AdmissionEnquiryModal";
 import { programmes, school } from "./data";
 
 export type LayoutOutletContext = {
@@ -494,6 +495,7 @@ export function Layout() {
       <Outlet context={{ isHeaderVisible, headerHeight }} />
       <Footer />
       <FloatingActions />
+      <AdmissionEnquiryModal />
     </div>
   );
 }
