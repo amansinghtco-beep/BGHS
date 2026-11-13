@@ -448,8 +448,8 @@ function SectionCard({ section }: { section: typeof SECTIONS[0] }) {
         <div className={`h-1.5 w-full bg-gradient-to-r ${section.accentBar}`} />
 
         {/* Header band */}
-        <div className={`${section.accentBg} border-b ${section.accentBorder} px-6 sm:px-8 py-6`}>
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className={`${section.accentBg} border-b ${section.accentBorder} px-4 sm:px-8 py-5 sm:py-6`}>
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 {/* SVG section icon */}
@@ -468,15 +468,22 @@ function SectionCard({ section }: { section: typeof SECTIONS[0] }) {
               </p>
             </div>
 
-            {/* Stat chips */}
-            <div className="flex gap-3 flex-wrap">
+            {/* Stat chips: balanced 3 equal columns on phone view so no stat card gets orphaned */}
+            <div className="w-full lg:w-auto grid grid-cols-3 sm:flex gap-2 sm:gap-3">
               {section.stats.map((s) => {
                 const { ValueIcon } = s;
                 return (
-                  <div key={s.label} className="flex flex-col items-center rounded-xl bg-white border border-slate-200 shadow-sm px-4 py-3 min-w-[80px]">
-                    <ValueIcon className={`w-5 h-5 mb-0.5 ${section.accentText}`} />
-                    <span className="font-black text-lg text-[#1E3A8A] font-serif leading-none">{s.value}</span>
-                    <span className="text-[10px] text-slate-500 text-center leading-tight mt-0.5">{s.label}</span>
+                  <div
+                    key={s.label}
+                    className="flex flex-col items-center justify-center rounded-xl bg-white border border-slate-200/80 shadow-xs px-2 sm:px-4 py-2.5 sm:py-3 min-w-0"
+                  >
+                    <ValueIcon className={`w-4 h-4 sm:w-5 sm:h-5 mb-1 ${section.accentText} shrink-0`} />
+                    <span className="font-black text-base sm:text-lg text-[#1E3A8A] font-serif leading-none text-center">
+                      {s.value}
+                    </span>
+                    <span className="text-[10px] text-slate-500 text-center leading-tight mt-1 line-clamp-2">
+                      {s.label}
+                    </span>
                   </div>
                 );
               })}
