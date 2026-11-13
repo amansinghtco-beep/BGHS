@@ -5,7 +5,6 @@ import CaptchaVerification from "./CaptchaVerification";
 
 export default function AdmissionEnquiryModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasDismissed, setHasDismissed] = useState(false);
   const location = useLocation();
 
   // Form State
@@ -22,12 +21,13 @@ export default function AdmissionEnquiryModal() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [refId, setRefId] = useState("");
 
-  // Trigger popup after 2 seconds on page visit
+  // Trigger popup reliably after 2 seconds on website visit or page navigation
   useEffect(() => {
-    // Check if dismissed in this session
-    const sessionDismissed = sessionStorage.getItem("bghs_enquiry_modal_dismissed");
-    if (sessionDismissed === "true") {
-      return;
+    // Clear any previous persistent session block so popup is guaranteed to appear
+    try {
+      sessionStorage.removeItem("bghs_enquiry_modal_dismissed");
+    } catch {
+      // Ignore storage errors in restricted contexts
     }
 
     const timer = setTimeout(() => {
@@ -39,8 +39,6 @@ export default function AdmissionEnquiryModal() {
 
   const handleClose = () => {
     setIsOpen(false);
-    setHasDismissed(true);
-    sessionStorage.setItem("bghs_enquiry_modal_dismissed", "true");
   };
 
   const handleReopen = () => {
@@ -50,7 +48,7 @@ export default function AdmissionEnquiryModal() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!captchaVerified) {
-      alert("Please complete the captcha verification first.");
+      alert("Please confirm the captcha verification before submitting.");
       return;
     }
 
@@ -59,7 +57,6 @@ export default function AdmissionEnquiryModal() {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setRefId(`BGHS-ADM-${Math.floor(100000 + Math.random() * 900000)}`);
-      sessionStorage.setItem("bghs_enquiry_modal_dismissed", "true");
     }, 700);
   };
 
@@ -79,13 +76,14 @@ export default function AdmissionEnquiryModal() {
 
   return (
     <>
-      {/* Floating Reopen Pill (if dismissed, stays subtly accessible at bottom-left) */}
-      {!isOpen && hasDismissed && !isSubmitted && (
+      {/* Floating Reopen Pill: visible whenever modal is closed, so visitors can access anytime */}
+      {!isOpen && !isSubmitted && (
         <motion.button
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
           onClick={handleReopen}
-          className="fixed bottom-6 left-6 z-40 inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#781428] text-white text-xs font-bold shadow-xl shadow-[#781428]/35 hover:bg-[#8F1A32] border border-white/20 transition-all hover:scale-105"
+          className="fixed bottom-6 left-6 z-[9990] inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#781428] text-white text-xs font-bold shadow-2xl shadow-[#781428]/40 hover:bg-[#8F1A32] border border-white/20 transition-all hover:scale-105 cursor-pointer"
         >
           <img
             src="/baldwin-crest-official.png"
@@ -99,7 +97,7 @@ export default function AdmissionEnquiryModal() {
       {/* Main Modal Backdrop & Dialog */}
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
             {/* Backdrop Blur */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -107,7 +105,7 @@ export default function AdmissionEnquiryModal() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={handleClose}
-              className="fixed inset-0 bg-[#071326]/65 backdrop-blur-md"
+              className="fixed inset-0 bg-[#071326]/75 backdrop-blur-md cursor-pointer"
             />
 
             {/* Non-Boxy Floating Modal Card */}
@@ -116,7 +114,8 @@ export default function AdmissionEnquiryModal() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 30 }}
               transition={{ type: "spring", damping: 26, stiffness: 320 }}
-              className="relative w-full max-w-[500px] my-auto bg-white rounded-[32px] sm:rounded-[40px] shadow-[0_25px_70px_-15px_rgba(10,22,40,0.4)] border border-white/80 overflow-hidden z-10"
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-[500px] my-auto bg-white rounded-[32px] sm:rounded-[40px] shadow-[0_25px_70px_-15px_rgba(10,22,40,0.5)] border border-white/80 overflow-hidden z-10"
             >
               {/* Top Curved Decorative Header */}
               <div className="relative bg-gradient-to-br from-[#071738] via-[#0D244D] to-[#781428] text-white pt-7 pb-6 px-6 sm:px-8 text-center rounded-t-[32px] sm:rounded-t-[40px] overflow-hidden">
@@ -206,7 +205,7 @@ export default function AdmissionEnquiryModal() {
                       <button
                         type="button"
                         onClick={handleReset}
-                        className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#0A1628] text-white text-xs font-semibold hover:bg-slate-800 transition-colors shadow-sm"
+                        className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#0A1628] text-white text-xs font-semibold hover:bg-slate-800 transition-colors shadow-sm cursor-pointer"
                       >
                         Close Window
                       </button>
@@ -329,4 +328,3 @@ export default function AdmissionEnquiryModal() {
     </>
   );
 }
-
