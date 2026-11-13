@@ -348,68 +348,8 @@ const facilities = [
 
 export { default as Facilities } from "./FacilitiesPage";
 export { default as Campus } from "./FacilitiesPage";
-
-export function StudentLife() {
-  const activities = [
-    "Dance",
-    "Art",
-    "Craft classes",
-    "Creativity fair",
-    "Music",
-    "NCC",
-    "Quiz",
-    "Rhyme time",
-    "Robotics",
-    "Artificial intelligence",
-    "Counselling",
-    "Career guidance",
-  ];
-
-  return (
-    <main>
-      <PageHero
-        eyebrow="Co-curricular"
-        title="Beyond the book."
-        text="A rich programme of performing arts, visual arts and multidisciplinary activities develops body, mind and spirit."
-        image={`${school}/static/media/co-curricular.5cd4fc7e1478aed3026b.png`}
-      />
-      <section className="section-pad">
-        <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
-          <SectionIntro eyebrow="Explore & express" title="Every talent has a place.">
-            <p>
-              Girls choose activities according to their interests, supported by skilled and
-              enthusiastic faculty.
-            </p>
-          </SectionIntro>
-          <div className="mt-12 grid gap-px bg-[#0b1d38]/15 sm:grid-cols-2 lg:grid-cols-4">
-            {activities.map((item, index) => (
-              <div className="bg-[#f8f7f2] p-7" key={item}>
-                <span className="text-xs text-[#2563EB]">0{index + 1}</span>
-                <p className="mt-5 font-serif text-2xl">{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="pb-24">
-        <div className="mx-auto grid max-w-[1380px] gap-5 px-5 md:grid-cols-3 lg:px-10">
-          {[
-            "dance12.dc7863373cb54ccb2727.JPG",
-            "dance4.3a687afb004070e83b40.JPG",
-            "dance1.ace8fed89df95eef0419.JPG",
-          ].map((image) => (
-            <img
-              className="h-80 w-full object-cover"
-              src={`${school}/static/media/${image}`}
-              alt="Student activity"
-              key={image}
-            />
-          ))}
-        </div>
-      </section>
-    </main>
-  );
-}
+export { default as StudentLife } from "./CampusLifePage";
+export { default as CampusLife } from "./CampusLifePage";
 
 export function Sports() {
   return (

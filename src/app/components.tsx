@@ -135,8 +135,11 @@ export function Layout() {
       to: "/student-life",
       hasDropdown: true,
       children: [
-        { title: "Student Life & Clubs", desc: "Debating, music, drama, science & arts", to: "/student-life" },
-        { title: "Sports & Athletics", desc: "Swimming, basketball, athletics & fitness", to: "/sports" },
+        { title: "Student Life & Culture", desc: "Beyond the classroom & 4 core development pillars", to: "/student-life#culture" },
+        { title: "Sports & Athletics", desc: "18 sports, swimming pool & roll of honor", to: "/student-life#sports" },
+        { title: "Co-Curricular Activities", desc: "Dance, art, craft, music, NCC & quiz", to: "/student-life#co-curricular" },
+        { title: "Leadership & NCC", desc: "Student council roster & cadet corps training", to: "/student-life#leadership" },
+        { title: "Events & Celebrations", desc: "Inter-house, graduation, prize day & robotics", to: "/student-life#events" },
       ],
     },
     {

@@ -27,6 +27,7 @@ export const router = createBrowserRouter([
       { path: "facilities", Component: Facilities },
       { path: "campus", Component: Campus },
       { path: "student-life", Component: StudentLife },
+      { path: "campus-life", Component: StudentLife },
       { path: "sports", Component: Sports },
       { path: "events", Component: Events },
       { path: "admissions", Component: Admissions },
