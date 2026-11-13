@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { Arrow } from "./components";
+import { submitToGoogleSheets } from "./submitToGoogleSheets";
 
 export default function SleekEnquirySection() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     parentName: "",
     phone: "",
@@ -13,8 +15,18 @@ export default function SleekEnquirySection() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    await submitToGoogleSheets({
+      formName: "Home Page Enquiry",
+      parentName: formData.parentName,
+      phone: formData.phone,
+      email: formData.email,
+      grade: formData.grade,
+      message: formData.message,
+    });
+    setIsSubmitting(false);
     setSubmitted(true);
   };
 
@@ -204,9 +216,10 @@ export default function SleekEnquirySection() {
 
                     <button
                       type="submit"
-                      className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#1D4ED8] hover:bg-[#153eb8] px-8 py-3.5 text-xs font-bold tracking-[0.14em] uppercase text-white shadow-lg shadow-[#1D4ED8]/25 hover:shadow-[#1D4ED8]/40 transition-all duration-300 shrink-0"
+                      disabled={isSubmitting}
+                      className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#1D4ED8] hover:bg-[#153eb8] px-8 py-3.5 text-xs font-bold tracking-[0.14em] uppercase text-white shadow-lg shadow-[#1D4ED8]/25 hover:shadow-[#1D4ED8]/40 transition-all duration-300 shrink-0 disabled:opacity-75 cursor-pointer"
                     >
-                      <span>Submit Inquiry</span>
+                      <span>{isSubmitting ? "Submitting..." : "Submit Inquiry"}</span>
                       <span className="transition-transform duration-300 group-hover:translate-x-1">
                         <Arrow />
                       </span>

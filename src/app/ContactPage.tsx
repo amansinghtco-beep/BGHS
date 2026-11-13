@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
+import { submitToGoogleSheets } from "./submitToGoogleSheets";
 
 /* ─────────────────────────────────────────────────────────────────────────
    INLINE SVG ICONS — Pure vectors, zero external icon packages, zero emojis
@@ -146,14 +147,23 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [refId, setRefId] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setRefId(`BGHS-ENQ-${Math.floor(100000 + Math.random() * 900000)}`);
-    }, 900);
+    const newRefId = `BGHS-ENQ-${Math.floor(100000 + Math.random() * 900000)}`;
+    setRefId(newRefId);
+    await submitToGoogleSheets({
+      formName: "Contact Page Enquiry",
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      department: formData.department,
+      grade: formData.grade,
+      message: formData.message,
+      refId: newRefId,
+    });
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   const handleResetForm = () => {

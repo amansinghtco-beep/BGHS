@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router";
 import { motion, useScroll, useTransform, AnimatePresence, type Variants } from "framer-motion";
+import { submitToGoogleSheets } from "./submitToGoogleSheets";
 
 /* ─────────────────────────────────────────────────────────────────────────
    INLINE SVG ICON LIBRARY — pure vectors, no emojis, no image files
@@ -633,13 +634,21 @@ function EnquiryForm() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 700);
+    await submitToGoogleSheets({
+      formName: "Admissions Page Enquiry",
+      parentName: formData.parentName,
+      studentName: formData.studentName,
+      grade: formData.grade,
+      callbackTime: formData.callbackTime,
+      phone: formData.phone,
+      email: formData.email,
+      notes: formData.notes,
+    });
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   if (submitted) {

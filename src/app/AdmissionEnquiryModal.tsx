@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
+import { submitToGoogleSheets } from "./submitToGoogleSheets";
 
 export default function AdmissionEnquiryModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,14 +44,22 @@ export default function AdmissionEnquiryModal() {
     setIsOpen(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setRefId(`BGHS-ADM-${Math.floor(100000 + Math.random() * 900000)}`);
-    }, 700);
+    const newRefId = `BGHS-ADM-${Math.floor(100000 + Math.random() * 900000)}`;
+    setRefId(newRefId);
+    await submitToGoogleSheets({
+      formName: "Popup Admissions Enquiry",
+      parentName: formData.parentName,
+      phone: formData.phone,
+      email: formData.email,
+      grade: formData.grade,
+      message: formData.message,
+      refId: newRefId,
+    });
+    setIsSubmitting(false);
+    setIsSubmitted(true);
   };
 
   const handleReset = () => {
