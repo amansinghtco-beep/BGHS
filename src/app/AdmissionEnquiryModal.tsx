@@ -88,9 +88,9 @@ export default function AdmissionEnquiryModal() {
           className="fixed bottom-6 left-6 z-40 inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#781428] text-white text-xs font-bold shadow-xl shadow-[#781428]/35 hover:bg-[#8F1A32] border border-white/20 transition-all hover:scale-105"
         >
           <img
-            src="/baldwin-crest-transparent.png"
-            alt="BGHS Crest"
-            className="w-5 h-5 object-contain"
+            src="/baldwin-crest-official.png"
+            alt="BGHS Official Crest"
+            className="w-6 h-6 object-contain"
           />
           <span>Admissions Open 2026–27</span>
         </motion.button>
@@ -137,13 +137,13 @@ export default function AdmissionEnquiryModal() {
                   </svg>
                 </button>
 
-                {/* School Logo with Golden Ring */}
+                {/* School Official Crest with Golden Halo Ring */}
                 <div className="relative z-10 mb-3">
-                  <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md p-2 border border-[#F3C44E]/40 shadow-lg mx-auto flex items-center justify-center ring-4 ring-[#F3C44E]/15">
+                  <div className="w-20 h-20 rounded-full bg-white p-2 border-2 border-[#F3C44E] shadow-2xl mx-auto flex items-center justify-center ring-4 ring-white/20">
                     <img
-                      src="/baldwin-crest-transparent.png"
-                      alt="Baldwin Girls' High School Logo"
-                      className="w-full h-full object-contain filter drop-shadow"
+                      src="/baldwin-crest-official.png"
+                      alt="Baldwin Girls' High School Official Crest"
+                      className="w-full h-full object-contain filter drop-shadow-sm"
                     />
                   </div>
                 </div>
@@ -329,3 +329,4 @@ export default function AdmissionEnquiryModal() {
     </>
   );
 }
+
