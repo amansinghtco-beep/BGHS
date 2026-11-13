@@ -397,46 +397,7 @@ export function Sports() {
   );
 }
 
-export function Events() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="Events"
-        title="Moments that shape us."
-        text="Academic, cultural and STEM events create opportunities to participate, lead and celebrate together."
-        image={`${school}/static/media/events.7a1fd1640b7f464e15ad.png`}
-      />
-      <section className="section-pad">
-        <div className="mx-auto max-w-[1380px] px-5 lg:px-10">
-          <SectionIntro eyebrow="School calendar" title="A year full of discovery.">
-            <p>
-              Inter-house events, festivals, graduation, field trips, prize day, robotics and the
-              Spell Bee.
-            </p>
-          </SectionIntro>
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
-            <div className="bg-[#071a33] p-8 text-white">
-              <p className="eyebrow text-[#38BDF8]">Investiture ceremony Â· 2024â€“25</p>
-              <h3 className="mt-5 font-serif text-4xl">Student Council</h3>
-              <div className="mt-7 space-y-3 text-sm text-white/70">
-                <p>President â€” Aaheli Dutta</p>
-                <p>Vice-President â€” Aandrita G</p>
-                <p>Secretary â€” Swara S</p>
-                <p>Games Captain â€” Harshini P</p>
-                <p>Games Vice-Captain â€” Priyadarshini Mansingh</p>
-              </div>
-            </div>
-            <img
-              src={`${school}/static/media/ceremony.d3e4f64e2e67df07673e.png`}
-              alt="Investiture ceremony"
-              className="h-full min-h-96 w-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+export { default as Events, default as News, default as NewsEventsPage } from "./NewsEventsPage";
 
 export { default as Admissions } from "./AdmissionsPage";
 

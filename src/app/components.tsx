@@ -147,7 +147,9 @@ export function Layout() {
       to: "/events",
       hasDropdown: true,
       children: [
-        { title: "Upcoming Events", desc: "Annual day, sports meet & celebrations", to: "/events" },
+        { title: "Latest News & Honors", desc: "ICSE honors, sports wins & announcements", to: "/events#latest-news" },
+        { title: "Upcoming Events", desc: "Annual day, swimming gala & celebrations", to: "/events#upcoming-events" },
+        { title: "Baldwin Perspectives Blog", desc: "Essays on STEM, choir, boarding & leadership", to: "/events#school-blog" },
         { title: "School Calendar 2026–27", desc: "Term dates, holidays and exam schedules", to: "/events#calendar" },
       ],
     },
