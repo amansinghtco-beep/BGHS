@@ -851,13 +851,13 @@ export default function InteractiveAbout() {
 
               <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
                 <Link
-                  to="/admissions"
+                  to="/admissions#apply"
                   className="rounded-full bg-white text-[#1D4ED8] hover:bg-blue-50 py-3 px-6 text-xs font-bold uppercase tracking-wider text-center shadow-md transition-all hover:scale-105"
                 >
                   Apply For Admission
                 </Link>
                 <Link
-                  to="/contact"
+                  to="/facilities"
                   className="rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 py-3 px-6 text-xs font-bold uppercase tracking-wider text-center transition-all"
                 >
                   Campus Tour

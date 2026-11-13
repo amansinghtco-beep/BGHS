@@ -849,7 +849,7 @@ export default function AcademicsPage() {
               </div>
               <div className="font-serif font-bold text-lg leading-tight">Join Baldwin Girls' Class of 2027</div>
               <p className="text-xs text-white/70 mt-2">Applications open for Pre-KG through Standard X. Limited seats available.</p>
-              <Link to="/admissions"
+              <Link to="/admissions#apply"
                 className="mt-4 flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-[#0A2540] text-sm font-bold rounded-xl py-2.5 transition-colors shadow-sm">
                 Apply Online <Icon.ArrowRight className="w-4 h-4" />
               </Link>
@@ -920,13 +920,13 @@ export default function AcademicsPage() {
                 environment that has shaped leaders since 1880.
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-4">
-                <Link to="/admissions"
+                <Link to="/admissions#apply"
                   className="inline-flex items-center gap-2 rounded-full bg-amber-400 hover:bg-amber-300 text-[#0A2540] px-8 py-3 font-bold text-sm shadow-md transition-colors">
-                  Start Your Application <Icon.ArrowRight className="w-4 h-4" />
+                  Apply Now <Icon.ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link to="/contact"
+                <Link to="/facilities"
                   className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3 font-medium text-sm transition-colors">
-                  Schedule a Campus Visit <Icon.ArrowRight className="w-4 h-4" />
+                  Campus Tour <Icon.ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </motion.div>

@@ -1187,10 +1187,10 @@ export default function CampusLifePage() {
           {/* 3 Call-To-Action Buttons as specified in extraction */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
-              to="/admissions"
+              to="/admissions#apply"
               className="inline-flex items-center gap-2 rounded-full bg-white text-[#071A33] font-bold px-7 py-3.5 text-sm hover:bg-slate-100 hover:scale-105 transition-all shadow-lg"
             >
-              <span>Admission Procedure</span>
+              <span>Apply for Admission</span>
               <Icon.ArrowRight className="w-4 h-4 text-[#1E3A8A]" />
             </Link>
 

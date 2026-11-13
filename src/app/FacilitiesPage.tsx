@@ -444,11 +444,11 @@ export default function FacilitiesPage() {
                 <span>Boarding & Dining</span>
               </a>
               <Link
-                to="/admissions"
+                to="/facilities"
                 className="inline-flex items-center gap-2 rounded-full bg-[#3B82F6] hover:bg-[#2563EB] text-white px-5 py-2.5 text-xs sm:text-sm font-bold transition shadow-md"
               >
                 <Icon.Camera className="w-4 h-4 text-white" />
-                <span>Book Campus Tour</span>
+                <span>Campus Tour</span>
               </Link>
             </div>
           </motion.div>
@@ -1238,11 +1238,11 @@ export default function FacilitiesPage() {
                   Join us for an escorted campus walkthrough with our admissions liaison team.
                 </p>
                 <Link
-                  to="/contact"
+                  to="/facilities"
                   className="inline-flex items-center gap-2 rounded-xl bg-white text-[#1E3A8A] px-5 py-2.5 text-xs font-bold transition hover:bg-[#DBEAFE]"
                 >
                   <Icon.Camera className="w-4 h-4" />
-                  <span>Request Tour Date</span>
+                  <span>Campus Tour</span>
                 </Link>
               </div>
             </motion.div>
@@ -1307,7 +1307,7 @@ export default function FacilitiesPage() {
 
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
-                to="/admissions"
+                to="/admissions#apply"
                 className="inline-flex items-center gap-2 rounded-full bg-white text-[#1E3A8A] font-bold px-7 py-3.5 text-sm hover:scale-105 transition-all shadow-lg"
               >
                 <span>Apply for Admission</span>

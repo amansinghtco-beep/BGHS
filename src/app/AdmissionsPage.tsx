@@ -827,10 +827,13 @@ export default function AdmissionsPage() {
             {/* Hero CTAs */}
             <div className="flex flex-wrap gap-4">
               <a
-                href="https://portal.baldwingirls.edu.in/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2.5 rounded-full bg-[#3B82F6] hover:bg-[#2563EB] text-white px-8 py-4 font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 group"
+                href="#apply"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("apply")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  window.history.pushState(null, "", "#apply");
+                }}
+                className="inline-flex items-center gap-2.5 rounded-full bg-[#3B82F6] hover:bg-[#2563EB] text-white px-8 py-4 font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 group cursor-pointer"
               >
                 Apply Online
                 <Icon.ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1041,10 +1044,13 @@ export default function AdmissionsPage() {
 
                   {/* CTA */}
                   <a
-                    href="https://portal.baldwingirls.edu.in/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white transition-all duration-300 hover:shadow-lg group/btn"
+                    href="#apply"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById("apply")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      window.history.pushState(null, "", "#apply");
+                    }}
+                    className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white transition-all duration-300 hover:shadow-lg group/btn cursor-pointer"
                     style={{ backgroundColor: div.color }}
                   >
                     Enquire Now
@@ -1548,10 +1554,13 @@ export default function AdmissionsPage() {
 
             <div className="flex flex-wrap gap-4 justify-center lg:justify-end">
               <a
-                href="https://portal.baldwingirls.edu.in/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2.5 rounded-full bg-white text-[#1E3A8A] px-8 py-4 font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-xl hover:scale-105 group"
+                href="#apply"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("apply")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  window.history.pushState(null, "", "#apply");
+                }}
+                className="inline-flex items-center gap-2.5 rounded-full bg-white text-[#1E3A8A] px-8 py-4 font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-xl hover:scale-105 group cursor-pointer"
               >
                 Apply Now
                 <Icon.ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1564,7 +1573,7 @@ export default function AdmissionsPage() {
                 +91 91487 80138
               </a>
               <Link
-                to="/contact"
+                to="/facilities"
                 className="inline-flex items-center gap-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white px-8 py-4 font-bold text-sm tracking-wide transition-all duration-300 border border-white/25 backdrop-blur-sm"
               >
                 <Icon.Camera className="w-4 h-4" />

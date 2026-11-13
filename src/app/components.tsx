@@ -22,13 +22,13 @@ const marqueeAnnouncements = [
     badge: "Admissions Open",
     detail: "for the Academic Year 2026–27",
     tagline: "Building a Brighter Future Together",
-    to: "/admissions",
+    to: "/admissions#apply",
   },
   {
     badge: "Direct Admissions",
     detail: "Pre-KG to Standard X Applications Open",
     tagline: "100% ICSE Board Pass Rate & Top Honors",
-    to: "/admissions",
+    to: "/admissions#apply",
   },
   {
     badge: "140+ Years Legacy",
@@ -40,7 +40,7 @@ const marqueeAnnouncements = [
     badge: "Campus Tours",
     detail: "Experience Our World-Class Heritage Campus",
     tagline: "Call +91 91487 80138 for Inquiries",
-    to: "/contact",
+    to: "/facilities",
   },
 ];
 
@@ -396,10 +396,15 @@ export function Layout() {
           {/* Right Action Button (Admissions 2026-27 / Apply Now) & Mobile Toggle */}
           <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
             <Link
-              to="/admissions"
+              to="/admissions#apply"
+              onClick={() => {
+                if (location.pathname === "/admissions") {
+                  document.getElementById("apply")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              }}
               className="hidden sm:inline-flex group items-center gap-1.5 sm:gap-2 rounded-full bg-[#1D4ED8] hover:bg-[#1E40AF] px-3.5 sm:px-5 py-1.5 sm:py-2.5 text-[11px] sm:text-xs md:text-sm font-bold text-white shadow-sm hover:shadow-md transition-all duration-200 whitespace-nowrap"
             >
-              <span>Admissions 2026–27</span>
+              <span>Apply Now</span>
               <span className="text-xs sm:text-base font-bold transition-transform duration-200 group-hover:translate-x-0.5">
                 ›
               </span>
@@ -469,8 +474,13 @@ export function Layout() {
             </div>
             <div className="pt-3 pb-6">
               <Link
-                to="/admissions"
-                onClick={() => setMenuOpen(false)}
+                to="/admissions#apply"
+                onClick={() => {
+                  setMenuOpen(false);
+                  if (location.pathname === "/admissions") {
+                    document.getElementById("apply")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
                 className="w-full flex items-center justify-center gap-2 rounded-full bg-[#1D4ED8] py-2.5 text-xs font-bold text-white shadow-md active:scale-95 transition-transform"
               >
                 Apply Now →

@@ -71,7 +71,7 @@ export function Home() {
         <Link
           to="/facilities"
           className="absolute top-6 sm:top-8 right-6 sm:right-10 z-20 hidden sm:inline-flex items-center gap-2.5 rounded-full bg-[#8B0000]/85 hover:bg-[#8B0000] text-white px-5 py-2.5 text-xs sm:text-sm font-bold backdrop-blur-md border border-white/20 transition-all duration-300 shadow-xl hover:scale-105 active:scale-95 group"
-          title="Schedule a Campus Tour"
+          title="Campus Tour"
         >
           <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 group-hover:rotate-12 transition-transform">
             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -474,10 +474,10 @@ function AdmissionCTA() {
           <h2 className="mt-3 font-serif text-4xl">Ready to begin?</h2>
         </div>
         <Link
-          to="/admissions"
-          className="rounded-full bg-[#071a33] px-7 py-4 text-xs font-bold tracking-[.14em] text-white uppercase"
+          to="/admissions#apply"
+          className="rounded-full bg-[#071a33] px-7 py-4 text-xs font-bold tracking-[.14em] text-white uppercase hover:bg-[#0A2540] transition-colors"
         >
-          View admission details
+          Apply for Admission
         </Link>
       </div>
     </section>
