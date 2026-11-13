@@ -88,6 +88,16 @@ const Icon = {
       <polyline points="6 9 12 15 18 9" />
     </svg>
   ),
+  ChevronLeft: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <polyline points="15 18 9 12 15 6" />
+    </svg>
+  ),
+  ChevronRight: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+  ),
   CheckCircle: (p: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...p}>
       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
@@ -161,6 +171,7 @@ const fadeUp: Variants = {
 interface LabSpace {
   id: string;
   name: string;
+  shortName?: string;
   badge: string;
   tagline: string;
   description: string;
@@ -175,6 +186,7 @@ const indoorLabs: LabSpace[] = [
   {
     id: "physics-lab",
     name: "Physics Laboratory",
+    shortName: "Physics Lab",
     badge: "ICSE Senior Science",
     tagline: "Optics, Mechanics & Advanced Experiments Studio",
     description: "Equipped with state-of-the-art optical benches, electrical circuit trainers, vernier systems, and darkroom facilities for ICSE senior experiments. Provides an exploratory environment where concepts of mechanics and electromagnetism come to life.",
@@ -187,6 +199,7 @@ const indoorLabs: LabSpace[] = [
   {
     id: "chemistry-lab",
     name: "Chemistry Laboratory",
+    shortName: "Chemistry Lab",
     badge: "Chemical Analysis",
     tagline: "Fume-Protected Chemical Apparatus & Analysis Station",
     description: "Spacious laboratory with individual acid-resistant workstations, centralized LPG supplies, high-efficiency fume hoods, and fire safety systems. Designed for complete safety during qualitative and quantitative inorganic chemistry procedures.",
@@ -199,6 +212,7 @@ const indoorLabs: LabSpace[] = [
   {
     id: "biology-lab",
     name: "Biology Laboratory",
+    shortName: "Biology Lab",
     badge: "Life Sciences",
     tagline: "Microscopy & Life Sciences Specimen Studio",
     description: "Features binocular compound microscopes, human anatomical models, preserved specimen banks, and projection microscopy for botanical study. Students study cellular structures and physiological models with hands-on specimen investigation.",
@@ -211,6 +225,7 @@ const indoorLabs: LabSpace[] = [
   {
     id: "robotics-ai-lab",
     name: "Robotics & Artificial Intelligence Lab",
+    shortName: "Robotics & AI",
     badge: "Next-Gen STEM",
     tagline: "STEM Automation, Coding & IoT Workspace",
     description: "Hands-on makerspace with Arduino, Raspberry Pi, robotics kits, sensors, 3D printing equipment, and specialized visual block programming platforms. Empowers young innovators from Standard III upwards in coding and automation.",
@@ -223,6 +238,7 @@ const indoorLabs: LabSpace[] = [
   {
     id: "senior-library",
     name: "Senior Academic Library",
+    shortName: "Sr. Library",
     badge: "Research & Literature",
     tagline: "Extensive Research Center & Silent Reading Hall",
     description: "A sanctuary of knowledge holding over 20,000 reference books, encyclopedias, journals, national dailies, and digital catalog workstations. Features quiet study carrels, scholarly periodicals, and a serene reading atmosphere.",
@@ -235,6 +251,7 @@ const indoorLabs: LabSpace[] = [
   {
     id: "junior-library",
     name: "Junior Primary Library",
+    shortName: "Jr. Library",
     badge: "Early Literacy",
     tagline: "Early Reading & Illustrated Storybooks Wing",
     description: "Colorful, child-friendly reading space stocked with picture books, fairy tales, early phonics resources, and story-telling audio nooks curated especially for Pre-KG to Standard II learners.",
@@ -247,6 +264,7 @@ const indoorLabs: LabSpace[] = [
   {
     id: "auditorium",
     name: "School Grand Auditorium",
+    shortName: "Auditorium",
     badge: "Theatrical Arts",
     tagline: "Acoustic Multi-Purpose Theater & Assembly Hall",
     description: "Air-conditioned 1,200+ capacity auditorium equipped with professional theatrical lighting, surround sound system, stage wings, and green rooms. Hosts annual days, inter-school debates, choir rehearsals, and investitures.",
@@ -259,6 +277,7 @@ const indoorLabs: LabSpace[] = [
   {
     id: "computer-lab",
     name: "Computer & Cyber Labs",
+    shortName: "Cyber Labs",
     badge: "Digital Skills",
     tagline: "High-Speed Computing & Digital Literacy Hub",
     description: "Modern network of 120+ desktop terminals with high-speed optical fiber internet, programming software, cybersecurity filters, and smart displays for ICSE computer applications and coding curriculum.",
@@ -325,6 +344,17 @@ export default function FacilitiesPage() {
 
   const activeLab = indoorLabs.find((l) => l.id === selectedLabId) || indoorLabs[0];
   const ActiveIcon = Icon[activeLab.icon] || Icon.Building;
+  const activeLabIndex = indoorLabs.findIndex((l) => l.id === activeLab.id);
+
+  const handlePrevLab = () => {
+    const nextIdx = (activeLabIndex - 1 + indoorLabs.length) % indoorLabs.length;
+    setSelectedLabId(indoorLabs[nextIdx].id);
+  };
+
+  const handleNextLab = () => {
+    const nextIdx = (activeLabIndex + 1) % indoorLabs.length;
+    setSelectedLabId(indoorLabs[nextIdx].id);
+  };
 
   return (
     <main className="relative bg-white overflow-x-hidden">
@@ -494,8 +524,175 @@ export default function FacilitiesPage() {
             </p>
           </motion.div>
 
-          {/* Interactive Split Showcase: Selector List on Left, Feature Spotlight on Right */}
-          <div className="grid lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-12 items-start">
+          {/* ─────────────────────────────────────────────────────────────
+              MOBILE PHONE VIEW: INTERACTIVE FLAGSHIP STUDIO SHOWCASE (< lg)
+              Custom mobile-first layout:
+              - Horizontal category scroll track (prevents 600px vertical list)
+              - 1-of-8 counter with thumb-friendly Prev/Next buttons
+              - Hero card with full text wrapping (no cutoffs/ellipses)
+              - 2-column quick metrics + technical checklist
+              - Bottom pagination jump dots
+          ───────────────────────────────────────────────────────────── */}
+          <div className="block lg:hidden">
+            {/* 1. Category Pill Scroller */}
+            <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
+              {indoorLabs.map((lab) => {
+                const isSelected = selectedLabId === lab.id;
+                const LabIcon = Icon[lab.icon] || Icon.Flask;
+                return (
+                  <button
+                    key={lab.id}
+                    type="button"
+                    onClick={() => setSelectedLabId(lab.id)}
+                    className={`shrink-0 inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      isSelected
+                        ? "bg-[#1E3A8A] text-white shadow-md shadow-blue-900/20"
+                        : "bg-white text-slate-700 border border-slate-200/90 shadow-2xs hover:bg-slate-50"
+                    }`}
+                  >
+                    <LabIcon className={`w-3.5 h-3.5 ${isSelected ? "text-[#F3C44E]" : "text-[#1E3A8A]"}`} />
+                    <span>{lab.shortName || lab.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* 2. Status Bar with Prev / Next Thumb Controls */}
+            <div className="flex items-center justify-between mt-3 mb-4 px-0.5">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-600">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Facility {activeLabIndex + 1} of {indoorLabs.length}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handlePrevLab}
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-2xs hover:bg-slate-50 active:scale-95 transition-all cursor-pointer"
+                  aria-label="Previous facility"
+                >
+                  <Icon.ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNextLab}
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-2xs hover:bg-slate-50 active:scale-95 transition-all cursor-pointer"
+                  aria-label="Next facility"
+                >
+                  <Icon.ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* 3. Featured Mobile Studio Card */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeLab.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] as const }}
+                className="rounded-3xl bg-white border border-[#E2E8F0] overflow-hidden shadow-xl"
+              >
+                {/* Image & Gradient Header */}
+                <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-slate-900">
+                  <img
+                    src={activeLab.image}
+                    alt={activeLab.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/95 via-[#0A1628]/40 to-transparent" />
+
+                  {/* Badges Overlay */}
+                  <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A1628]/85 backdrop-blur-md px-3 py-1 text-[10px] font-bold tracking-wider text-white uppercase border border-white/20">
+                      <ActiveIcon className="w-3 h-3 text-[#F3C44E]" />
+                      <span>{activeLab.badge}</span>
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/90 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold text-white shadow-xs">
+                      <Icon.CheckCircle className="w-3 h-3" />
+                      <span>Active ICSE</span>
+                    </span>
+                  </div>
+
+                  {/* Title overlay (NO truncation) */}
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <h3 className="font-serif font-bold text-xl sm:text-2xl drop-shadow-sm leading-snug">
+                      {activeLab.name}
+                    </h3>
+                    <p className="text-xs text-white/80 mt-1 line-clamp-1">
+                      {activeLab.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card Content Body */}
+                <div className="p-5 space-y-4">
+                  <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
+                    {activeLab.description}
+                  </p>
+
+                  {/* Metric Chips (Full text wrap, no cutoff) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div className="rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-3 flex items-start gap-3">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#1E3A8A]/10 text-[#1E3A8A]">
+                        <Icon.Users className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Capacity</p>
+                        <p className="text-xs font-semibold text-[#0A1628] mt-0.5">{activeLab.capacity}</p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-3 flex items-start gap-3">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#781428]/10 text-[#781428]">
+                        <Icon.Shield className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Compliance & Safety</p>
+                        <p className="text-xs font-semibold text-[#0A1628] mt-0.5">{activeLab.specs}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Key Features */}
+                  <div className="pt-1">
+                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">Key Laboratory Features</h5>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {activeLab.features.map((feat) => (
+                        <div key={feat} className="flex items-center gap-2 text-xs text-slate-700 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200/60">
+                          <Icon.CheckCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Pagination Dots */}
+                  <div className="flex items-center justify-center gap-1.5 pt-3 border-t border-slate-100">
+                    {indoorLabs.map((l, i) => (
+                      <button
+                        key={l.id}
+                        type="button"
+                        onClick={() => setSelectedLabId(l.id)}
+                        className={`h-2 rounded-full transition-all cursor-pointer ${
+                          i === activeLabIndex ? "w-6 bg-[#1E3A8A]" : "w-2 bg-slate-200 hover:bg-slate-300"
+                        }`}
+                        aria-label={`Go to ${l.name}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* ─────────────────────────────────────────────────────────────
+              DESKTOP VIEW: SPLIT MASTER-DETAIL SHOWCASE (lg+)
+              Preserved for wide monitors with side-by-side sticky preview
+          ───────────────────────────────────────────────────────────── */}
+          <div className="hidden lg:grid lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-12 items-start">
             
             {/* Left: Navigation Menu List of Studios */}
             <div className="space-y-2.5">
@@ -514,7 +711,7 @@ export default function FacilitiesPage() {
                         : "bg-white/70 hover:bg-white border-[#E2E8F0] hover:border-slate-300"
                     }`}
                   >
-                    <div className="flex items-center gap-3.5 min-w-0">
+                    <div className="flex items-center gap-3.5 min-w-0 flex-1">
                       <div
                         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors ${
                           isSelected ? "bg-[#1E3A8A] text-white" : "bg-[#1E3A8A]/10 text-[#1E3A8A]"
@@ -522,13 +719,13 @@ export default function FacilitiesPage() {
                       >
                         <LabIcon className="w-5 h-5" />
                       </div>
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 mb-0.5">
-                          <h4 className={`font-serif font-bold text-base truncate ${isSelected ? "text-[#0A1628]" : "text-slate-800"}`}>
+                          <h4 className={`font-serif font-bold text-base line-clamp-1 ${isSelected ? "text-[#0A1628]" : "text-slate-800"}`}>
                             {lab.name}
                           </h4>
                         </div>
-                        <p className="text-xs text-[#64748B] truncate">
+                        <p className="text-xs text-[#64748B] line-clamp-1">
                           {lab.specs}
                         </p>
                       </div>
@@ -555,7 +752,7 @@ export default function FacilitiesPage() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }}
                   className="rounded-3xl bg-white border border-[#E2E8F0] overflow-hidden shadow-xl"
                 >
                   {/* Studio Hero Image */}
