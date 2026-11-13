@@ -265,11 +265,11 @@ export default function ContactPage() {
               </Link>
 
               <a
-                href="tel:08049363866"
+                href="tel:08040493000"
                 className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/90 text-sm font-medium border border-white/10 transition-colors"
               >
                 <Icon.Phone className="w-4 h-4 text-emerald-400" />
-                <span>080-49363866</span>
+                <span>080-40493000</span>
               </a>
             </div>
 
@@ -304,7 +304,7 @@ export default function ContactPage() {
             {/* 3 Quick Chips */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <a
-                href="tel:08049363866"
+                href="tel:08040493000"
                 className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
               >
                 <div className="w-9 h-9 rounded-lg bg-blue-500/20 text-blue-300 flex items-center justify-center shrink-0">
@@ -314,7 +314,7 @@ export default function ContactPage() {
                   <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                     MAIN LANDLINE
                   </div>
-                  <div className="text-sm font-bold text-white truncate">080-49363866</div>
+                  <div className="text-sm font-bold text-white truncate">080-40493000</div>
                 </div>
               </a>
 
@@ -400,21 +400,31 @@ export default function ContactPage() {
                 <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                   PRIMARY RECEPTION DESK
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-2">
                   <a
-                    href="tel:08049363866"
+                    href="tel:08040493000"
                     className="inline-flex items-center gap-2 text-base font-bold text-[#0A1628] hover:text-[#781428] transition-colors"
                   >
                     <Icon.Phone className="w-4 h-4 text-[#781428]" />
-                    <span>080-49363866</span>
+                    <span>080-40493000</span>
                   </a>
-                  <a
-                    href="tel:08022211743"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-[#781428] transition-colors"
-                  >
-                    <Icon.Phone className="w-3.5 h-3.5 text-slate-400" />
-                    <span>080-22211743</span>
-                  </a>
+                  <div className="flex items-center gap-3 pt-1 border-t border-slate-200/70 text-xs">
+                    <a
+                      href="tel:08022211743"
+                      className="inline-flex items-center gap-1.5 font-semibold text-slate-700 hover:text-[#781428] transition-colors"
+                    >
+                      <Icon.Phone className="w-3.5 h-3.5 text-slate-400" />
+                      <span>080-22211743</span>
+                    </a>
+                    <span className="text-slate-300">&bull;</span>
+                    <a
+                      href="tel:08022220325"
+                      className="inline-flex items-center gap-1.5 font-semibold text-slate-700 hover:text-[#781428] transition-colors"
+                    >
+                      <Icon.Phone className="w-3.5 h-3.5 text-slate-400" />
+                      <span>080-22220325</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -471,10 +481,10 @@ export default function ContactPage() {
                 Direct hotlines for prospective parents seeking admissions from Pre-KG to Grade X (ICSE) &amp; ISC.
               </p>
 
-              {/* Admissions Officer 1 */}
+              {/* Admissions Helpline Mobile */}
               <div className="rounded-2xl bg-[#132A52] border border-white/10 p-4 mb-3 hover:bg-[#16305C] transition-colors">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-[#F3C44E] mb-1.5">
-                  ADMISSIONS OFFICER &bull; PRIMARY &amp; SECONDARY
+                  DEDICATED ADMISSIONS HELPLINE &bull; MOBILE &amp; WHATSAPP
                 </div>
                 <a
                   href="tel:+919148780138"
@@ -485,17 +495,17 @@ export default function ContactPage() {
                 </a>
               </div>
 
-              {/* Admissions Officer 2 */}
+              {/* Admissions Board Line */}
               <div className="rounded-2xl bg-[#132A52] border border-white/10 p-4 mb-6 hover:bg-[#16305C] transition-colors">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-[#F3C44E] mb-1.5">
-                  ADMISSIONS OFFICER &bull; KINDERGARTEN &amp; GENERAL
+                  CAMPUS ADMISSIONS &bull; BOARD DESK
                 </div>
                 <a
-                  href="tel:+918147883880"
+                  href="tel:08040493000"
                   className="inline-flex items-center gap-2.5 text-lg font-bold text-white hover:text-[#F3C44E] transition-colors"
                 >
                   <Icon.Phone className="w-4 h-4 text-[#F3C44E]" />
-                  <span>+91 81478 83880</span>
+                  <span>080-40493000</span>
                 </a>
               </div>
             </div>
@@ -948,11 +958,11 @@ export default function ContactPage() {
             </Link>
 
             <a
-              href="tel:08049363866"
+              href="tel:08040493000"
               className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm transition-all duration-200 border border-white/20 backdrop-blur-md"
             >
               <Icon.Phone className="w-4 h-4 text-emerald-400" />
-              <span>Call Reception: 080-49363866</span>
+              <span>Call Reception: 080-40493000</span>
             </a>
           </div>
 
@@ -1053,3 +1063,4 @@ export default function ContactPage() {
     </main>
   );
 }
+
