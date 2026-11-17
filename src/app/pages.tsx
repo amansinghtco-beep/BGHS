@@ -118,65 +118,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* WELCOME BANNER WITH FLOATING WATERMARK LOGOS */}
-      <section className="relative overflow-hidden bg-white border-[8px] sm:border-[12px] md:border-[14px] border-[#284595] py-14 sm:py-20 md:py-24 px-6 sm:px-12 shadow-sm">
-        {/* Floating Watermark Logos Background Layer */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden flex justify-around items-center px-4 opacity-[0.14]">
-          {/* Column 1 */}
-          <div className="animate-float-up-down flex flex-col gap-12 sm:gap-16 items-center shrink-0">
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-          </div>
-
-          {/* Column 2 */}
-          <div className="animate-float-down-up flex flex-col gap-12 sm:gap-16 items-center shrink-0" style={{ animationDelay: "-2s" }}>
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-          </div>
-
-          {/* Column 3 */}
-          <div className="animate-float-up-down flex flex-col gap-12 sm:gap-16 items-center shrink-0" style={{ animationDelay: "-4s" }}>
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-          </div>
-
-          {/* Column 4 */}
-          <div className="animate-float-down-up flex flex-col gap-12 sm:gap-16 items-center shrink-0" style={{ animationDelay: "-1s" }}>
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-          </div>
-
-          {/* Column 5 */}
-          <div className="animate-float-up-down flex flex-col gap-12 sm:gap-16 items-center shrink-0" style={{ animationDelay: "-3s" }}>
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-          </div>
-
-          {/* Column 6 (visible on large displays) */}
-          <div className="hidden lg:flex animate-float-down-up flex-col gap-12 sm:gap-16 items-center shrink-0" style={{ animationDelay: "-5s" }}>
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-            <img src="/baldwin-crest-official.png" alt="" className="w-24 sm:w-32 md:w-40 object-contain" />
-          </div>
-        </div>
-
-        {/* Foreground Centered Content matching the design exactly */}
-        <div className="relative z-10 mx-auto max-w-4xl text-center px-4 sm:px-6">
-          <h3 className="font-serif font-bold text-[#0A326F] text-xs sm:text-sm md:text-base tracking-[0.24em] uppercase mb-2 sm:mb-3">
-            WELCOME TO
-          </h3>
-          <h2 className="font-serif font-black text-[#0A326F] text-2xl sm:text-3xl md:text-4xl lg:text-[42px] leading-tight tracking-[0.03em] mb-4 sm:mb-6">
-            BALDWIN GIRL'S HIGH SCHOOL
-          </h2>
-          <p className="font-sans text-[#3B5998] font-medium text-base sm:text-lg md:text-[19px] leading-relaxed sm:leading-loose max-w-2xl mx-auto">
-            A nurturing and inclusive community
-            <br />
-            anchored in
-            <br />
-            integrity, innovation and excellence
-          </p>
-        </div>
-      </section>
-
       <ExploreBGHS />
 
       {/* Academic & Athletic Triumphs Section (pulled from baldwingirls.edu.in) */}
