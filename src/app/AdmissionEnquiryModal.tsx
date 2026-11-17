@@ -36,6 +36,21 @@ export default function AdmissionEnquiryModal() {
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
+  // Listen for Escape key to close modal seamlessly on desktop
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
+
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -116,22 +131,47 @@ export default function AdmissionEnquiryModal() {
               exit={{ opacity: 0, scale: 0.9, y: 30 }}
               transition={{ type: "spring", damping: 26, stiffness: 320 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-[500px] my-auto bg-white rounded-[32px] sm:rounded-[40px] shadow-[0_25px_70px_-15px_rgba(10,22,40,0.5)] border border-white/80 overflow-hidden z-10"
+              className="relative w-full max-w-[500px] my-auto bg-white rounded-2xl sm:rounded-[20px] shadow-[0_25px_70px_-15px_rgba(10,22,40,0.5)] border border-white/80 overflow-hidden z-10"
             >
-              {/* Top Curved Decorative Header */}
-              <div className="relative bg-gradient-to-br from-[#071738] via-[#0D244D] to-[#781428] text-white pt-7 pb-6 px-6 sm:px-8 text-center rounded-t-[32px] sm:rounded-t-[40px] overflow-hidden">
+              {/* Top Curved Decorative Header with Campus Image Background */}
+              <div className="relative text-white pt-7 pb-6 px-6 sm:px-8 text-center rounded-t-2xl sm:rounded-t-[20px] overflow-hidden">
+                {/* Campus Image Background */}
+                <img
+                  src="/campus-admin.jpg"
+                  alt="Baldwin Girls' High School Campus"
+                  className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+                />
+                {/* Dark Gradient Overlay for optimal contrast, readability and heritage aesthetics */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071738] via-[#0A1A38]/90 to-[#071326]/80" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#781428]/45 via-transparent to-[#071738]/50" />
+
                 {/* Glow rings */}
                 <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#F3C44E]/20 rounded-full blur-2xl pointer-events-none" />
                 <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-[#781428]/35 rounded-full blur-2xl pointer-events-none" />
 
-                {/* Close Button (X) */}
+                {/* Close Button (X) - 100% reliable on Mobile and Desktop */}
                 <button
                   type="button"
-                  onClick={handleClose}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    handleClose();
+                  }}
+                  onTouchEnd={(e) => {
+                    e.stopPropagation();
+                  }}
                   aria-label="Close modal"
-                  className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/80 hover:text-white flex items-center justify-center backdrop-blur-md border border-white/15 transition-all duration-200 cursor-pointer"
+                  className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-50 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/50 hover:bg-black/75 active:scale-90 text-white flex items-center justify-center backdrop-blur-md border border-white/30 shadow-xl transition-all duration-150 cursor-pointer pointer-events-auto touch-manipulation group"
                 >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    className="w-5 h-5 text-white group-hover:scale-110 transition-transform"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
@@ -188,7 +228,7 @@ export default function AdmissionEnquiryModal() {
                         Thank you, <span className="font-semibold text-[#0A1628]">{formData.parentName || "Parent"}</span>. Our admissions counselors will contact you shortly.
                       </p>
 
-                      <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-3.5 text-xs text-left max-w-xs mx-auto space-y-1.5 mb-6">
+                      <div className="rounded-xl bg-slate-50 border border-slate-200/80 p-3.5 text-xs text-left max-w-xs mx-auto space-y-1.5 mb-6">
                         <div className="flex justify-between">
                           <span className="text-slate-500">Reference:</span>
                           <span className="font-mono font-bold text-[#0A1628]">{refId}</span>
@@ -225,7 +265,7 @@ export default function AdmissionEnquiryModal() {
                           value={formData.parentName}
                           onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
                           placeholder="e.g. Priya Sharma"
-                          className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/70 focus:bg-white text-xs sm:text-sm text-[#0A1628] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#781428]/25 focus:border-[#781428] transition-all"
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white text-xs sm:text-sm text-[#0A1628] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#781428]/25 focus:border-[#781428] transition-all"
                         />
                       </div>
 
@@ -241,7 +281,7 @@ export default function AdmissionEnquiryModal() {
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             placeholder="e.g. 9845012345"
-                            className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/70 focus:bg-white text-xs sm:text-sm text-[#0A1628] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#781428]/25 focus:border-[#781428] transition-all"
+                            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white text-xs sm:text-sm text-[#0A1628] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#781428]/25 focus:border-[#781428] transition-all"
                           />
                         </div>
 
@@ -255,7 +295,7 @@ export default function AdmissionEnquiryModal() {
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             placeholder="name@example.com"
-                            className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/70 focus:bg-white text-xs sm:text-sm text-[#0A1628] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#781428]/25 focus:border-[#781428] transition-all"
+                            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white text-xs sm:text-sm text-[#0A1628] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#781428]/25 focus:border-[#781428] transition-all"
                           />
                         </div>
                       </div>
@@ -268,7 +308,7 @@ export default function AdmissionEnquiryModal() {
                         <select
                           value={formData.grade}
                           onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/70 focus:bg-white text-xs sm:text-sm text-[#0A1628] focus:outline-none focus:ring-2 focus:ring-[#781428]/25 focus:border-[#781428] transition-all cursor-pointer"
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white text-xs sm:text-sm text-[#0A1628] focus:outline-none focus:ring-2 focus:ring-[#781428]/25 focus:border-[#781428] transition-all cursor-pointer"
                         >
                           <option value="Pre-KG / Nursery">Pre-KG / Nursery</option>
                           <option value="Kindergarten (LKG & UKG)">Kindergarten (LKG &amp; UKG)</option>
@@ -283,7 +323,7 @@ export default function AdmissionEnquiryModal() {
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#781428] via-[#8F1A32] to-[#781428] hover:from-[#600F20] hover:to-[#781428] text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg shadow-[#781428]/30 hover:shadow-[#781428]/45 active:scale-[0.99] transition-all disabled:opacity-75 cursor-pointer"
+                          className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#781428] via-[#8F1A32] to-[#781428] hover:from-[#600F20] hover:to-[#781428] text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg shadow-[#781428]/30 hover:shadow-[#781428]/45 active:scale-[0.99] transition-all disabled:opacity-75 cursor-pointer"
                         >
                           {isSubmitting ? (
                             <>
